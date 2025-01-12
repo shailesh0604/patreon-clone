@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import "./globals.css";
+import "../app/globals.css";
 import ScrollProvider from "@/Components/ScrollProvider";
 
 
@@ -26,9 +26,9 @@ export default function RootLayout({ children }) {
       >
         {/* <ScrollProvider> */}
 
-          {/* <Navbar /> */}
-          {children}
-          {/* <Footer /> */}
+        {/* <Navbar /> */}
+        {children}
+        {/* <Footer /> */}
         {/* </ScrollProvider> */}
       </body>
     </html>

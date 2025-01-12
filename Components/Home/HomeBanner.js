@@ -12,7 +12,7 @@ const HomeBanner = () => {
 
 
     useEffect(() => {
-        console.log("Element is in view: ", isInView)
+        //console.log("Element is in view: ", isInView)
     }, [isInView])
 
 
@@ -109,7 +109,7 @@ const HomeBanner = () => {
         return videoExtension.some(ext => filePath.endsWith(ext))
     }
 
-    console.log(isVedio)
+    //console.log(isVedio)
 
     //console.log(currentData)
 

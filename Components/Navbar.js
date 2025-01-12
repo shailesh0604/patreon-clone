@@ -60,10 +60,10 @@ const Navbar = () => {
                 <Image
                   src={"/assets/images/logo/logo2.svg"}
                   width={30}
-                  className={`block mx-auto ${
-                    scroll ? "" : "invert"
-                  } duration-200 transition-all ease`}
+                  className={`block mx-auto ${scroll ? "" : "invert"
+                    } duration-200 transition-all ease`}
                   height={30}
+                  sizes="100"
                   alt="logo"
                 />
               </div>
