@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "../app/globals.css";
-import ScrollProvider from "@/Components/ScrollProvider";
+import "../app/css/style.css";
+import SessionWrapper from "@/Components/SessionWrapper";
 
 
 const geistSans = localFont({
@@ -22,15 +23,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-      >
-        {/* <ScrollProvider> */}
-
-        {/* <Navbar /> */}
-        {children}
-        {/* <Footer /> */}
-        {/* </ScrollProvider> */}
+      <body>
+        <SessionWrapper>{children}</SessionWrapper>
       </body>
-    </html>
-  );
+    </html >
+  )
 }

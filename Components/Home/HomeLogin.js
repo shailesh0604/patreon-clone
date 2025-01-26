@@ -5,10 +5,13 @@ import Link from 'next/link';
 const HomeLogin = () => {
     return (
         <>
-            <section className='section-login flex justify-center items-center h-screen'>
+            <section className='section-login flex justify-center items-center h-screen relative'>
+                <div className='overlay-user'>
+                    <Image src={"/assets/images/banner/overlay-2.jpg"} width={0} height={0} sizes='100' alt='user' />
+                </div>
                 <div className="container-login bg-white max-w-[95%] px-8 py-14 rounded-2xl">
                     <div className="login-img">
-                        <Image src={"/assets/images/icons/logomark-animated.webp"} className='mx-auto' width={90} height={90} alt='logo' property='optimize' />
+                        <Image src={"/assets/images/icons/logomark-animated.webp"} className='mx-auto' width={90} height={90} alt='logo' unoptimized />
                     </div>
 
                     <div className="login-txt text-center">

@@ -1,9 +1,13 @@
 import React from 'react'
+import Image from 'next/image'
 
 const HomeDesc = () => {
     return (
         <>
             <section className="section-description">
+                <div className='overlay-user'>
+                    <Image src={"/assets/images/banner/person.jpg"} width={0} height={0} sizes='100' alt='user' />
+                </div>
                 <div className="container-description w-full px-4 md:px-8">
                     <div className="description-text pb-12 flex justify-between w-full md:flex-row-reverse flex-col-reverse gap-12 md:gap-6">
                         <div className="description-title text-end md:text-start">

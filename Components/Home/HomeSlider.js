@@ -30,7 +30,7 @@ const HomeSlider = () => {
 
                 {isMounted &&
                     <div className="swiper-container">
-                        <Swiper className={`mySwiper sample-slider ${isMounted ? 'hydrated' : ""}`} modules={[Autoplay]} loop={true} autoplay={{
+                        <Swiper className={`mySwiper sample-slider`} modules={[Autoplay]} loop={true} autoplay={{
                             delay: 0,
                             pauseOnMouseEnter: true,
                             disableOnInteraction: false,

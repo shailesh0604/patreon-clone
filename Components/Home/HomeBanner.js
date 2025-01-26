@@ -3,6 +3,7 @@ import Image from "next/image";
 import { motion, inView, useInView, stagger } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa6";
+import { IoArrowForwardSharp } from "react-icons/io5";
 
 const HomeBanner = () => {
 
@@ -25,9 +26,9 @@ const HomeBanner = () => {
             user: {
                 username: "Real Ones",
                 image: "/assets/images/user/user1.jpg",
-                desc: "Elliott Wilson is building community around hip-hop journalism."
+                desc: "RossDraws is creating, sharing, and teaching the art of worldbuilding."
             },
-            titles: ["Speak", "volumes"]
+            titles: ["Your house", "Your rules"]
         },
         {
             banner: {
@@ -49,7 +50,7 @@ const HomeBanner = () => {
             user: {
                 username: "Real Ones",
                 image: "/assets/images/user/user3.jpg",
-                desc: "Elliott Wilson is building community around hip-hop journalism."
+                desc: "Real Ones is diving deep into the biggest issues of our time."
             },
             titles: ["Speak", "volumes"]
         },
@@ -85,9 +86,9 @@ const HomeBanner = () => {
             user: {
                 username: "John Doe",
                 image: "/assets/images/user/user5.jpg",
-                desc: "Elliott Wilson is building community around hip-hop journalism."
+                desc: "Tim Chantarangsu is dropping podcast episodes and spitting fire."
             },
-            titles: ["From you", "To your crew"]
+            titles: ["Creators", "is now a career"]
         }
 
     ]
@@ -133,7 +134,7 @@ const HomeBanner = () => {
                         <motion.div ref={ref} initial={{ opacity: 0, translateY: -50 }}
                             animate={{ opacity: 1, translateY: 0 }}
                             transition={{ duration: 2 }} className="about-user text-pretty">
-                            {currentData.user.desc}
+                            {currentData.user.desc} <IoArrowForwardSharp className='inline-block' />
                         </motion.div>
                     </div>
                 </div>
@@ -146,9 +147,9 @@ const HomeBanner = () => {
                     transition={{ duration: 2 }} className="user-title user-title-2">{currentData.titles[1]}</motion.div>
             </div>
 
-            <div className="absolute bottom-8 left-8">
+            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 ">
                 <motion.div initial={{ translateY: -30 }} transition={{ duration: 1 }} animate={{ translateY: 0 }}>
-                    <FaArrowDown className="invert text-5xl font-light" />
+                    <FaArrowDown className="invert text-2xl md:text-5xl font-light" />
                 </motion.div>
             </div>
         </section >
