@@ -9,20 +9,21 @@ import HomeDesc from "@/Components/Home/HomeDesc";
 import HomeLogin from "@/Components/Home/HomeLogin";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
+import "@/css/style.css";
 
 const HomeCreators = new dynamic(() => import("@/Components/Home/HomeCreators"), { ssr: false })
 
 export default function Home() {
-  
+
   const { data: session } = useSession();
-  
+
   useEffect(() => {
-    
+
     if (session) {
       console.log(session.user.email)
     }
   })
-  
+
   return (
     <>
       <Navbar />

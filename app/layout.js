@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "../app/globals.css";
-import "../app/css/style.css";
+import "@/css/style.css";
 import SessionWrapper from "@/Components/SessionWrapper";
 
 

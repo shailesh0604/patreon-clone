@@ -8,6 +8,7 @@ import 'swiper/css/bundle';
 import 'swiper/css/free-mode';
 import 'swiper/css/autoplay';
 import Link from "next/link";
+import "@/css/style.css";
 
 const HomeSlider = () => {
 

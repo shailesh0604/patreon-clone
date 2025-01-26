@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
+import "@/css/style.css";
 
 const Login = () => {
 

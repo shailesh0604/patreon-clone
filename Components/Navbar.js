@@ -8,6 +8,7 @@ import { GrFormNextLink } from "react-icons/gr";
 import { TbArrowBackUpDouble } from "react-icons/tb";
 import { PiArrowBendUpRightBold } from "react-icons/pi";
 import { motion, inView, useInView, stagger } from "framer-motion";
+import "@/css/style.css";
 
 const Navbar = () => {
 

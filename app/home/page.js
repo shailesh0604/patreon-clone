@@ -2,6 +2,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import "@/css/style.css";
 
 import React from 'react'
 
