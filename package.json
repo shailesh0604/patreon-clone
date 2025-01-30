@@ -12,7 +12,7 @@
     "@studio-freight/lenis": "^1.0.42",
     "@studio-freight/react-lenis": "^0.0.47",
     "framer-motion": "^11.11.17",
-    "gsap": "^3.12.5",
+    "gsap": "^3.12.7",
     "lenis": "^1.1.18",
     "mongoose": "^8.9.5",
     "next": "^15.0.3",
