@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React, { memo } from 'react'
-import "@/css/style.css";
 
 const HomeCreators = memo(() => {
     return (

@@ -4,7 +4,6 @@ import { motion, inView, useInView, stagger } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa6";
 import { IoArrowForwardSharp } from "react-icons/io5";
-import "@/css/style.css";
 
 const HomeBanner = () => {
 

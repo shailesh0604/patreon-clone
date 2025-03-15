@@ -1,0 +1,278 @@
+{
+  "popularity": [
+    {
+      "image": "/assets/images/popular_week/pop1.jpg",
+      "title": "Friendlyjordies",
+      "subTitle": "Creating CHAOS",
+      "userName": "Friendlyjordies"
+    },
+    {
+      "image": "/assets/images/popular_week/pop2.jpeg",
+      "title": "Cum Town Archive",
+      "subTitle": "The Cum Town Premium Archive",
+      "userName": "CumTown"
+    },
+    {
+      "image": "/assets/images/popular_week/pop3.png",
+      "title": "Nerd",
+      "subTitle": "Creating Videos, Words, Streams, Podcasts, Art, and Whatever",
+      "userName": "Nerd"
+    },
+    {
+      "image": "/assets/images/popular_week/pop4.png",
+      "title": "Dead Meat",
+      "subTitle": "Creating Videos on YouTube",
+      "userName": "DeadMeat"
+    },
+    {
+      "image": "/assets/images/popular_week/pop5.png",
+      "title": "northern siberia winds",
+      "subTitle": "creating cc and mods for the sims 4",
+      "userName": "northernsiberia"
+    },
+    {
+      "image": "/assets/images/popular_week/pop6.jpg",
+      "title": "Boy Boy",
+      "subTitle": "Making Communist Propaganda For Idiots",
+      "userName": "BoyBoy"
+    },
+    {
+      "image": "/assets/images/popular_week/pop7.jpg",
+      "title": "POV: NO LIMITS",
+      "subTitle": "Get ready for this wild ride and new adventures with J & T ",
+      "userName": "POVNOLIMITS"
+    },
+    {
+      "image": "/assets/images/popular_week/pop8.jpg",
+      "title": "WolfeyVGC",
+      "subTitle": "Creating Pokémon content",
+      "userName": "WolfeyVGC"
+    },
+    {
+      "image": "/assets/images/popular_week/pop9.png",
+      "title": "Quazii",
+      "subTitle": "I create epic content & videos for World of Warcraft.",
+      "userName": "Quazii"
+    }
+  ],
+  "creators": [
+    {
+      "image": "/assets/images/creators/c1.jpg",
+      "title": "Shelby Robins",
+      "subTitle": "Creating workout & nutritional guidelines",
+      "userName": "ShelbyRobins"
+    },
+    {
+      "image": "/assets/images/creators/c2.png",
+      "title": "KawaiiStacie",
+      "subTitle": "creating Mods for The Sims 4",
+      "userName": "KawaiiStacie"
+    },
+    {
+      "image": "/assets/images/creators/c3.jpg",
+      "title": "Crimes and Consequences Podcast ",
+      "subTitle": "Creating Hardcore True Crime",
+      "userName": "CrimesConsequencesPodcast"
+    },
+    {
+      "image": "/assets/images/creators/c4.jpg",
+      "title": "Tyler Schoon",
+      "subTitle": "Creating CHAOS",
+      "userName": "TylerSchoon"
+    },
+    {
+      "image": "/assets/images/creators/c5.jpg",
+      "title": "Friendlyjordies",
+      "subTitle": "My Ramblings",
+      "userName": "Friendlyjordies"
+    },
+    {
+      "image": "/assets/images/creators/c6.png",
+      "title": "True Crime Couple",
+      "subTitle": "creating Podcasts",
+      "userName": "TrueCrimeCouple"
+    },
+    {
+      "image": "/assets/images/creators/c7.jpeg",
+      "title": "Take the Dive Pod",
+      "subTitle": "creating Podcasts",
+      "userName": "TaketheDivePod"
+    }
+  ],
+  "topic": [
+    {
+      "image": "/assets/images/icons/mic.svg",
+      "title": "Podcasts & shows",
+      "link": "podcasts"
+    },
+    {
+      "image": "/assets/images/icons/thunder.svg",
+      "title": "Tabletop games",
+      "link": "games"
+    },
+    {
+      "image": "/assets/images/icons/music.svg",
+      "title": "Music",
+      "link": "music"
+    },
+    {
+      "image": "/assets/images/icons/book.svg",
+      "title": "Writing",
+      "link": "writing"
+    },
+    {
+      "image": "/assets/images/icons/app.svg",
+      "title": "Apps & software",
+      "link": "software"
+    },
+    {
+      "image": "/assets/images/icons/art.svg",
+      "title": "Visual arts",
+      "link": "art"
+    },
+    {
+      "image": "/assets/images/icons/game.svg",
+      "title": "Video games",
+      "link": "games"
+    },
+    {
+      "image": "/assets/images/icons/life.svg",
+      "title": "Lifestyle",
+      "link": "life"
+    },
+    {
+      "image": "/assets/images/icons/hand.svg",
+      "title": "Handicrafts",
+      "link": "craft"
+    },
+    {
+      "image": "/assets/images/icons/social.svg",
+      "title": "Social impact",
+      "link": "social"
+    }
+  ],
+  "newcreator": [
+    {
+      "image": "/assets/images/new-creator/new1.webp",
+      "title": "EXP",
+      "subTitle": "Premium Pop Culture Content & Breakdowns",
+      "userName": "EXP"
+    },
+    {
+      "image": "/assets/images/new-creator/new2.jpg",
+      "title": "Tectone",
+      "subTitle": "Exclusive/early access Reacts and Lets Plays!",
+      "userName": "Tectone"
+    },
+    {
+      "image": "/assets/images/new-creator/new3.jpg",
+      "title": "Take It Easy",
+      "subTitle": "The Most Exclusive Place to Take It Easy",
+      "userName": "takeiteasy"
+    },
+    {
+      "image": "/assets/images/new-creator/new4.jpeg",
+      "title": "The Henry Family",
+      "subTitle": "Faith, Marriage, Family, and Our Sit Downs!",
+      "userName": "TheHenryFamily"
+    },
+    {
+      "image": "/assets/images/new-creator/new5.jpg",
+      "title": "Angy and Raph",
+      "subTitle": "Angy and Raph",
+      "userName": "AngyandRaph"
+    },
+    {
+      "image": "/assets/images/new-creator/new6.png",
+      "title": "Eavesdropping",
+      "subTitle": "Two friends try staying friends. Watch free on IG or TikTok.",
+      "userName": "Eavesdropping"
+    },
+    {
+      "image": "/assets/images/new-creator/new7.png",
+      "title": "SCROUNGERS POD CAST",
+      "subTitle": "A VIEW FROM THE SEWER",
+      "userName": "SCROUNGERSPODCAST"
+    },
+    {
+      "image": "/assets/images/new-creator/new8.png",
+      "title": "Get In Some Head Podcast w/ Mike Rainey",
+      "subTitle": "Let's see what's in that big, beautiful brain of yours.",
+      "userName": "ShelbyRobins"
+    },
+    {
+      "image": "/assets/images/new-creator/new9.png",
+      "title": "Belly Laughs with Lauren Hope Krass",
+      "subTitle": "a hilarious podcast about bodies & other stuff",
+      "userName": "ShelbyRobins"
+    },
+    {
+      "image": "/assets/images/new-creator/new10.jpg",
+      "title": "Hustlers Dynasta fka goomba podcast",
+      "subTitle": "hustle culture",
+      "userName": "hustleculture"
+    }
+  ],
+  "topcreator": [
+    {
+      "image": "/assets/images/top-creator/top1.gif",
+      "title": "Cold Ones",
+      "subTitle": "Creating Drunk Content",
+      "userName": "ColdOnes"
+    },
+    {
+      "image": "/assets/images/top-creator/top2.png",
+      "title": "Basically Unfiltered",
+      "subTitle": "the patreon to the crossover podcast that no one asked for",
+      "userName": "BasicallyUnfiltered"
+    },
+    {
+      "image": "/assets/images/top-creator/top3.jpg",
+      "title": "INFLUENCER CITY",
+      "subTitle": "Content",
+      "userName": "INFLUENCERCITY"
+    },
+    {
+      "image": "/assets/images/top-creator/top4.jpg",
+      "title": "Joe Budden",
+      "subTitle": "Creating the Joe Budden Network",
+      "userName": "JoeBudden"
+    },
+    {
+      "image": "/assets/images/top-creator/top5.jpg",
+      "title": "Shut Up I'm Talking Podcast",
+      "subTitle": "Welcome",
+      "userName": "AngyandRaph"
+    },
+    {
+      "image": "/assets/images/top-creator/top6.png",
+      "title": "The Toast",
+      "subTitle": "Creating premium content.",
+      "userName": "TheToast"
+    },
+    {
+      "image": "/assets/images/top-creator/top7.jpg",
+      "title": "Cancelled",
+      "subTitle": "The Cancelled Podcast",
+      "userName": "Cancelled"
+    },
+    {
+      "image": "/assets/images/top-creator/top8.webp",
+      "title": "The Basement Yard",
+      "subTitle": "Creating podcasts and videos",
+      "userName": "ShelbyRobins"
+    },
+    {
+      "image": "/assets/images/top-creator/top9.jpg",
+      "title": "ShxtsNGigs Podcast",
+      "subTitle": "Creating podcasts and videos",
+      "userName": "ShxtsNGigs"
+    },
+    {
+      "image": "/assets/images/top-creator/top10.jpg",
+      "title": "Fear&",
+      "subTitle": "a podcast hosted by Hasan, Will, QT & Austin",
+      "userName": "Fear&"
+    }
+  ]
+}

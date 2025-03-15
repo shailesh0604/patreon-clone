@@ -9,7 +9,7 @@ import HomeDesc from "@/Components/Home/HomeDesc";
 import HomeLogin from "@/Components/Home/HomeLogin";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
-import "@/css/style.css";
+import LenisProvider from "@/Components/LenisProvider";
 
 const HomeCreators = new dynamic(() => import("@/Components/Home/HomeCreators"), { ssr: false })
 
@@ -26,13 +26,15 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
-      <HomeBanner />
-      <HomeSlider />
-      <HomeDesc />
-      <HomeCreators />
-      <HomeLogin />
-      <Footer />
+      <LenisProvider>
+        <Navbar />
+        <HomeBanner />
+        <HomeSlider />
+        <HomeDesc />
+        <HomeCreators />
+        <HomeLogin />
+        <Footer />
+      </LenisProvider>
     </>
   );
 }

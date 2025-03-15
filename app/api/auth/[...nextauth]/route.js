@@ -1,12 +1,11 @@
-
-import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import User from "@/models/User"
-import { connectDB } from "@/db/ConnectDB"
+import User from "@/models/User";
+import { connectDB } from "@/db/ConnectDB";
 
 const handler = NextAuth({
-    // Configure one or more authentication providers
+    secret: process.env.NEXTAUTH_SECRET, // Add a strong secret
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID,
@@ -20,21 +19,38 @@ const handler = NextAuth({
                     scope: "openid email profile",
                 },
             },
-        })
-        // ...add more providers here
+        }),
     ],
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
+        async jwt({ token, user }) {
+            // Add user data to the token during sign-in
+            if (user) {
+                token.name = user.name;
+                token.profilepic = user.profilepic;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // Add token data to the session
+            if (session.user) {
+                session.user.name = token.name;
+                session.user.profilepic = token.profilepic;
+            }
+            return session;
+        },
+        async signIn({ user, account, profile }) {
             try {
-                //connect to database
+                // Connect to the database
                 await connectDB();
 
-                //find the user is already in database or not
+                // Find the user in the database
                 const currentUser = await User.findOne({ email: user.email });
 
-                const profilePic = account.provider === 'google' ? profile.picture : account.provider === "github" ? profile.avatar_url : null
+                // Handle profile picture
+                const profilePic = profile?.picture || profile?.avatar_url || null;
 
                 if (!currentUser) {
+                    // Create a new user if they don't exist
                     const newUser = new User({
                         email: user.email,
                         username: user.email.split("@")[0],
@@ -43,26 +59,26 @@ const handler = NextAuth({
                         profilepic: profilePic,
                     });
 
-                    console.log("Account Provider:", account.provider);
                     await newUser.save();
                     user.name = newUser.username;
-                }
-                else {
+                    user.profilepic = newUser.profilepic;
+                } else {
+                    // Update the provider if it has changed
                     if (currentUser.provider !== account.provider) {
                         currentUser.provider = account.provider;
                         await currentUser.save();
                     }
                     user.name = currentUser.username;
+                    user.profilepic = currentUser.profilepic;
                 }
-                return true;
 
+                return true;
             } catch (error) {
                 console.error("Error in signIn callback:", error);
-                return false; // Deny sign-in on error }
-
+                return false; // Deny sign-in on error
             }
-        }
-    }
-})
+        },
+    },
+});
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

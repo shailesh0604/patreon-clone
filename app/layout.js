@@ -1,8 +1,7 @@
 import localFont from "next/font/local";
 import "../app/globals.css";
-import "@/css/style.css";
 import SessionWrapper from "@/Components/SessionWrapper";
-
+import LenisProvider from "@/Components/LenisProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +23,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <SessionWrapper>{children}</SessionWrapper>
+        <SessionWrapper>
+          {/* <LenisProvider> */}
+          {children}
+          {/* </LenisProvider> */}
+        </SessionWrapper>
       </body>
     </html >
   )

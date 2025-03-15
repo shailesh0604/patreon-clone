@@ -5,18 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
-import "@/css/style.css";
 
 const Login = () => {
 
-    const { data: session, status } = useSession();
-    const router = useRouter();
+    // const { data: session, status } = useSession();
+    // const router = useRouter();
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push("/home");
-        }
-    }, [status, router]);
+    // useEffect(() => {
+    //     if (status === "authenticated") {
+    //         router.push("/home");
+    //     }
+    // }, [status, router]);
 
 
     if (status === "loading") {
