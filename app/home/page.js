@@ -2,44 +2,24 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import React from 'react'
-import { IoSearch } from "react-icons/io5";
 import { AuroraBackground } from "@/Components/LinearBb";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/Components/Sidebar";
-import { MdOutlineArrowBackIosNew } from "react-icons/md";
-import { MdOutlineArrowForwardIos } from "react-icons/md";
-import Link from "next/link";
-import { MdMoreVert } from "react-icons/md";
-import { IoIosArrowForward } from "react-icons/io";
 import Creators from "@/Components/Creators";
 
 const Home = () => {
 
 
     const { data: session, status } = useSession();
+    console.log(session);
     const router = useRouter();
 
-
-
-
-
-
-    // useEffect(() => {
-
-    //     if (!session) {
-    //         router.push("/");
-    //     }
-
-
-    //     if (status === "unauthenticated") {
-    //         router.push("/home");
-    //     }
-    // }
-    //     , [status, router]);
-
-
+    useEffect(() => {
+        if (!session && status === "unauthenticated") {
+            router.push("/");
+        }
+    }, []);
 
     const pathName = usePathname();
     //console.log(pathName)
@@ -49,14 +29,6 @@ const Home = () => {
     const IsToggled = () => {
         setToggle((toggled) => !toggled)
     }
-
-
-
-
-
-    // useEffect(() => {
-    //     console.log(topic)
-    // }, [topic])
 
 
     return <>

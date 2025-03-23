@@ -18,18 +18,12 @@ const Search = () => {
 
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (!session) {
-    //         router.push("/");
-    //     }
-
-
-    //     if (status === "unauthenticated") {
-    //         router.push("/home");
-    //     }
-    // }
-    //     , [status, router]);
+        if (!session || status === "unauthenticated") {
+            router.push("/");
+        }
+    }, [status, router]);
 
 
     const pathName = usePathname();

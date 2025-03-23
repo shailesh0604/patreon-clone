@@ -1,6 +1,8 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Sidebar from '@/Components/Sidebar'
+import { useRouter } from 'next/navigation';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 import { IoNotifications } from "react-icons/io5";
 
@@ -11,6 +13,17 @@ const Notification = () => {
     const IsToggled = () => {
         setToggle((toggled) => !toggled)
     }
+
+
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!session || status === "unauthenticated") {
+            router.push("/");
+        }
+    }, [status, router]);
+
 
 
     return (

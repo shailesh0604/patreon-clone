@@ -684,7 +684,7 @@ section.section-login {
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* padding: 0 0.65rem; */
   /* margin: 0 0 2rem 0; */
 }
@@ -728,7 +728,40 @@ section.section-login {
   border-radius: 100px;
   cursor: pointer;
   background: transparent;
+  position: relative;
   color: var(--light);
+}
+
+.user-drop:hover .user-more-content,
+.user-drop:focus .user-more-content {
+  display: block;
+}
+
+.user-more-content {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  display: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  background: #fff;
+  color: var(--dark);
+}
+
+.user-more-content::after {
+  content: "";
+  position: absolute;
+  border-top: 7px solid var(--light);
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  bottom: -13px;
+  right: 15px;
+}
+
+.btn-logout {
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .user-drop:hover {
@@ -1040,7 +1073,7 @@ label {
 .fixed-header {
   /* position: sticky; */
   /* top: 0; */
-  padding: 2rem 0 1rem 0;
+  padding: 2rem 1rem 1rem 1rem;
   z-index: 2;
 }
 
@@ -1521,6 +1554,10 @@ label {
     overflow-x: auto;
     overflow-y: hidden;
     transition: all 0.45s ease;
+  }
+
+  .fixed-header {
+    padding: 6rem 0.65rem 1rem 0.65rem;
   }
 }
 

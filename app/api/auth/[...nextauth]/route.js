@@ -25,15 +25,28 @@ const handler = NextAuth({
         async jwt({ token, user }) {
             // Add user data to the token during sign-in
             if (user) {
-                token.name = user.name;
-                token.profilepic = user.profilepic;
+                token.email = user.email;
             }
+
+            try {
+                await connectDB();
+
+                const dbUser = await User.findOne({ email: token.email });
+
+                if (dbUser) {
+                    token.name = dbUser.name;
+                    token.profilePic = dbUser.profilePicture;
+                }
+            } catch (error) { console.error("Error fetching user from DB:", error); }
+
+
             return token;
         },
         async session({ session, token }) {
             // Add token data to the session
             if (session.user) {
                 session.user.name = token.name;
+                console.log("user name : ", session.user.name);
                 session.user.profilepic = token.profilepic;
             }
             return session;
@@ -52,9 +65,9 @@ const handler = NextAuth({
                 if (!currentUser) {
                     // Create a new user if they don't exist
                     const newUser = new User({
-                        email: user.email,
-                        username: user.email.split("@")[0],
-                        name: profile?.name || user.email.split("@")[0],
+                        email: user?.email,
+                        username: user?.email?.split("@")[0],
+                        name: user?.name || user?.email?.split("@")[0],
                         provider: account.provider,
                         profilepic: profilePic,
                     });

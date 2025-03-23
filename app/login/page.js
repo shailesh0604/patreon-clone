@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
 
-    // const { data: session, status } = useSession();
-    // const router = useRouter();
+    const { data: session, status } = useSession();
+    const router = useRouter();
 
-    // useEffect(() => {
-    //     if (status === "authenticated") {
-    //         router.push("/home");
-    //     }
-    // }, [status, router]);
+    useEffect(() => {
+        if (session && status === "authenticated") {
+            router.push("/home");
+        }
+    }, [status, router]);
 
 
     if (status === "loading") {

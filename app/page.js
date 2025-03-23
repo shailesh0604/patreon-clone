@@ -10,19 +10,23 @@ import HomeLogin from "@/Components/Home/HomeLogin";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import LenisProvider from "@/Components/LenisProvider";
+import { useRouter } from "next/navigation";
 
 const HomeCreators = new dynamic(() => import("@/Components/Home/HomeCreators"), { ssr: false })
 
 export default function Home() {
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
 
   useEffect(() => {
 
-    if (session) {
-      console.log(session.user.email)
+    if (session && status === "authenticated") {
+      router.push("/home")
     }
-  })
+
+  }, [])
 
   return (
     <>

@@ -10,8 +10,13 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Sidebar = ({ toggle, IsToggled }) => {
+
+    const { data: session, status } = useSession();
+    console.log("session :", session);
+
     const pathName = usePathname();
     return (
         <>
@@ -63,21 +68,28 @@ const Sidebar = ({ toggle, IsToggled }) => {
 
 
                 </div>
+
                 <div className="sidebar-user-links">
                     <div className="user-link">
                         <div className="user-info flex items-center gap-3">
                             <div className="user-profile-pic">
-                                <Image src={"https://www.shutterstock.com/image-photo/head-shot-portrait-close-smiling-600nw-1714666150.jpg"} width={0} height={0} sizes="100" alt="user profile picture" />
+                                <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={0} height={0} sizes="100" alt="user profile picture" />
                             </div>
 
                             <div className="user-name-content">
-                                <div className="user-name">Shailesh Bind</div>
+                                <div className="user-name">{session?.user?.name || "user"}</div>
                                 <div className="user-status">Member</div>
                             </div>
                         </div>
 
                         <div className="user-drop">
                             <MdMoreVert />
+
+                            <div className="user-more-content">
+                                <div className="btn-logout" onClick={() => signOut()}>
+                                    Logout
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +101,7 @@ const Sidebar = ({ toggle, IsToggled }) => {
 
             <div className="mobile-user-content-div">
                 <div className="user-profile-pic">
-                    <Image src={"https://www.shutterstock.com/image-photo/head-shot-portrait-close-smiling-600nw-1714666150.jpg"} width={0} height={0} sizes="100" alt="user profile picture" />
+                    <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={0} height={0} sizes="100" alt="user profile picture" />
                 </div>
             </div></>
     )
