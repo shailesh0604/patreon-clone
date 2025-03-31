@@ -1,9 +1,19 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Sidebar from '@/Components/Sidebar'
+import { useRouter } from 'next/navigation'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Setting = () => {
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/login");
+        }
+    }, [status, router]);
 
     const [toggle, setToggle] = useState(false)
 
@@ -11,13 +21,16 @@ const Setting = () => {
         setToggle((toggled) => !toggled)
     }
 
-    const [settingImg, setSettingImg] = useState("https://www.shutterstock.com/image-photo/head-shot-portrait-close-smiling-600nw-1714666150.jpg")
+
+
+    const [settingImg, setSettingImg] = useState("/assets/images/user/default-user.png")
 
     const [activeTab, setActiveTab] = useState('Basics');
 
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        console.log(file)
+        //console.log(file)
 
         if (file) {
             const reader = new FileReader();

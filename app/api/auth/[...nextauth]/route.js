@@ -46,7 +46,7 @@ const handler = NextAuth({
             // Add token data to the session
             if (session.user) {
                 session.user.name = token.name;
-                console.log("user name : ", session.user.name);
+                //console.log("user name : ", session.user.name);
                 session.user.profilepic = token.profilepic;
             }
             return session;

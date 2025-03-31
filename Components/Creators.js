@@ -97,7 +97,7 @@ const Creators = () => {
         fetch("/data.json").then((response5) => response5.json()).then(data5 => setTopCreator(data5.topcreator)).catch((error) => console.error(error));
 
         const handleScrolling = () => {
-            console.log("Scrolling detected", window.scrollY);
+            //console.log("Scrolling detected", window.scrollY);
             setScrolling(window.scrollY > 60);
         };
 

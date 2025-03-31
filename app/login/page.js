@@ -12,7 +12,7 @@ const Login = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (session && status === "authenticated") {
+        if (status === "authenticated") {
             router.push("/home");
         }
     }, [status, router]);

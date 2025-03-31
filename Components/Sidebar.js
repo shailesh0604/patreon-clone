@@ -15,7 +15,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const Sidebar = ({ toggle, IsToggled }) => {
 
     const { data: session, status } = useSession();
-    console.log("session :", session);
+    // console.log("session :", session);
 
     const pathName = usePathname();
     return (
@@ -86,7 +86,7 @@ const Sidebar = ({ toggle, IsToggled }) => {
                             <MdMoreVert />
 
                             <div className="user-more-content">
-                                <div className="btn-logout" onClick={() => signOut()}>
+                                <div className="btn-logout" onClick={() => signOut({ callbackUrl: "/" })}>
                                     Logout
                                 </div>
                             </div>

@@ -12,14 +12,14 @@ const Home = () => {
 
 
     const { data: session, status } = useSession();
-    console.log(session);
+    //console.log(session);
     const router = useRouter();
 
     useEffect(() => {
-        if (!session && status === "unauthenticated") {
-            router.push("/");
+        if (status === "unauthenticated") {
+            router.push("/login");
         }
-    }, []);
+    }, [status, router]);
 
     const pathName = usePathname();
     //console.log(pathName)

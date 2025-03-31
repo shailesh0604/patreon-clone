@@ -1,6 +1,4 @@
-import mongoose, { connect } from "mongoose";
-
-import React from 'react'
+import mongoose from "mongoose";
 
 export const connectDB = async () => {
     try {
@@ -8,9 +6,19 @@ export const connectDB = async () => {
         if (!connectionString) {
             throw new Error("Connection string is invalid");
         }
-        const db = await mongoose.connect(connectionString);
-        console.log("Successfully Connected to Databse");
+
+        if (mongoose.connection.readyState >= 1) {
+            // Already connected
+            return mongoose.connection;
+        }
+
+        await mongoose.connect(connectionString);
+
+        console.log("Successfully connected to Database");
+
+        return mongoose.connection; // ✅ Return the connection
     } catch (error) {
         console.error("Error connecting to MongoDB:", error.message);
+        throw error;
     }
-}
+};

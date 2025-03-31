@@ -2,13 +2,24 @@
 
 import CommunityTabs from '@/Components/CommunityTabs'
 import Sidebar from '@/Components/Sidebar'
-import React, {
-    useState
-} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 
 
 const Community = () => {
+
+
+    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/login");
+        }
+    }, [status, router]);
+
     const [toggle, setToggle] = useState(false)
 
     const IsToggled = () => {

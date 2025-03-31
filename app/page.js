@@ -21,12 +21,10 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-
-    if (session && status === "authenticated") {
-      router.push("/home")
+    if (status === "authenticated") {
+      router.push("/home");
     }
-
-  }, [])
+  }, [status, router]);
 
   return (
     <>

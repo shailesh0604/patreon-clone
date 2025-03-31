@@ -12,16 +12,13 @@ import Creators from "@/Components/Creators";
 
 const Search = () => {
 
-
     const { data: session, status } = useSession();
     const router = useRouter();
 
-
-
     useEffect(() => {
 
-        if (!session || status === "unauthenticated") {
-            router.push("/");
+        if (status === "unauthenticated") {
+            router.push("/login");
         }
     }, [status, router]);
 
