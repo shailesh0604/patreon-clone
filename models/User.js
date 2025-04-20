@@ -11,6 +11,9 @@ const UserSchema = new Schema({
     profilepic: { type: String },
     coverpic: { type: String },
     provider: { type: String, required: true },
+    patreaon_account: { type: Boolean, default: false },
+    patreaon_account_published: { type: Boolean, default: false },
+    patreaon_account_username: { type: String, default: null },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from 'swiper'
+import { Autoplay } from 'swiper/modules'
 import { GrFormNextLink } from "react-icons/gr";
 import 'swiper/css/bundle';
 import 'swiper/css/free-mode';
@@ -24,8 +24,8 @@ const HomeSlider = () => {
         <section className="section-creativity relative">
             <div className="creativity-container">
                 <div className="section-heading flex flex-col justify-start absolute top-12 left-8 z-10">
-                    <h2 className="section-title leading-12">Creativity</h2>
-                    <h2 className="section-title leading-10">Powered</h2>
+                    <h2 className="section-title leading-12 custom-blend">Creativity</h2>
+                    <h2 className="section-title leading-10 custom-blend">Powered</h2>
                 </div>
 
                 {isMounted &&
