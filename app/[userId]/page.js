@@ -1,17 +1,17 @@
 import { notFound } from "next/navigation";
-import { connectDB } from "@/db/ConnectDB";
 import Media from "@/models/UserMedia";
 import Image from 'next/image'
 import NavbarUser from "@/Components/User/NavbarUser";
 import UserInfo from "@/Components/User/UserInfo";
+import ConnectDB from "@/db/ConnectDB";
+
 
 export default async function UserPage({ params }) {
     const { userId } = await params;
 
     try {
-        const db = await connectDB();
+        const db = await ConnectDB();
 
-        // await connectDB();
 
         const collection = db.collection("users");
 

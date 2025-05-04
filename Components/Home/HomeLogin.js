@@ -23,7 +23,7 @@ const HomeLogin = () => {
                     </div>
 
                     <div className="login-link text-center">
-                        <span className='opacity-60'>Already have an account?</span> <Link className='underline font-medium' href={"/"}>Log in</Link>
+                        <span className='opacity-60'>Already have an account?</span> <Link className='underline font-medium' href={"/login"}>Log in</Link>
                     </div>
 
                     <div className="login-apps">

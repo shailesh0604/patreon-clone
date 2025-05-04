@@ -1,11 +1,10 @@
 import React from 'react'
-import { connectDB } from '@/db/ConnectDB';
+import ConnectDB from '@/db/ConnectDB';
 import User from '@/models/User';
 import { notFound } from 'next/navigation';
 
 async function getUserData(slug) {
-    await connectDB();
-
+    await ConnectDB()
     const user = await User.findOne({ username: slug });
     console.log(user);
     return user ? JSON.parse(JSON.stringify(user)) : null;

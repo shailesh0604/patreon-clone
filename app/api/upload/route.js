@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/db/ConnectDB";
 import Media from "@/models/UserMedia";
 // import { v2 as cloudinary } from "cloudinary";
 import cloudinary from "@/Components/Cloudinary";
+import ConnectDB from "@/db/ConnectDB";
 
 // ✅ Cloudinary Config
 cloudinary.config({
@@ -14,7 +14,7 @@ cloudinary.config({
 
 export async function POST(req, res) {
     try {
-        await connectDB();
+        await ConnectDB();
 
         const formData = await req.formData();
         const file = formData.get('file');

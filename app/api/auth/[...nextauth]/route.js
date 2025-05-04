@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/User";
-import { connectDB } from "@/db/ConnectDB";
+import ConnectDB from "@/db/ConnectDB";
 
-const handler = NextAuth({
+export const authOptions = {
     secret: process.env.NEXTAUTH_SECRET, // Add a strong secret
     providers: [
         GithubProvider({
@@ -29,7 +29,7 @@ const handler = NextAuth({
             }
 
             try {
-                await connectDB();
+                await ConnectDB();
 
                 const dbUser = await User.findOne({ email: token.email });
 
@@ -54,7 +54,7 @@ const handler = NextAuth({
         async signIn({ user, account, profile }) {
             try {
                 // Connect to the database
-                await connectDB();
+                await ConnectDB();
 
                 // Find the user in the database
                 const currentUser = await User.findOne({ email: user.email });
@@ -66,7 +66,7 @@ const handler = NextAuth({
                     // Create a new user if they don't exist
                     const newUser = new User({
                         email: user?.email,
-                        username: user?.email?.split("@")[0],
+                        username: "",
                         name: user?.name || user?.email?.split("@")[0],
                         provider: account.provider,
                         profilepic: profilePic,
@@ -92,6 +92,8 @@ const handler = NextAuth({
             }
         },
     },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
