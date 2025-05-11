@@ -27,7 +27,8 @@ const Home = () => {
     const [toggle, setToggle] = useState(false)
 
     const IsToggled = () => {
-        setToggle((toggled) => !toggled)
+        setToggle((toggled) => !toggled);
+        
     }
 
 

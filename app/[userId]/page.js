@@ -10,10 +10,7 @@ export default async function UserPage({ params }) {
     const { userId } = await params;
 
     try {
-        const db = await ConnectDB();
-
-
-        const collection = db.collection("users");
+        await ConnectDB();
 
         const userData = await Media.findOne({ username: userId });
 
