@@ -1,34 +1,25 @@
 "use client"
-import { useSession, signIn, signOut } from "next-auth/react"
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import React from 'react'
 import { AuroraBackground } from "@/Components/LinearBb";
-import { usePathname } from "next/navigation";
 import Sidebar from "@/Components/Sidebar";
 import Creators from "@/Components/Creators";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 const Home = () => {
 
+    // const session = await getServerSession(authOptions);
 
-    const { data: session, status } = useSession();
-    //console.log(session);
-    const router = useRouter();
+    // if (!session) redirect("/login");
 
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.push("/login");
-        }
-    }, [status, router]);
-
-    const pathName = usePathname();
-    //console.log(pathName)
 
     const [toggle, setToggle] = useState(false)
 
     const IsToggled = () => {
         setToggle((toggled) => !toggled);
-        
+
     }
 
 

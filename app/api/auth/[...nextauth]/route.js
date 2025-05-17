@@ -5,7 +5,10 @@ import User from "@/models/User";
 import ConnectDB from "@/db/ConnectDB";
 
 export const authOptions = {
-    secret: process.env.NEXTAUTH_SECRET, // Add a strong secret
+    secret: process.env.NEXTAUTH_SECRET,
+    session: {
+        strategy: "jwt",
+    },
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID,
