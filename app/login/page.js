@@ -8,19 +8,19 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
 
-    const { data: session, status } = useSession();
-    const router = useRouter();
+    // const { data: session, status } = useSession();
+    // const router = useRouter();
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push("/home");
-        }
-    }, [status, router]);
+    // useEffect(() => {
+    //     if (status === "authenticated") {
+    //         router.push("/home");
+    //     }
+    // }, [status, router]);
 
 
-    if (status === "loading") {
-        return <div className="text-white text-center">Loading...</div>; // Show a loader or placeholder
-    }
+    // if (status === "loading") {
+    //     return <div className="text-white text-center">Loading...</div>; // Show a loader or placeholder
+    // }
 
 
     return (
@@ -42,8 +42,8 @@ const Login = () => {
                             Log in or sign up
                         </div>
                         <div className="flex flex-col gap-3 ">
-                            <Link
-                                href={"/"} onClick={() => signIn('google')}
+                            <button
+                                onClick={() => signIn('google')}
                                 className="bg-white flex justify-center items-center gap-1 text-black px-2 py-1.5 rounded-[4px]"
                             >
                                 <span>
@@ -52,7 +52,7 @@ const Login = () => {
                                 <span className="font-semibold text-sm">
                                     Continue with Google
                                 </span>
-                            </Link>
+                            </button>
 
                             <Link
                                 href={"/"} onClick={() => signIn('github')}

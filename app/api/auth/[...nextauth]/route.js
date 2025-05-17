@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/User";
 import ConnectDB from "@/db/ConnectDB";
+import { redirect } from "next/dist/server/api-utils";
 
 export const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
@@ -88,12 +89,29 @@ export const authOptions = {
                     user.profilepic = currentUser.profilepic;
                 }
 
-                return true;
+                return true; //allow sign in
+
             } catch (error) {
                 console.error("Error in signIn callback:", error);
                 return false; // Deny sign-in on error
             }
         },
+        async redirect({ url, baseUrl }) {
+            // If the url is on the same origin
+            if (url.startsWith(baseUrl)) {
+                // If redirecting after logout (signout), send to '/'
+                if (url.includes('/api/auth/signout')) {
+                    return '/';
+                }
+                // For all other redirects, send to /home
+                return `${baseUrl}/home`;
+            }
+
+            // For external URLs (if any), allow redirect as-is
+            return url;
+        }
+
+
     },
 };
 
