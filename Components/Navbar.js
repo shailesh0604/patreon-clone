@@ -331,14 +331,14 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
               <div className="nav-links hidden sm:block">
                 <Link
-                  className="nav-link flex items-center gap-2 nav-border"
+                  className="nav-link search-content flex items-center gap-2 nav-border"
                   href={""}
                 >
                   <div className="">
                     <Image
                       src={"/assets/images/icons/search.svg"}
                       width={15}
-                      className={`${scroll ? "" : "invert"} ${isHovered ? "invert" : ""}`}
+                      className={ `search-icons ${scroll ? "" : "invert"} ${isHovered ? "invert" : ""}`}
                       height={15}
                       alt="icons"
                     />
@@ -354,7 +354,7 @@ const Navbar = () => {
               </div>
 
               <div className="nav-links hidden lg:block">
-                <Link className="nav-link nav-light" href={""}>
+                <Link className="nav-link nav-light btn-start" href={""}>
                   Get Started
                 </Link>
               </div>

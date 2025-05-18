@@ -7,6 +7,9 @@ import LenisProvider from "@/Components/LenisProvider";
 export const metadata = {
   title: "Home | Patreon",
   description: "Patreon clone in next js",
+  icons: {
+    icon: '/assets/images/icons/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }) {

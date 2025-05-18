@@ -160,12 +160,27 @@ button:disabled {
   transition: all 0.5s ease;
 }
 
+.nav-links .nav-link.btn-start:hover {
+  color: var(--light) !important;
+  background: var(--dark);
+  transition: all 0.5s ease;
+}
+
 .nav-links .nav-link.nav-border {
   border: 1px solid var(--light);
   border-radius: 100px;
   transition: all 0.5s ease;
   display: flex;
   align-items: center;
+}
+
+.search-icons {
+  transition: all 0.5s ease;
+}
+
+.nav-link.search-content:hover .search-icons {
+  filter: invert(1);
+  transition: all 0.5s ease;
 }
 
 .nav-links .nav-link.nav-border:hover {
