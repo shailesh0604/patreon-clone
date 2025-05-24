@@ -8,21 +8,21 @@ Check out the live application: [patreon-clone-pi.vercel.app](https://patreon-cl
 
 ## 📂 Project Structure
 
-patreon-clone/
-├── app/ # Next.js App Router pages
-├── Components/ # Reusable UI components
-├── db/ # Database connection and configuration
-├── lib/ # Utility functions and helpers
-├── models/ # Mongoose models
-├── public/ # Static assets
-├── .gitignore # Git ignore rules
-├── README.md # Project documentation
-├── jsconfig.json # JavaScript configuration
-├── middleware.js # Custom middleware
-├── next.config.mjs # Next.js configuration
-├── package.json # Project metadata and scripts
-├── postcss.config.js # PostCSS configuration
-├── tailwind.config.js # Tailwind CSS configuration
+patreon-clone/ <br />
+├── app/ # Next.js App Router pages <br />
+├── Components/ # Reusable UI components <br />
+├── db/ # Database connection and configuration <br />
+├── lib/ # Utility functions and helpers <br />
+├── models/ # Mongoose models <br />
+├── public/ # Static assets <br />
+├── .gitignore # Git ignore rules <br />
+├── README.md # Project documentation <br />
+├── jsconfig.json # JavaScript configuration <br />
+├── middleware.js # Custom middleware <br />
+├── next.config.mjs # Next.js configuration<br />
+├── package.json # Project metadata and scripts<br />
+├── postcss.config.js # PostCSS configuration<br />
+├── tailwind.config.js # Tailwind CSS configuration<br />
 
 
 
@@ -37,11 +37,11 @@ patreon-clone/
 
 ## ✅ Features
 
-- User authentication with NextAuth.js
-- Creator and supporter dashboards
-- Subscription management
-- Content creation and access control
-- Responsive design for all devices
+- User authentication with NextAuth.js<br />
+- Creator and supporter dashboards<br />
+- Subscription management<br />
+- Content creation and access control<br />
+- Responsive design for all devices<br />
 
 ## 📦 Installation
 
@@ -57,10 +57,10 @@ patreon-clone/
    npm install
 
 3. **Set up environment variables:**
-Create a .env.local file in the root directory and add the following:
-MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_nextauth_secret
+Create a .env.local file in the root directory and add the following:<br />
+MONGODB_URI=your_mongodb_connection_string<br />
+NEXTAUTH_URL=http://localhost:3000<br />
+NEXTAUTH_SECRET=your_nextauth_secret<br />
 
 4. **Run the development server:**
 
