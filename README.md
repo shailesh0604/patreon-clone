@@ -57,7 +57,7 @@ patreon-clone/ <br />
    ```bash
    npm install
 
-3. **Set up environment variables:**
+3. **Set up environment variables:**<br />
 Create a .env.local file in the root directory and add the following:<br />
 MONGODB_URI=your_mongodb_connection_string<br />
 NEXTAUTH_URL=http://localhost:3000<br />
