@@ -31,6 +31,7 @@ patreon-clone/ <br />
 - **Frontend**: Next.js, Tailwind CSS
 - **Backend**: Next.js API Routes
 - **Database**: MongoDB with Mongoose
+- **Animation & UI**: GSAP & Framer Motion
 - **Authentication**: NextAuth.js
 - **Styling**: Tailwind CSS
 - **cloud media management services**: Cloudinary
