@@ -66,6 +66,3 @@ NEXTAUTH_SECRET=your_nextauth_secret
 
    ```bash
    npm run dev
-
-
-
