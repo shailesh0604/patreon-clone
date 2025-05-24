@@ -8,10 +8,17 @@ import { GrFormNextLink } from "react-icons/gr";
 import { TbArrowBackUpDouble } from "react-icons/tb";
 import { PiArrowBendUpRightBold } from "react-icons/pi";
 import { motion, inView, useInView, stagger } from "framer-motion";
+import { FiSearch } from "react-icons/fi";
+import { MdOutlineClose } from "react-icons/md";
+import { Loader } from "rsuite";
+import "rsuite/dist/rsuite-no-reset.min.css";
 
 const Navbar = () => {
 
   const [scroll, setScroll] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+  const [searchItem, setSearchItem] = useState("");
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +41,73 @@ const Navbar = () => {
   const offcanvasRef = useRef(null);
   const [hoveredText, setHoveredText] = useState(false);
   const [isHovered, setisHovered] = useState(false);
+  const [searched, setSearched] = useState(false);
+  const refContainer = useRef(null);
+
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
+
+    const dataValue = e.target.value;
+
+    setSearchItem(dataValue);
+
+    if (dataValue.length > 1) {
+      setIsSearch(true);
+    } else {
+      setIsSearch(false);
+    }
+
+    const filteredItem = userData.filter((user) =>
+      user.username.toLowerCase().includes(dataValue.toLowerCase())
+    );
+
+    setFilteredUsers(filteredItem);
+  }
+
+  const inputRef = useRef(null);
+
+  const clearInput = () => {
+    setInputValue("");
+    inputRef.current.value = "";
+    inputRef.current.focus();
+  };
+
+  const userData = [
+    {
+      image: "/assets/images/user.jpeg",
+      username: "Shailesh",
+      userdesc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, reiciendis.",
+    },
+    {
+      image: "/assets/images/user.jpeg",
+      username: "Rock",
+      userdesc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, reiciendis.",
+    },
+    {
+      image: "/assets/images/user.jpeg",
+      username: "Max",
+      userdesc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, reiciendis.",
+    },
+    {
+      image: "/assets/images/user.jpeg",
+      username: "Paul",
+      userdesc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, reiciendis.",
+    },
+    {
+      image: "/assets/images/user.jpeg",
+      username: "Ricky",
+      userdesc:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, reiciendis.",
+    },
+  ];
+
+  const [filteredUsers, setFilteredUsers] = useState(userData);
+
+  const [IsSearch, setIsSearch] = useState(false);
 
 
   const ref = useRef(null)
@@ -43,6 +117,21 @@ const Navbar = () => {
   useEffect(() => {
     //console.log("Element is in view: ", isInView)
   }, [isInView])
+
+
+  useEffect(() => {
+    const handleOutside = (event) => {
+      if (refContainer.current && !refContainer.current.contains(event.target)) {
+        setSearched(false);
+        setIsSearch(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutside);
+
+    return () => { document.addEventListener("mousedown", handleOutside); }
+
+  }, [])
 
 
   const renderDropdown = () => {
@@ -330,7 +419,64 @@ const Navbar = () => {
           <div className="nav-content">
             <div className="flex items-center gap-4">
               <div className="nav-links hidden sm:block">
-                <Link
+                <div className={`input-search-container ${searched ? "expand" : ""}`} onClick={() => setSearched(true)} ref={refContainer}>
+                  <div className="input-search">
+                    <input type="text" className="" value={searchItem} onInput={handleInput} ref={inputRef}
+                      placeholder="Find a Creator" />
+                    <div className="absolute top-2/4 left-3.5 w-5 h-5 -translate-y-2/4 flex justify-center items-center">
+                      {inputValue ? (
+                        <Loader speed="fast" className="text-lg text-white" />
+                      ) : (
+                        <div className="icons">
+                          <FiSearch className="text-lg" />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="btn-close text-lg" onClick={clearInput}>
+                      <MdOutlineClose />
+                    </div>
+                  </div>
+
+
+                  <div
+                    className={`search-result-container ${IsSearch ? "searched" : ""}`}
+                  >
+                    <div className="flex flex-col gap-3">
+                      {filteredUsers.length > 0 ? (
+                        filteredUsers.map((user, index) => (
+                          <Link href={`/${user.username}`} key={index}>
+                            <div className="search-user-content">
+                              <div className="search-user-profile">
+                                <Image
+                                  src={user.image}
+                                  width={0}
+                                  height={0}
+                                  sizes="100"
+                                  alt="profile"
+                                />
+                              </div>
+
+                              <div className="search-username-title">
+                                <div className="search-user-name">{user.username}</div>
+                                <div className="search-user-desc">{user.userdesc}</div>
+                              </div>
+                            </div>
+                          </Link>
+                        ))
+                      ) : (
+                        <div className="no-users-found">No user found</div>
+                      )}
+
+                      <div className="text-center">
+                        <Link href={"/"}>See All Result</Link>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* <Link
                   className="nav-link search-content flex items-center gap-2 nav-border"
                   href={""}
                 >
@@ -338,13 +484,13 @@ const Navbar = () => {
                     <Image
                       src={"/assets/images/icons/search.svg"}
                       width={15}
-                      className={ `search-icons ${scroll ? "" : "invert"} ${isHovered ? "invert" : ""}`}
+                      className={`search-icons ${scroll ? "" : "invert"} ${isHovered ? "invert" : ""}`}
                       height={15}
                       alt="icons"
                     />
                   </div>
                   <div className="">Find a Creator</div>
-                </Link>
+                </Link> */}
               </div>
 
               <div className="nav-links">
@@ -354,7 +500,7 @@ const Navbar = () => {
               </div>
 
               <div className="nav-links hidden lg:block">
-                <Link className="nav-link nav-light btn-start" href={""}>
+                <Link className="nav-link nav-light btn-start" href={"/create"}>
                   Get Started
                 </Link>
               </div>
@@ -823,11 +969,6 @@ const Navbar = () => {
         </div>
       </div >
       {/* resource navbar offcanvas */}
-
-
-
-
-
     </>
   );
 };

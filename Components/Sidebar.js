@@ -37,7 +37,7 @@ const Sidebar = ({ toggle, IsToggled }) => {
     const pathName = usePathname();
     return (
         <>
-            <div className="relative group">
+            <div className="relative group top-sidebar">
                 <div className="sidebar-content">
                     <div className="sidebar-menu">
                         <HiMenuAlt3 className="invert" />
@@ -149,6 +149,10 @@ const Sidebar = ({ toggle, IsToggled }) => {
                     </div>
                 </div>
             </div >
+
+
+            {/* sidebar offcanvas */}
+            {/* sidebar offcanvas */}
         </>
     )
 }

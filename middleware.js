@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 // Add routes you want to protect
-const protectedRoutes = ["/home", "/notification", "/search", "/setting"];
+const protectedRoutes = ["/home", "/notification", "/search", "/setting", "/create"];
 
 export async function middleware(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
