@@ -565,6 +565,7 @@ button:disabled {
 .input-search {
   position: relative;
   width: 100%;
+  transition: all 0.35s ease;
   height: 3.15rem;
 }
 
@@ -1324,6 +1325,16 @@ section.section-login {
   -o-transition: all 0.45s ease;
   transition: all 0.45s ease;
   background: var(--black-overlay);
+}
+
+.create-patreon-container {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  border-radius: 6px;
+  padding: 0.75rem 0.5rem;
+  width: 100%;
+  background: var(--light);
 }
 
 .user-drop {
@@ -2456,6 +2467,12 @@ label {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
+
+  .input-search {
+    transition: all 0.35s ease;
+    height: 2.9rem;
+  }
+
   .navbar-container {
     padding: 2.25rem 1.5rem 2.25rem 1.5rem;
     -webkit-transition: all 0.8s ease;
@@ -2515,6 +2532,11 @@ label {
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+  }
+
+  .input-search {
+    transition: all 0.35s ease;
+    height: 2.55rem;
   }
 
   .user-title {

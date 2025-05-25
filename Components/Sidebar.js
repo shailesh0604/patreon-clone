@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { IoSearch } from "react-icons/io5";
 import { IoIosChatbubbles } from "react-icons/io";
@@ -12,6 +12,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { IoClose } from "react-icons/io5";
+import { GrFormNextLink } from "react-icons/gr";
+// import { creatorLinks, memberLinks } from "./SidebarLink";
 
 const Sidebar = ({ toggle, IsToggled }) => {
 
@@ -25,14 +27,36 @@ const Sidebar = ({ toggle, IsToggled }) => {
         });
     };
 
+
+    const userRef = useRef(null);
+
+    useEffect(() => {
+        const handleOutside = (e) => {
+            setTimeout(() => {
+                if (userRef.current && !userRef.current.contains(e.target)) {
+                    setUserInfoHovered(false);
+                    setIsHovered(false);
+                }
+            }, 100);
+        };
+
+        document.addEventListener("mousedown", handleOutside)
+
+        return () => { document.removeEventListener("mousedown", handleOutside) }
+    }, [])
+
+
     const [isHovered, setIsHovered] = useState(false);
+    const [userInfoHovered, setUserInfoHovered] = useState(false);
 
 
     useEffect(() => {
         if (toggle) {
             setIsHovered(false);
+            setUserInfoHovered(false)
         }
     }, [toggle]);
+
 
     const pathName = usePathname();
     return (
@@ -88,8 +112,8 @@ const Sidebar = ({ toggle, IsToggled }) => {
                     </div>
 
                     <div className="sidebar-user-links">
-                        <div className="user-link">
-                            <div className="user-info flex items-center gap-3">
+                        <div className="user-link" ref={userRef}>
+                            <div className="user-info relative flex items-center gap-3" onClick={() => setUserInfoHovered(true)}>
                                 <div className="user-profile-pic">
                                     <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={0} height={0} sizes="100" alt="user profile picture" />
                                 </div>
@@ -98,12 +122,26 @@ const Sidebar = ({ toggle, IsToggled }) => {
                                     <div className="user-name">{session?.user?.name || "user"}</div>
                                     <div className="user-status">Member</div>
                                 </div>
+
                             </div>
 
                             <div className="user-drop" onMouseEnter={() => setIsHovered(true)}>
                                 <MdMoreVert />
                             </div>
                         </div>
+
+                        {userInfoHovered && (
+                            <div className="create-patreon-container drop-shadow">
+                                <div className="flex flex-col gap-2">
+                                    <Link href={"/create"} className="flex items-center text-sm font-medium my-2 ml-2">
+                                        <span>Create Patreon</span>
+                                        <span><GrFormNextLink className="text-lg" /></span>
+                                    </Link>
+                                </div>
+                            </div>
+                        )
+                        }
+
                     </div>
 
                     {(isHovered && !toggle) && (

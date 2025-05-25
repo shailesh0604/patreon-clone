@@ -1,14 +1,14 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Loader } from 'rsuite';
 import 'rsuite/dist/rsuite-no-reset.min.css';
+import { useRouter } from 'next/navigation';
 
 const Create = () => {
     // const { data: session, status } = useSession();
-    // const router = useRouter();
+    const router = useRouter();
 
     // useEffect(() => {
     //     if (status === "unauthenticated") {
@@ -24,6 +24,10 @@ const Create = () => {
     const [showSecondForm, setShowSecondForm] = useState(false);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const sanitizeUsername = (name) => {
+        return name.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
+    };
 
     const debounceRef = useRef();
 
@@ -68,6 +72,7 @@ const Create = () => {
     const handleSubmitDB = async (e) => {
         e.preventDefault();
 
+
         if (form.trim().length < 4) {
             setError("creator name must be at least 4 characters");
             return;
@@ -76,10 +81,11 @@ const Create = () => {
         console.log(form);
 
         try {
+            const cleanUsername = sanitizeUsername(form);
             const res = await fetch("/api/update-username", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: form }),
+                body: JSON.stringify({ username: cleanUsername }), //Sanitizing Username on Client Side
             });
 
             const data = await res.json();
@@ -93,6 +99,9 @@ const Create = () => {
 
             setMessage('✅ Username updated successfully!');
             console.log('Username updated in DB');
+
+
+            router.push(`/c/${form}`);
 
         } catch (error) {
             setMessage('❌ Failed to update username');

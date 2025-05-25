@@ -357,7 +357,7 @@ const Navbar = () => {
           </div>
 
           <div className="nav-content hidden lg:block">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 lg:gap-3 xl:gap-4">
               <div className="nav-links flex items-center gap-4">
                 <Link className="nav-link" href={""} onMouseEnter={handleMouseEnter}>
                   Creators
@@ -417,7 +417,7 @@ const Navbar = () => {
           </div>
 
           <div className="nav-content">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 lg:gap-3 xl:gap-4">
               <div className="nav-links hidden sm:block">
                 <div className={`input-search-container ${searched ? "expand" : ""}`} onClick={() => setSearched(true)} ref={refContainer}>
                   <div className="input-search">
