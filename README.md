@@ -2,7 +2,7 @@
 
 A full-stack Patreon-inspired membership platform built with [Next.js](https://nextjs.org), [Tailwind CSS](https://tailwindcss.com/), [MongoDB](https://www.mongodb.com/), and [NextAuth.js](https://next-auth.js.org/). This application enables creators to offer subscription-based content to their supporters.
 
-## 🚀 Live Demo
+## 🚀 Live Project
 
 Check out the live application: [patreon-clone-pi.vercel.app](https://patreon-clone-pi.vercel.app)
 
@@ -23,8 +23,6 @@ patreon-clone/ <br />
 ├── package.json # Project metadata and scripts<br />
 ├── postcss.config.js # PostCSS configuration<br />
 ├── tailwind.config.js # Tailwind CSS configuration<br />
-
-
 
 ## 🛠️ Technologies Used
 
@@ -52,18 +50,23 @@ patreon-clone/ <br />
    git clone https://github.com/shailesh0604/patreon-clone.git
    cd patreon-clone
 
+   ```
+
 2. **Install dependencies:**
 
    ```bash
    npm install
 
+   ```
+
 3. **Set up environment variables:**<br />
-Create a .env.local file in the root directory and add the following:<br />
-MONGODB_URI=your_mongodb_connection_string<br />
-NEXTAUTH_URL=http://localhost:3000<br />
-NEXTAUTH_SECRET=your_nextauth_secret<br />
+   Create a .env.local file in the root directory and add the following:<br />
+   MONGODB_URI=your_mongodb_connection_string<br />
+   NEXTAUTH_URL=http://localhost:3000<br />
+   NEXTAUTH_SECRET=your_nextauth_secret<br />
 
 4. **Run the development server:**
 
    ```bash
    npm run dev
+   ```
