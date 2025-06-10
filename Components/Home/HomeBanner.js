@@ -90,6 +90,7 @@ const HomeBanner = () => {
   const prevIndex = useRef(0);
   const itemsRefs = useRef([]);
   const videoRefs = useRef([]);
+  const textRefs = useRef([]);
 
   // Auto-slide every 10s
   useEffect(() => {
@@ -98,6 +99,24 @@ const HomeBanner = () => {
     }, 10000);
     return () => clearInterval(interval);
   }, [dataSets.length]);
+
+
+  // Animate titles on first render
+  useEffect(() => {
+    const [title1, title2] = textRefs.current;
+
+    gsap.fromTo(
+      title1,
+      { y: -100 },
+      { y: 0, duration: 1.5, ease: "power2.out", stagger: 0.2, delay: 0.5 }
+    );
+
+    gsap.fromTo(
+      title2,
+      { y: -100 },
+      { y: 0, duration: 1.5, ease: "power2.out", stagger: 0.2, delay: 0.8 } // extra delay
+    );
+  }, []);
 
   // GSAP transition effect
   useEffect(() => {
@@ -125,6 +144,20 @@ const HomeBanner = () => {
             vid.currentTime = 0;
             vid.play();
           }
+
+          const [title1, title2] = textRefs.current;
+
+          gsap.fromTo(
+            title1,
+            { y: -100, },
+            { y: 0, duration: 1.5, stagger: 0.2, ease: "power2.out", delay: 0.5 }
+          );
+
+          gsap.fromTo(
+            title2,
+            { y: -100 },
+            { y: 0, duration: 1.5, stagger: 0.2, ease: "power2.out", delay: 0.8 }
+          );
         },
       },
       0
@@ -216,24 +249,19 @@ const HomeBanner = () => {
           </div>
         </div>
 
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, translateY: -50 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ duration: 2 }}
+        <div
+          ref={(el) => (textRefs.current[0] = el)}
           className="user-title user-title-1"
         >
           {currentData.titles[0]}
-        </motion.div>
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, translateY: -50 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ duration: 2 }}
+        </div>
+
+        <div
+          ref={(el) => (textRefs.current[1] = el)}
           className="user-title user-title-2"
         >
           {currentData.titles[1]}
-        </motion.div>
+        </div>
       </div>
 
       <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-10">
