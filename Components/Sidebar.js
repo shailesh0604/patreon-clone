@@ -1,9 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { AiFillHome } from "react-icons/ai";
-import { IoSearch } from "react-icons/io5";
-import { IoIosChatbubbles } from "react-icons/io";
-import { FaBell } from "react-icons/fa6";
-import { IoSettingsSharp } from "react-icons/io5";
 import { MdMoreVert } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { HiMenuAlt3 } from "react-icons/hi";
