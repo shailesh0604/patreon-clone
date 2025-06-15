@@ -1,4 +1,3 @@
-import React from 'react'
 
 
 const CreatorPageView = () => {
@@ -8,3 +7,6 @@ const CreatorPageView = () => {
 }
 
 export default CreatorPageView
+
+
+

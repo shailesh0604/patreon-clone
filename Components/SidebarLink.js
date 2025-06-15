@@ -17,9 +17,13 @@ export const memberLinks = [
 
 // Links for creators
 export const creatorLinks = [
-    { href: "/home", icon: <AiFillHome />, text: "Home2" },
-    { href: "/create", icon: <MdCreate />, text: "Create Content2" },
-    { href: "/community", icon: <IoIosChatbubbles />, text: "Community2" },
-    { href: "/notification", icon: <FaBell />, text: "Notifications2" },
-    { href: "/setting", icon: <IoSettingsSharp />, text: "Settings2" },
+    { href: "/home", icon: <AiFillHome />, text: "My page" },
+    { href: "/create", icon: <MdCreate />, text: "Library" },
+    { href: "/community", icon: <IoIosChatbubbles />, text: "Audience" },
+    { href: "/notification", icon: <FaBell />, text: "Insights" },
+    { href: "/setting", icon: <IoSettingsSharp />, text: "Payouts" },
+    { href: "/setting", icon: <IoSettingsSharp />, text: "Promotions" },
+    { href: "/setting", icon: <IoSettingsSharp />, text: "Community" },
+    { href: "/setting", icon: <IoSettingsSharp />, text: "Notification" },
+    { href: "/setting", icon: <IoSettingsSharp />, text: "Settings" },
 ];

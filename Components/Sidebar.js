@@ -13,9 +13,13 @@ import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { IoClose } from "react-icons/io5";
 import { GrFormNextLink } from "react-icons/gr";
-// import { creatorLinks, memberLinks } from "./SidebarLink";
+import { creatorLinks, memberLinks } from "./SidebarLink";
+import useSidebarStore from "@/lib/store/sidebarStore";
 
-const Sidebar = ({ toggle, IsToggled }) => {
+const Sidebar = () => {
+
+
+    const { isToggled, toggleSidebar } = useSidebarStore();
 
     const { data: session, status } = useSession();
     // console.log("session :", session);
@@ -51,14 +55,20 @@ const Sidebar = ({ toggle, IsToggled }) => {
 
 
     useEffect(() => {
-        if (toggle) {
+        if (isToggled) {
             setIsHovered(false);
             setUserInfoHovered(false)
         }
-    }, [toggle]);
+    }, [isToggled]);
 
 
     const pathName = usePathname();
+
+    const isCreator = pathName?.startsWith("/c/");
+
+    const linksToShow = isCreator ? creatorLinks : memberLinks;
+
+
     return (
         <>
             <div className="relative group top-sidebar">
@@ -73,42 +83,16 @@ const Sidebar = ({ toggle, IsToggled }) => {
 
                 <div className="sidebar-links-content">
                     <div className="sidebar-links">
-                        <Link href={"/home"} className={`sidebar-link ${pathName === "/home" ? "active" : ""}`}>
-                            <span className="link-icon">
-                                <AiFillHome />
-                            </span>
-                            <span className="link-txt">Home</span>
-                        </Link>
-
-                        <Link href={"/search"} className={`sidebar-link ${pathName === "/search" ? "active" : ""}`}>
-                            <span className="link-icon">
-                                <IoSearch />
-                            </span>
-                            <span className="link-txt">Find creators</span>
-                        </Link>
-
-                        <Link href={"/community"} className={`sidebar-link ${pathName === "/community" ? "active" : ""}`}>
-                            <span className="link-icon">
-                                <IoIosChatbubbles />
-                            </span>
-                            <span className="link-txt">Community</span>
-                        </Link>
-
-                        <Link href={"/notification"} className={`sidebar-link ${pathName === "/notification" ? "active" : ""}`}>
-                            <span className="link-icon">
-                                <FaBell />
-                            </span>
-                            <span className="link-txt">Notifications</span>
-                        </Link>
-
-                        <Link href={"/setting"} className={`sidebar-link ${pathName === "/setting" ? "active" : ""}`}>
-                            <span className="link-icon">
-                                <IoSettingsSharp />
-                            </span>
-                            <span className="link-txt">Settings</span>
-                        </Link>
-
-
+                        {linksToShow.map(({ href, icon, text }, index) => (
+                            <Link
+                                key={index}
+                                href={href}
+                                className={`sidebar-link ${pathName === href ? "active" : ""}`}
+                            >
+                                <span className="link-icon">{icon}</span>
+                                <span className="link-txt">{text}</span>
+                            </Link>
+                        ))}
                     </div>
 
                     <div className="sidebar-user-links">
@@ -144,7 +128,7 @@ const Sidebar = ({ toggle, IsToggled }) => {
 
                     </div>
 
-                    {(isHovered && !toggle) && (
+                    {(isHovered && !isToggled) && (
                         <div className="user-more-content">
                             <div className="close flex justify-center items-center rounded-full w-[20px] h-[20px] absolute top-2 right-2 z-10 cursor-pointer" onClick={() => setIsHovered(false)}>
                                 <IoClose />
@@ -177,7 +161,7 @@ const Sidebar = ({ toggle, IsToggled }) => {
                         </div>)}
                 </div>
 
-                <div className={`toggle-icon ${toggle ? "" : "rotate"}`} title={`${toggle ? "open menu" : "close menu"}`} onClick={IsToggled}>
+                <div className={`toggle-icon ${isToggled ? "" : "rotate"}`} title={`${isToggled ? "open menu" : "close menu"}`} onClick={toggleSidebar}>
                     <IoIosArrowForward />
                 </div>
 

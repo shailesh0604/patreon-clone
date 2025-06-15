@@ -5,6 +5,7 @@ import Sidebar from '@/Components/Sidebar'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from "next-auth/react"
+import useSidebarStore from '@/lib/store/sidebarStore'
 
 
 
@@ -20,18 +21,14 @@ const Community = () => {
         }
     }, [status, router]);
 
-    const [toggle, setToggle] = useState(false)
-
-    const IsToggled = () => {
-        setToggle((toggled) => !toggled)
-    }
+    const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
     return (
         <>
             <div className="user-main-container">
-                <div className={`user-container ${toggle ? "resized" : ""}`}>
+                <div className={`user-container ${isToggled ? "resized" : ""}`}>
                     <div className="user-sidebar-container">
-                        <Sidebar toggle={toggle} IsToggled={IsToggled} />
+                        <Sidebar />
                     </div>
 
                     <div className="user-content-container">
