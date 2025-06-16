@@ -26,6 +26,11 @@ const CreatorPageView = () => {
     document.getElementById("coverPicture").click();
   };
 
+  const handleProfileClick = () => {
+    document.getElementById("profilePicture").click();
+  };
+
+
 
   const pathName = usePathname();
   //console.log(pathName)
@@ -33,7 +38,8 @@ const CreatorPageView = () => {
 
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
-  const [coverImage, setCoverImage] = useState("")
+  const [coverImage, setCoverImage] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   const handlefileChange = (e) => {
     const file = e.target.files[0];
@@ -46,6 +52,24 @@ const CreatorPageView = () => {
       reader.readAsDataURL(file);
     }
   }
+
+
+  const handleProfileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+  
+
+
 
   return <>
     <div className="user-main-container">
@@ -91,9 +115,24 @@ const CreatorPageView = () => {
                     <span className="cover-info">1600px by 400px recommended</span>
                   </button>
 
-                </div>
-              </div>
+                  <div className="publish-profile">
+                    {profileImage ? (
+                      <Image src={profileImage} width={0}
+                        height={0}
+                        sizes="100vw"
+                        alt="profile" />
+                    ) : null}
+                    <input type="file" hidden accept="image/*" id="profilePicture" onChange={handleProfileChange} />
 
+                    <button className="btn-profile" type="button" onClick={handleProfileClick}>
+                        <FaImage />
+                      <span className="cover-info">1600px by 400px recommended</span>
+                    </button>
+
+                  </div>
+                </div>
+
+              </div>
             </div>
           </form>
         </div>

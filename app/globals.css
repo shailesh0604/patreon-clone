@@ -2516,6 +2516,43 @@ label {
   transition: all 0.5s ease;
 }
 
+.publish-profile {
+  width: 130px;
+  height: 130px;
+  background: red;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: -60px;
+  z-index: 3;
+  border-radius: 16px;
+}
+
+.publish-profile img {
+  width: 100%;
+  border-radius: 16px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-profile {
+  border-radius: var(--border-radius-full);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--light);
+  position: absolute;
+  right: -15px;
+  cursor: pointer;
+  bottom: -5px;
+}
+
+.btn-profile svg {
+  font-size: 1.25rem;
+}
+
 /* footer css */
 
 .footer-container {
