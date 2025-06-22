@@ -10,7 +10,8 @@ import { BsRocketTakeoffFill } from "react-icons/bs";
 import Image from "next/image";
 import { FaImage } from "react-icons/fa6";
 
-const CreatorPageView = () => {
+
+const CreatorPageView = ({ userLetter }) => {
 
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -31,10 +32,19 @@ const CreatorPageView = () => {
   };
 
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setformData((e) => ({ ...e, [name]: value }))
+
+  }
 
   const pathName = usePathname();
   //console.log(pathName)
 
+  const [formData, setformData] = useState({
+    name: "",
+    headline: ""
+  })
 
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
@@ -66,9 +76,37 @@ const CreatorPageView = () => {
     }
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  
+    const { name, headline } = formData;
 
+    if (!formData.name.trim() || !formData.headline.trim() || !profileImage || !coverImage) {
+      alert("Please update all data");
+      return;
+    }
+
+    const data = new FormData();
+
+    data.append("name", formData.name);
+    data.append("headline", formData.headline);
+    data.append("profileImage", profileImage);
+    data.append("coverImage", coverImage);
+
+
+    const res = await fetch("/api/user/update", {
+      method: "POST",
+      body: data,
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      alert("Updated successfully!");
+    } else {
+      alert("Update failed");
+    }
+
+  };
 
 
   return <>
@@ -81,13 +119,13 @@ const CreatorPageView = () => {
 
 
         <div className="user-content-container">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="published-container">
               <div className="published-content">
                 <div className="text-black text-sm">Your page is not yet published</div>
 
                 <div className="published-button">
-                  <button className="btn-publish">
+                  <button className="btn-publish" onClick={handleSubmit}>
                     <span><BsRocketTakeoffFill /></span>
                     <span>Publish page</span>
                   </button>
@@ -121,18 +159,23 @@ const CreatorPageView = () => {
                         height={0}
                         sizes="100vw"
                         alt="profile" />
-                    ) : null}
+                    ) : <span className="text-5xl text-white font-semibold">{userLetter}</span>}
                     <input type="file" hidden accept="image/*" id="profilePicture" onChange={handleProfileChange} />
 
                     <button className="btn-profile" type="button" onClick={handleProfileClick}>
-                        <FaImage />
-                      <span className="cover-info">1600px by 400px recommended</span>
+                      <FaImage />
                     </button>
-
                   </div>
                 </div>
-
               </div>
+
+              <div className="publish-other-content">
+                <div className="flex items-center flex-col mt-20">
+                  <input type="text" placeholder="Add name" name="name" value={formData.name} onChange={handleChange} className=" bg-transparent text-white text-lg font-semibold border-none outline-none text-center focus:bg-transparent" />
+                  <input type="text" name="headline" value={formData.headline} onChange={handleChange} className="bg-transparent focus:bg-transparent text-white mt-2 text-base border-none outline-none text-center" placeholder="Add headline" />
+                </div>
+              </div>
+
             </div>
           </form>
         </div>

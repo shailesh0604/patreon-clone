@@ -19,16 +19,16 @@ export default async function CreatorPage({ params }) {
     const session = await auth();
 
     if (session) {
+        const userName = session.user.name;
+
+
         return (
             <div>
-                <CreatorPageView />
+                <CreatorPageView userLetter={userName.charAt(0)} />
             </div>
         )
     }
     else {
         redirect("/login");
     }
-
-
-
 }
