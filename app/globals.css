@@ -503,8 +503,8 @@ button:disabled {
 }
 
 .user-title {
+  height: 150px;
   font-size: 10vw;
-  line-height: 9rem;
   letter-spacing: 1px;
   color: var(--light);
   font-weight: 300;
@@ -520,7 +520,6 @@ button:disabled {
   justify-content: start;
   align-items: center;
   overflow: hidden;
-  height: 150px;
 }
 
 .user-title.user-title-2 {
@@ -531,7 +530,6 @@ button:disabled {
   overflow: hidden;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  height: 150px;
   align-items: center;
   justify-content: end;
 }
@@ -2630,7 +2628,9 @@ label {
   }
 
   .user-title {
-    line-height: 8rem;
+    height: 100px;
+    font-size: 7vw;
+    letter-spacing: 1px;
   }
 
   .setting-container {
@@ -2683,14 +2683,15 @@ label {
   }
 
   .user-title {
-    line-height: 7.5rem;
+    height: 90px;
+    font-size: 7.25vw;
   }
 }
 
 @media only screen and (max-width: 991px) {
   .user-title {
-    font-size: 8.5vw;
-    line-height: 6.5rem;
+    font-size: 7.65vw;
+    height: 90px;
   }
 
   .slider {
@@ -2791,7 +2792,8 @@ label {
   }
 
   .user-title {
-    line-height: 4rem;
+    font-size: 8.5vw;
+    height: 75px;
   }
 
   .section-title {
@@ -2941,7 +2943,8 @@ label {
   }
 
   .user-title {
-    line-height: 2.5rem;
+    font-size: 9vw;
+    height: 60px;
   }
 
   .swiper-more-content {
@@ -3036,6 +3039,11 @@ label {
     -webkit-transition: all 0.45s ease;
     -o-transition: all 0.45s ease;
     transition: all 0.45s ease;
+  }
+
+  .user-title {
+    font-size: 9.25vw;
+    height: 45px;
   }
 }
 
