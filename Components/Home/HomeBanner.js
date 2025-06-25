@@ -100,21 +100,20 @@ const HomeBanner = () => {
     return () => clearInterval(interval);
   }, [dataSets.length]);
 
-
   // Animate titles on first render
   useEffect(() => {
     const [title1, title2] = textRefs.current;
 
     gsap.fromTo(
       title1,
-      { y: -100 },
-      { y: 0, duration: 1.5, ease: "power2.out", stagger: 0.2, delay: 0.5 }
+      { y: -300 },
+      { y: 0, duration: 2, ease: "power3.out", stagger: 0.2, delay: 0.2 }
     );
 
     gsap.fromTo(
       title2,
-      { y: -100 },
-      { y: 0, duration: 1.5, ease: "power2.out", stagger: 0.2, delay: 0.8 } // extra delay
+      { y: -300 },
+      { y: 0, duration: 2, ease: "power3.out", stagger: 0.2, delay: 0.5 } // extra delay
     );
   }, []);
 
@@ -149,14 +148,26 @@ const HomeBanner = () => {
 
           gsap.fromTo(
             title1,
-            { y: -100, },
-            { y: 0, duration: 1.5, stagger: 0.2, ease: "power2.out", delay: 0.5 }
+            { y: -300 },
+            {
+              y: 0,
+              duration: 2,
+              ease: "power3.out",
+              stagger: 0.2,
+              delay: 0.2,
+            }
           );
 
           gsap.fromTo(
             title2,
-            { y: -100 },
-            { y: 0, duration: 1.5, stagger: 0.2, ease: "power2.out", delay: 0.8 }
+            { y: -300 },
+            {
+              y: 0,
+              duration: 2,
+              ease: "power3.out",
+              stagger: 0.2,
+              delay: 0.5,
+            } // extra delay
           );
         },
       },
@@ -249,18 +260,16 @@ const HomeBanner = () => {
           </div>
         </div>
 
-        <div
-          ref={(el) => (textRefs.current[0] = el)}
-          className="user-title user-title-1"
-        >
-          {currentData.titles[0]}
+        <div className="user-title user-title-1">
+          <span ref={(el) => (textRefs.current[0] = el)}>
+            {currentData.titles[0]}
+          </span>
         </div>
 
-        <div
-          ref={(el) => (textRefs.current[1] = el)}
-          className="user-title user-title-2"
-        >
-          {currentData.titles[1]}
+        <div className="user-title user-title-2">
+          <span ref={(el) => (textRefs.current[1] = el)}>
+            {currentData.titles[1]}
+          </span>
         </div>
       </div>
 
