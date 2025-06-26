@@ -463,7 +463,7 @@ button:disabled {
 
 .user-content {
   position: absolute;
-  bottom: 3vw;
+  bottom: 1vw;
   left: 0;
   width: 100%;
 }
@@ -504,11 +504,16 @@ button:disabled {
 
 .user-title {
   height: 150px;
-  font-size: 10vw;
+  font-size: 9vw;
   letter-spacing: 1px;
   color: var(--light);
+  line-height: 7rem;
   font-weight: 300;
 }
+
+/* .user-title span {
+  line-height: 7rem;
+  } */
 
 .user-title.user-title-1 {
   display: -webkit-box;
@@ -518,8 +523,8 @@ button:disabled {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;
-  align-items: center;
   overflow: hidden;
+  align-items: end;
 }
 
 .user-title.user-title-2 {
@@ -530,8 +535,8 @@ button:disabled {
   overflow: hidden;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  align-items: center;
   justify-content: end;
+  align-items: end;
 }
 
 .section-title {
@@ -2752,6 +2757,11 @@ label {
 
   .create-img-content {
     display: none;
+  }
+
+  .user-title.user-title-1,
+  .user-title.user-title-2 {
+    align-items: center;
   }
 }
 

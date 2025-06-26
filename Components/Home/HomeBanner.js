@@ -197,7 +197,7 @@ const HomeBanner = () => {
   const currentData = dataSets[currentIndex];
 
   return (
-    <section className="section-banner h-screen overflow-hidden relative">
+    <section className="section-banner h-dvh overflow-hidden relative">
       {/* BANNER BACKGROUND SLIDES */}
       {dataSets.map((item, i) => (
         <div
