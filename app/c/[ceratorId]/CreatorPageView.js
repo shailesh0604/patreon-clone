@@ -48,16 +48,19 @@ const CreatorPageView = ({ userLetter }) => {
 
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
-  const [coverImage, setCoverImage] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [coverImagePreview, setCoverImagePreview] = useState("");
+  const [profileImagePreview, setProfileImagePreview] = useState("");
+
+  const [coverFile, setCoverFile] = useState(null);
+  const [profileFile, setProfileFile] = useState(null);
 
   const handlefileChange = (e) => {
     const file = e.target.files[0];
-
     if (file) {
+      setCoverFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCoverImage(reader.result);
+        setCoverImagePreview(reader.result);
       }
       reader.readAsDataURL(file);
     }
@@ -68,9 +71,10 @@ const CreatorPageView = ({ userLetter }) => {
     const file = e.target.files[0];
 
     if (file) {
+      setProfileFile(file)
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result);
+        setProfileImagePreview(reader.result);
       }
       reader.readAsDataURL(file);
     }
@@ -81,7 +85,7 @@ const CreatorPageView = ({ userLetter }) => {
 
     const { name, headline } = formData;
 
-    if (!formData.name.trim() || !formData.headline.trim() || !profileImage || !coverImage) {
+    if (!formData.name.trim() || !formData.headline.trim() || !profileFile || !coverFile) {
       alert("Please update all data");
       return;
     }
@@ -90,9 +94,11 @@ const CreatorPageView = ({ userLetter }) => {
 
     data.append("name", formData.name);
     data.append("headline", formData.headline);
-    data.append("profileImage", profileImage);
-    data.append("coverImage", coverImage);
+    if (profileFile) data.append("profileImage", profileFile);
+    if (coverFile) data.append("coverImage", coverFile);
 
+
+    // console.log(formData);
 
     const res = await fetch("/api/user/update", {
       method: "POST",
@@ -134,9 +140,9 @@ const CreatorPageView = ({ userLetter }) => {
 
               <div className="publish-banner">
                 <div className="publish-cover">
-                  {coverImage ? (
+                  {coverImagePreview ? (
                     <Image
-                      src={coverImage}
+                      src={coverImagePreview}
                       width={0}
                       height={0}
                       sizes="100vw"
@@ -154,8 +160,8 @@ const CreatorPageView = ({ userLetter }) => {
                   </button>
 
                   <div className="publish-profile">
-                    {profileImage ? (
-                      <Image src={profileImage} width={0}
+                    {profileImagePreview ? (
+                      <Image src={profileImagePreview} width={0}
                         height={0}
                         sizes="100vw"
                         alt="profile" />

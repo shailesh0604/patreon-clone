@@ -504,7 +504,7 @@ button:disabled {
 
 .user-title {
   height: 150px;
-  font-size: 9vw;
+  font-size: 8vw;
   letter-spacing: 1px;
   color: var(--light);
   line-height: 7rem;
@@ -524,7 +524,7 @@ button:disabled {
   -ms-flex-pack: start;
   justify-content: start;
   overflow: hidden;
-  align-items: end;
+  align-items: center;
 }
 
 .user-title.user-title-2 {
@@ -536,7 +536,7 @@ button:disabled {
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: end;
-  align-items: end;
+  align-items: center;
 }
 
 .section-title {

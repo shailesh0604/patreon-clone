@@ -3,7 +3,6 @@ import cloudinary from "@/Components/Cloudinary";
 import ConnectDB from "@/db/ConnectDB";
 import User from "@/models/User";
 import { auth } from "@/lib/auth";
-import { uploadImageBuffer } from "@/lib/uploadImageBuffer";
 
 // ✅ Cloudinary Config
 cloudinary.config({
@@ -13,6 +12,31 @@ cloudinary.config({
 });
 
 
+async function uploadToCloudinary(file) {
+
+    if (!(file instanceof File)) {
+        console.error("Not a valid file:", file);
+        throw new Error("Invalid file upload");
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            { resource_type: 'auto', folder: "profile" },
+            (error, result) => {
+                if (error) {
+                    console.error("Cloudinary upload error:", error);
+                    return reject(error);
+                }
+                console.log("Cloudinary upload success:", result);
+                resolve(result);
+            }
+        );
+        uploadStream.end(buffer); // triggers the upload
+    });
+}
 
 export async function POST(req) {
     try {
@@ -31,8 +55,23 @@ export async function POST(req) {
         const profileFile = formData.get("profileImage");
         const coverFile = formData.get("coverImage");
 
-        const profileUrl = await uploadImageBuffer(profileFile, "users/profile");
-        const coverUrl = await uploadImageBuffer(coverFile, "users/cover");
+        console.log({ headline, coverFile });
+
+        let profileUrl = null;
+        let coverUrl = null;
+
+
+        if (profileFile && profileFile instanceof File) {
+            const result = await uploadToCloudinary(profileFile, "users/profile");
+            profileUrl = result.secure_url;
+            console.log("profile result : ", result)
+        }
+
+        if (coverFile && coverFile instanceof File) {
+            const result = await uploadToCloudinary(coverFile, "users/cover");
+            coverUrl = result.secure_url;
+            console.log("cover result : ", result)
+        }
 
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, {
             patreaon_account_name: name,
