@@ -19,6 +19,11 @@ const Sidebar = () => {
     const { data: session, status } = useSession();
     // console.log("session :", session);
 
+    const patreaonPic = session?.user?.patreaon_account_profilepic;
+    const isPatreon = session?.user?.patreaon_account;
+    const patreonName = session?.user?.patreaon_account_name;
+    const patreonUsername = session?.user?.patreaon_account_username;
+
     const handleLogout = async () => {
         await signOut({
             callbackUrl: "/", // Redirect to homepage
@@ -110,14 +115,45 @@ const Sidebar = () => {
                         </div>
 
                         {userInfoHovered && (
-                            <div className="create-patreon-container drop-shadow">
-                                <div className="flex flex-col gap-2">
-                                    <Link href={"/create"} className="flex items-center text-sm font-medium my-2 ml-2">
-                                        <span>Create Patreon</span>
-                                        <span><GrFormNextLink className="text-lg" /></span>
-                                    </Link>
+                            isPatreon ? (
+                                <div className="create-patreon-container">
+                                    <div className="flex flex-col gap-2">
+                                        <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                            <span>
+                                                <Image className="rounded-full object-cover" src={patreaonPic} width={35} height={35} alt="user profile pic" />
+                                            </span>
+                                            <span className="flex flex-col">
+                                                <span className="text-base">{patreonName}</span>
+                                                <span className="text-xs opacity-70">Creator</span>
+                                            </span>
+                                        </Link>
+
+                                        <hr />
+
+                                        <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                            <span>
+                                                <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
+                                            <span className="flex flex-col">
+                                                <span className="text-base">{session?.user?.name || "user"}</span>
+                                                <span className="text-xs opacity-70">Member</span>
+                                            </span>
+
+                                        </Link>
+
+
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className="create-patreon-container drop-shadow">
+                                    <div className="flex flex-col gap-2">
+                                        <Link href={"/create"} className="flex items-center text-sm font-medium my-2 ml-2">
+                                            <span>Create Patreon</span>
+                                            <span><GrFormNextLink className="text-lg" /></span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            )
+
                         )
                         }
 

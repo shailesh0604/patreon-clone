@@ -14,6 +14,8 @@ import { FaImage } from "react-icons/fa6";
 const CreatorPageView = ({ userLetter }) => {
 
   const { data: session, status } = useSession();
+
+
   const router = useRouter();
 
   useEffect(() => {
