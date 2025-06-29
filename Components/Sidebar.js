@@ -14,13 +14,18 @@ import useSidebarStore from "@/lib/store/sidebarStore";
 const Sidebar = () => {
 
 
+
     const { isToggled, toggleSidebar } = useSidebarStore();
 
     const { data: session, status } = useSession();
+
+    const setUserLetter = useSidebarStore((state) => state.setUserLetter);
+
     // console.log("session :", session);
 
     const patreaonPic = session?.user?.patreaon_account_profilepic;
     const isPatreon = session?.user?.patreaon_account;
+    const isPublished = session?.user?.patreaon_account_published;
     const patreonName = session?.user?.patreaon_account_name;
     const patreonUsername = session?.user?.patreaon_account_username;
 
@@ -60,6 +65,16 @@ const Sidebar = () => {
             setUserInfoHovered(false)
         }
     }, [isToggled]);
+
+
+    useEffect(() => {
+        if (session?.user?.name) {
+            setUserLetter(session.user.name || session.user.email);
+        }
+    }, [session, setUserLetter]);
+
+
+    const userLetter = useSidebarStore((state) => state.userLetter);
 
 
     const pathName = usePathname();
@@ -115,7 +130,7 @@ const Sidebar = () => {
                         </div>
 
                         {userInfoHovered && (
-                            isPatreon ? (
+                            isPublished ? (
                                 <div className="create-patreon-container">
                                     <div className="flex flex-col gap-2">
                                         <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
@@ -130,7 +145,7 @@ const Sidebar = () => {
 
                                         <hr />
 
-                                        <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                        <Link href={`/home`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
                                             <span>
                                                 <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
                                             <span className="flex flex-col">
@@ -144,14 +159,27 @@ const Sidebar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="create-patreon-container drop-shadow">
+                                isPatreon ? (
+                                    <div className="create-patreon-container drop-shadow">
+                                        <div className="flex flex-col gap-2">
+                                            <Link href={`/c/${patreonUsername}`} className="flex items-center gap-2 font-medium my-2 ml-2">
+                                                <span className="w-10 h-10 flex justify-center items-center text-white font-semibold text-lg rounded-md bg-indigo-600">{userLetter}</span>
+                                                <span className="flex flex-col">
+                                                    <span className="text-base">{patreonName || "Patreon"}</span>
+                                                    <span className="text-xs opacity-70">Creator</span>
+                                                </span>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ) : (<div className="create-patreon-container drop-shadow">
                                     <div className="flex flex-col gap-2">
                                         <Link href={"/create"} className="flex items-center text-sm font-medium my-2 ml-2">
                                             <span>Create Patreon</span>
                                             <span><GrFormNextLink className="text-lg" /></span>
                                         </Link>
                                     </div>
-                                </div>
+                                </div>)
+
                             )
 
                         )

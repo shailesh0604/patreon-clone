@@ -11,9 +11,10 @@ import Image from "next/image";
 import { FaImage } from "react-icons/fa6";
 
 
-const CreatorPageView = ({ userLetter }) => {
+const CreatorPageView = ({ }) => {
 
   const { data: session, status } = useSession();
+  const userLetter = useSidebarStore((state) => state.userLetter);
 
 
   const router = useRouter();
@@ -24,6 +25,9 @@ const CreatorPageView = ({ userLetter }) => {
       router.push("/login");
     }
   }, [status, router]);
+
+
+
 
   const handleCoverClick = () => {
     document.getElementById("coverPicture").click();

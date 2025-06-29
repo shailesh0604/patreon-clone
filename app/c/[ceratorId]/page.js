@@ -14,7 +14,7 @@ export const metadata = {
 }
 
 
-export default async function CreatorPage({ params }) {
+export default async function CreatorPage({ }) {
 
     const session = await auth();
 
@@ -24,7 +24,7 @@ export default async function CreatorPage({ params }) {
 
         return (
             <div>
-                <CreatorPageView userLetter={userName.charAt(0)} />
+                <CreatorPageView />
             </div>
         )
     }
