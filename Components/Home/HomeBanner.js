@@ -92,6 +92,7 @@ const HomeBanner = () => {
   const videoRefs = useRef([]);
   const textRefs = useRef([]);
   const arrowRef = useRef(null);
+  const descRef = useRef(null);
 
   // Auto-slide every 10s
   useEffect(() => {
@@ -122,6 +123,20 @@ const HomeBanner = () => {
         arrowRef.current,
         { y: -150 },
         { y: 0, duration: 1.5, ease: "power3.out" }
+      );
+    }
+
+    if (descRef.current) {
+      const wordSpans = descRef.current.querySelectorAll(".word-span");
+      gsap.fromTo(
+        wordSpans,
+        { y: -100 },
+        {
+          y: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          stagger: 0.025,
+        }
       );
     }
   }, []);
@@ -184,6 +199,20 @@ const HomeBanner = () => {
               arrowRef.current,
               { y: -150 },
               { y: 0, duration: 1.5, ease: "power3.out" }
+            );
+          }
+
+          if (descRef.current) {
+            const wordSpans = descRef.current.querySelectorAll(".word-span");
+            gsap.fromTo(
+              wordSpans,
+              { y: -100 },
+              {
+                y: 0,
+                duration: 1.5,
+                ease: "power3.out",
+                stagger: 0.025,
+              }
             );
           }
         },
@@ -264,16 +293,14 @@ const HomeBanner = () => {
               />
             </motion.div>
 
-            <motion.div
-              ref={ref}
-              initial={{ opacity: 0, translateY: -50 }}
-              animate={{ opacity: 1, translateY: 0 }}
-              transition={{ duration: 2 }}
-              className="about-user text-pretty"
-            >
-              {currentData.user.desc}
+            <div ref={descRef} className="about-user text-pretty">
+              {currentData.user.desc.split(" ").map((word, index) => (
+                <span key={index} className="inline-block mr-1 word-span">
+                  {word}
+                </span>
+              ))}
               <IoArrowForwardSharp className="inline-block ml-1" />
-            </motion.div>
+            </div>
           </div>
         </div>
 

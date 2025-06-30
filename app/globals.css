@@ -496,6 +496,7 @@ button:disabled {
   width: 350px;
   max-width: 100%;
   text-wrap: pretty;
+  overflow: hidden;
   font-size: 0.95rem;
   font-weight: 400;
   padding: 0 1rem 0 0;
@@ -919,6 +920,10 @@ button:disabled {
   justify-content: center;
   align-items: end;
 }
+
+/* .word-span{
+  background: red;
+} */
 
 section.section-creativity {
   padding: 12rem 0;
