@@ -912,6 +912,14 @@ button:disabled {
   transition: all 0.5s ease;
 }
 
+.banner-arrow {
+  height: 90px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
 section.section-creativity {
   padding: 12rem 0;
   -webkit-transition: all 0.45s ease;
@@ -2944,6 +2952,10 @@ label {
     -ms-flex-pack: justify;
     justify-content: space-between;
   }
+
+  .banner-arrow {
+    height: 80px;
+  }
 }
 
 @media only screen and (max-width: 567px) {
@@ -3025,6 +3037,10 @@ label {
 
   .member-video {
     height: 300px;
+  }
+
+  .banner-arrow {
+    height: 60px;
   }
 }
 

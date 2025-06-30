@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, use } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import gsap from "gsap";
@@ -91,6 +91,7 @@ const HomeBanner = () => {
   const itemsRefs = useRef([]);
   const videoRefs = useRef([]);
   const textRefs = useRef([]);
+  const arrowRef = useRef(null);
 
   // Auto-slide every 10s
   useEffect(() => {
@@ -115,6 +116,14 @@ const HomeBanner = () => {
       { y: -300 },
       { y: 0, duration: 2, ease: "power3.out", stagger: 0.2, delay: 0.5 } // extra delay
     );
+
+    if (arrowRef.current) {
+      gsap.fromTo(
+        arrowRef.current,
+        { y: -150 },
+        { y: 0, duration: 1.5, ease: "power3.out" }
+      );
+    }
   }, []);
 
   // GSAP transition effect
@@ -169,6 +178,14 @@ const HomeBanner = () => {
               delay: 0.5,
             } // extra delay
           );
+
+          if (arrowRef.current) {
+            gsap.fromTo(
+              arrowRef.current,
+              { y: -150 },
+              { y: 0, duration: 1.5, ease: "power3.out" }
+            );
+          }
         },
       },
       0
@@ -273,14 +290,12 @@ const HomeBanner = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 z-10">
-        <motion.div
-          initial={{ translateY: -30 }}
-          transition={{ duration: 1 }}
-          animate={{ translateY: 0 }}
-        >
-          <FaArrowDown className="invert text-2xl md:text-5xl font-light" />
-        </motion.div>
+      <div className="absolute bottom-2 left-4 md:bottom-6 md:left-8 z-10">
+        <div className="banner-arrow">
+          <div ref={arrowRef}>
+            <FaArrowDown className="invert text-3xl md:text-5xl font-light" />
+          </div>
+        </div>
       </div>
     </section>
   );
