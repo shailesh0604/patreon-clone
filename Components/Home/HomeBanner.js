@@ -93,6 +93,7 @@ const HomeBanner = () => {
   const textRefs = useRef([]);
   const arrowRef = useRef(null);
   const descRef = useRef(null);
+  const imgRef = useRef(null);
 
   // Auto-slide every 10s
   useEffect(() => {
@@ -136,6 +137,19 @@ const HomeBanner = () => {
           duration: 1.5,
           ease: "power3.out",
           stagger: 0.025,
+        }
+      );
+    }
+
+    if (imgRef.current) {
+      gsap.fromTo(
+        imgRef.current,
+        { scale: 0.7, autoAlpha: 0 },
+        {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 1.5,
+          ease: "power2.out",
         }
       );
     }
@@ -215,6 +229,19 @@ const HomeBanner = () => {
               }
             );
           }
+
+          if (imgRef.current) {
+            gsap.fromTo(
+              imgRef.current,
+              { scale: 0.7, autoAlpha: 0 },
+              {
+                scale: 1,
+                autoAlpha: 1,
+                duration: 1.5,
+                ease: "power2.out",
+              }
+            );
+          }
         },
       },
       0
@@ -276,13 +303,7 @@ const HomeBanner = () => {
       <div className="user-content z-10 relative">
         <div className="user-profile-content">
           <div className="user-profile flex items-center gap-3">
-            <motion.div
-              className="user-profile-image"
-              ref={ref}
-              initial={{ opacity: 0, scale: 0.2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 2 }}
-            >
+            <div className="user-profile-image" ref={imgRef}>
               <Image
                 src={currentData.user.image}
                 width={60}
@@ -291,7 +312,7 @@ const HomeBanner = () => {
                 sizes="100"
                 className="rounded-full"
               />
-            </motion.div>
+            </div>
 
             <div ref={descRef} className="about-user text-pretty">
               {currentData.user.desc.split(" ").map((word, index) => (
