@@ -29,6 +29,35 @@ const CreatorPageView = ({ }) => {
 
 
 
+  const [formData, setformData] = useState({
+    name: "",
+    headline: ""
+  });
+
+  useEffect(() => {
+    if (session?.user?.patreon_account_coverpic) {
+      setCoverImagePreview(session.user.patreon_account_coverpic);
+    }
+    if (session?.user?.patreon_account_profilepic) {
+      setProfileImagePreview(session.user.patreon_account_profilepic);
+    }
+
+    if (session?.user?.patreon_account_name) {
+      formData.name = session.user.patreon_account_name;
+    }
+    if (session?.user?.patreon_account_username_headline) {
+      formData.headline = session.user.patreon_account_username_headline;
+    }
+
+    if (session?.user?.patreon_account_published) {
+      setIsPublished(true);
+    }
+
+
+  }, [session]);
+
+
+
   const handleCoverClick = () => {
     document.getElementById("coverPicture").click();
   };
@@ -47,10 +76,7 @@ const CreatorPageView = ({ }) => {
   const pathName = usePathname();
   //console.log(pathName)
 
-  const [formData, setformData] = useState({
-    name: "",
-    headline: ""
-  })
+
 
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
@@ -59,6 +85,7 @@ const CreatorPageView = ({ }) => {
 
   const [coverFile, setCoverFile] = useState(null);
   const [profileFile, setProfileFile] = useState(null);
+  const [isPublished, setIsPublished] = useState(false);
 
   const handlefileChange = (e) => {
     const file = e.target.files[0];
@@ -133,16 +160,18 @@ const CreatorPageView = ({ }) => {
         <div className="user-content-container">
           <form onSubmit={handleSubmit}>
             <div className="published-container">
-              <div className="published-content">
-                <div className="text-black text-sm">Your page is not yet published</div>
+              {!isPublished && (
+                <div className="published-content">
+                  <div className="text-black text-sm">Your page is not yet published</div>
 
-                <div className="published-button">
-                  <button className="btn-publish" onClick={handleSubmit}>
-                    <span><BsRocketTakeoffFill /></span>
-                    <span>Publish page</span>
-                  </button>
+                  <div className="published-button">
+                    <button className="btn-publish" onClick={handleSubmit}>
+                      <span><BsRocketTakeoffFill /></span>
+                      <span>Publish page</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="publish-banner">
                 <div className="publish-cover">

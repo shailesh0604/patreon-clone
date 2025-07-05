@@ -40,14 +40,14 @@ export const authOptions = {
                 if (dbUser) {
                     token.name = dbUser.name;
                     token.profilePic = dbUser.profilepic;
-                    token.patreaon_account = dbUser.patreaon_account || false;
-                    token.patreaon_account_profilepic = dbUser.patreaon_account_profilepic || null;
-                    token.patreaon_account_coverpic = dbUser.patreaon_account_coverpic || null;
-                    token.patreaon_account_published = dbUser.patreaon_account_published || false;
-                    token.patreaon_account_name = dbUser.patreaon_account_name || null;
-                    token.patreaon_account_username = dbUser.patreaon_account_username || null;
-                    token.patreaon_account_username_headline = dbUser.patreaon_account_username_headline || null;
-                    token.patreaon_account_username_headline = dbUser.patreaon_account_username_headline || null;
+                    token.patreon_account = dbUser.patreon_account || false;
+                    token.patreon_account_profilepic = dbUser.patreon_account_profilepic || null;
+                    token.patreon_account_coverpic = dbUser.patreon_account_coverpic || null;
+                    token.patreon_account_published = dbUser.patreon_account_published || false;
+                    token.patreon_account_name = dbUser.patreon_account_name || null;
+                    token.patreon_account_username = dbUser.patreon_account_username || null;
+                    token.patreon_account_username_headline = dbUser.patreon_account_username_headline || null;
+                    token.patreon_account_username_headline = dbUser.patreon_account_username_headline || null;
 
                 }
             } catch (error) { console.error("Error fetching user from DB:", error); }
@@ -62,13 +62,13 @@ export const authOptions = {
                 session.user.name = token.name;
                 //console.log("user name : ", session.user.name);
                 session.user.profilepic = token.profilepic;
-                session.user.patreaon_account = token.patreaon_account || false;
-                session.user.patreaon_account_profilepic = token.patreaon_account_profilepic || null;
-                session.user.patreaon_account_coverpic = token.patreaon_account_coverpic || null;
-                session.user.patreaon_account_published = token.patreaon_account_published || false;
-                session.user.patreaon_account_name = token.patreaon_account_name || null;
-                session.user.patreaon_account_username = token.patreaon_account_username || null;
-                session.user.patreaon_account_username_headline = token.patreaon_account_username_headline || null;
+                session.user.patreon_account = token.patreon_account || false;
+                session.user.patreon_account_profilepic = token.patreon_account_profilepic || null;
+                session.user.patreon_account_coverpic = token.patreon_account_coverpic || null;
+                session.user.patreon_account_published = token.patreon_account_published || false;
+                session.user.patreon_account_name = token.patreon_account_name || null;
+                session.user.patreon_account_username = token.patreon_account_username || null;
+                session.user.patreon_account_username_headline = token.patreon_account_username_headline || null;
             }
             return session;
         },

@@ -74,11 +74,11 @@ export async function POST(req) {
         }
 
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, {
-            patreaon_account_name: name,
-            patreaon_account_profilepic: profileUrl,
-            patreaon_account_coverpic: coverUrl,
-            patreaon_account_username_headline: headline,
-            patreaon_account_published: true,
+            patreon_account_name: name,
+            patreon_account_profilepic: profileUrl,
+            patreon_account_coverpic: coverUrl,
+            patreon_account_username_headline: headline,
+            patreon_account_published: true,
         }, { new: true });
 
         if (!updatedUser) {

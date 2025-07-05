@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Media from "@/models/UserMedia";
+import User from "@/models/User";
 import Image from 'next/image'
 import NavbarUser from "@/Components/User/NavbarUser";
 import UserInfo from "@/Components/User/UserInfo";
@@ -12,9 +13,9 @@ export default async function UserPage({ params }) {
     try {
         await ConnectDB();
 
-        const userData = await Media.findOne({ username: userId });
+        const userData = await User.findOne({ username: userId });
 
-        if (!userData) return notFound();
+        if (!userData || !userData.patreon_account_published) return notFound();
 
         return (
             <>

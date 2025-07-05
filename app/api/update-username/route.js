@@ -46,8 +46,8 @@ export async function POST(req, res) {
             {
                 $set: {
                     username: cleanUsername,
-                    patreaon_account: true,
-                    patreaon_account_username: cleanUsername,
+                    patreon_account: true,
+                    patreon_account_username: cleanUsername,
                 }
             },
         );
