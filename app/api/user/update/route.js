@@ -61,16 +61,16 @@ export async function POST(req) {
         let coverUrl = null;
 
 
-        if (profileFile && profileFile instanceof File) {
+        if (profileFile && typeof profileFile.arrayBuffer === "function") {
             const result = await uploadToCloudinary(profileFile, "users/profile");
             profileUrl = result.secure_url;
-            console.log("profile result : ", result)
+            // console.log("profile result : ", result)
         }
 
-        if (coverFile && coverFile instanceof File) {
+        if (coverFile && typeof coverFile.arrayBuffer === "function") {
             const result = await uploadToCloudinary(coverFile, "users/cover");
             coverUrl = result.secure_url;
-            console.log("cover result : ", result)
+            // console.log("cover result : ", result)
         }
 
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, {

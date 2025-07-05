@@ -34,6 +34,21 @@ const CreatorPageView = ({ }) => {
     headline: ""
   });
 
+  const [originalData, setOriginalData] = useState({
+    name: "",
+    headline: "",
+    profileImage: "",
+    coverImage: ""
+  })
+
+  const [coverImagePreview, setCoverImagePreview] = useState("");
+  const [profileImagePreview, setProfileImagePreview] = useState("");
+
+  const [coverFile, setCoverFile] = useState(null);
+  const [profileFile, setProfileFile] = useState(null);
+  const [isPublished, setIsPublished] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+
   useEffect(() => {
     if (session?.user?.patreon_account_coverpic) {
       setCoverImagePreview(session.user.patreon_account_coverpic);
@@ -56,6 +71,41 @@ const CreatorPageView = ({ }) => {
 
   }, [session]);
 
+  useEffect(() => {
+    if (session?.user) {
+      const name = session.user.patreon_account_name || "";
+      const headline = session.user.patreon_account_username_headline || "";
+      const profilePic = session.user.patreon_account_profilepic || "";
+      const coverPic = session.user.patreon_account_coverpic || "";
+
+      setformData({ name, headline });
+      setProfileImagePreview(profilePic);
+      setCoverImagePreview(coverPic);
+
+      setOriginalData({
+        name,
+        headline,
+        profileImage: profilePic,
+        coverImage: coverPic
+      });
+
+      if (session.user.patreon_account_published) {
+        setIsPublished(true);
+      }
+    }
+  }, [session]);
+
+
+
+  useEffect(() => {
+    const isChanged =
+      formData.name !== originalData.name ||
+      formData.headline !== originalData.headline ||
+      coverImagePreview !== originalData.coverImage ||
+      profileImagePreview !== originalData.profileImage;
+
+    setIsDirty(isChanged);
+  }, [formData, coverImagePreview, profileImagePreview, originalData]);
 
 
   const handleCoverClick = () => {
@@ -69,7 +119,8 @@ const CreatorPageView = ({ }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setformData((e) => ({ ...e, [name]: value }))
+    setformData((e) => ({ ...e, [name]: value }));
+    setIsDirty(true);
 
   }
 
@@ -80,12 +131,7 @@ const CreatorPageView = ({ }) => {
 
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
 
-  const [coverImagePreview, setCoverImagePreview] = useState("");
-  const [profileImagePreview, setProfileImagePreview] = useState("");
 
-  const [coverFile, setCoverFile] = useState(null);
-  const [profileFile, setProfileFile] = useState(null);
-  const [isPublished, setIsPublished] = useState(false);
 
   const handlefileChange = (e) => {
     const file = e.target.files[0];
@@ -96,6 +142,7 @@ const CreatorPageView = ({ }) => {
         setCoverImagePreview(reader.result);
       }
       reader.readAsDataURL(file);
+      setIsDirty(true);
     }
   }
 
@@ -110,6 +157,7 @@ const CreatorPageView = ({ }) => {
         setProfileImagePreview(reader.result);
       }
       reader.readAsDataURL(file);
+      setIsDirty(true);
     }
   }
 
@@ -118,7 +166,10 @@ const CreatorPageView = ({ }) => {
 
     const { name, headline } = formData;
 
-    if (!formData.name.trim() || !formData.headline.trim() || !profileFile || !coverFile) {
+    if (!formData.name.trim() ||
+      !formData.headline.trim() ||
+      (!profileFile && !profileImagePreview) ||
+      (!coverFile && !coverImagePreview)) {
       alert("Please update all data");
       return;
     }
@@ -145,6 +196,7 @@ const CreatorPageView = ({ }) => {
       alert("Update failed");
     }
 
+    setIsDirty(false);
   };
 
 
@@ -160,14 +212,14 @@ const CreatorPageView = ({ }) => {
         <div className="user-content-container">
           <form onSubmit={handleSubmit}>
             <div className="published-container">
-              {!isPublished && (
+              {(!isPublished || isDirty) && (
                 <div className="published-content">
-                  <div className="text-black text-sm">Your page is not yet published</div>
+                  <div className="text-black text-sm">{isPublished ? "You have unsaved changes" : "Your page is not yet published"}</div>
 
                   <div className="published-button">
-                    <button className="btn-publish" onClick={handleSubmit}>
+                    <button className="btn-publish" type="submit">
                       <span><BsRocketTakeoffFill /></span>
-                      <span>Publish page</span>
+                      <span>{isPublished ? "Update page" : "Publish page"}</span>
                     </button>
                   </div>
                 </div>

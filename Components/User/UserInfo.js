@@ -12,14 +12,15 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { IoIosStar } from "react-icons/io";
 import Blogs from '../Blogs';
 
-const UserInfo = () => {
+const UserInfo = ({ userData }) => {
+    // console.log(userData)
     return (
         <>
             <section className='search-user-info'>
                 <div className="user-cover-pic">
-                    <Image src={"/assets/images/cover.jpg"} width={"0"} height={"0"} sizes='100' alt={"cover pic"} />
+                    <Image src={userData?.patreon_account_coverpic} width={"0"} height={"0"} sizes='100' alt={"cover pic"} />
                     <div className="user-pic">
-                        <Image src={"/assets/images/user/user5.jpg"} width={0} height={0} sizes="100" alt={"user profile picture"} />
+                        <Image src={userData?.patreon_account_profilepic} width={0} height={0} sizes="100" alt={"user profile picture"} />
                     </div>
 
                     <div className="shares">
@@ -35,8 +36,8 @@ const UserInfo = () => {
                 </div>
 
                 <div className="user-about">
-                    <h2 className='about-name'>Rachel Maksy</h2>
-                    <p className='about-skill'>providing whimsy!</p>
+                    <h2 className='about-name'>{userData?.patreon_account_name}</h2>
+                    <p className='about-skill'>{userData?.patreon_account_username_headline}</p>
 
                     <p className='about-post'>90 post</p>
 

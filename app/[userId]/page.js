@@ -13,14 +13,16 @@ export default async function UserPage({ params }) {
     try {
         await ConnectDB();
 
-        const userData = await User.findOne({ username: userId });
+        const userData = await User.findOne({ username: userId }).lean();
+
+        const plainUser = JSON.parse(JSON.stringify(userData));
 
         if (!userData || !userData.patreon_account_published) return notFound();
 
         return (
             <>
                 <NavbarUser />
-                <UserInfo />
+                <UserInfo userData={plainUser} />
 
                 <div className="p-6">
                     <h1 className="text-2xl font-bold">User Media: {userId}</h1>
