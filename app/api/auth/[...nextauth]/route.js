@@ -29,6 +29,7 @@ export const authOptions = {
             // Add user data to the token during sign-in
             if (user) {
                 token.email = user.email;
+
             }
 
             try {
@@ -39,7 +40,10 @@ export const authOptions = {
                 // this is encrptyed data its use for server side
                 if (dbUser) {
                     token.name = dbUser.name;
+                    token.username = dbUser.username;
                     token.profilePic = dbUser.profilepic;
+
+                    // Patreon account fields
                     token.patreon_account = dbUser.patreon_account || false;
                     token.patreon_account_profilepic = dbUser.patreon_account_profilepic || null;
                     token.patreon_account_coverpic = dbUser.patreon_account_coverpic || null;
@@ -60,6 +64,7 @@ export const authOptions = {
             // this is session data its use for client side
             if (session.user) {
                 session.user.name = token.name;
+                session.user.username = token.username;
                 //console.log("user name : ", session.user.name);
                 session.user.profilepic = token.profilepic;
                 session.user.patreon_account = token.patreon_account || false;

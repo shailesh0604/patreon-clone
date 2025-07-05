@@ -23,11 +23,11 @@ const Sidebar = () => {
 
     // console.log("session :", session);
 
-    const patreaonPic = session?.user?.patreaon_account_profilepic;
-    const isPatreon = session?.user?.patreaon_account;
-    const isPublished = session?.user?.patreaon_account_published;
-    const patreonName = session?.user?.patreaon_account_name;
-    const patreonUsername = session?.user?.patreaon_account_username;
+    const patreonPic = session?.user?.patreon_account_profilepic;
+    const isPatreon = session?.user?.patreon_account;
+    const isPublished = session?.user?.patreon_account_published;
+    const patreonName = session?.user?.patreon_account_name;
+    const patreonUsername = session?.user?.patreon_account_username;
 
     const handleLogout = async () => {
         await signOut({
@@ -135,7 +135,7 @@ const Sidebar = () => {
                                     <div className="flex flex-col gap-2">
                                         <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
                                             <span>
-                                                <Image className="rounded-full object-cover" src={patreaonPic} width={35} height={35} alt="user profile pic" />
+                                                <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
                                             </span>
                                             <span className="flex flex-col">
                                                 <span className="text-base">{patreonName}</span>

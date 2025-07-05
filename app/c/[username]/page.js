@@ -14,12 +14,23 @@ export const metadata = {
 }
 
 
-export default async function CreatorPage({ }) {
+export default async function CreatorPage({ params }) {
 
     const session = await auth();
 
     if (session) {
-        const userName = session.user.name;
+        const loggedInUsername = session?.user?.patreon_account_username;
+        const pageUsername = await params.username;
+
+        console.log(`page user : ${pageUsername}`);
+
+        if (loggedInUsername !== pageUsername) {
+            return (
+                <div className="flex items-center justify-center h-screen">
+                    <h1 className="text-2xl text-red-600 font-semibold">403 - Unauthorized</h1>
+                </div>
+            );
+        }
 
 
         return (
