@@ -20,11 +20,10 @@ export default async function CreatorPage({ params }) {
 
     if (session) {
         const loggedInUsername = session?.user?.patreon_account_username;
-        const pageUsername = await params.username;
+        const { username } = params;
 
-        console.log(`page user : ${pageUsername}`);
 
-        if (loggedInUsername !== pageUsername) {
+        if (loggedInUsername !== username) {
             return (
                 <div className="flex items-center justify-center h-screen">
                     <h1 className="text-2xl text-red-600 font-semibold">403 - Unauthorized</h1>

@@ -4,6 +4,9 @@ import { IoIosArrowForward } from "react-icons/io";
 import { HiMenuAlt3 } from "react-icons/hi";
 import Link from "next/link";
 import Image from "next/image";
+import { TbArrowBackUpDouble } from "react-icons/tb";
+import { PiArrowBendUpRightBold } from "react-icons/pi";
+import { RiCloseLargeLine } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { IoClose } from "react-icons/io5";
@@ -13,8 +16,6 @@ import useSidebarStore from "@/lib/store/sidebarStore";
 
 const Sidebar = () => {
 
-
-
     const { isToggled, toggleSidebar } = useSidebarStore();
 
     const { data: session, status } = useSession();
@@ -22,7 +23,8 @@ const Sidebar = () => {
     const setUserLetter = useSidebarStore((state) => state.setUserLetter);
 
     // console.log("session :", session);
-
+    const [showCanvas, setShowCanvas] = useState(false);
+    const offcanvasRef = useRef(null);
     const patreonPic = session?.user?.patreon_account_profilepic;
     const isPatreon = session?.user?.patreon_account;
     const isPublished = session?.user?.patreon_account_published;
@@ -88,7 +90,9 @@ const Sidebar = () => {
         <>
             <div className="relative group top-sidebar">
                 <div className="sidebar-content">
-                    <div className="sidebar-menu">
+                    <div className="sidebar-menu" onClick={() => {
+                        setShowCanvas(true);
+                    }}>
                         <HiMenuAlt3 className="invert" />
                     </div>
                     <Link href={"/home"} className="sidebar-logo">
@@ -228,11 +232,125 @@ const Sidebar = () => {
                     <div className="user-profile-pic">
                         <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={0} height={0} sizes="100" alt="user profile picture" />
                     </div>
+
+                    <div className="user-profile-link">
+                        {
+                            isPublished ? (
+                                <div className="flex flex-col gap-2">
+                                    <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                        <span>
+                                            <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
+                                        </span>
+                                        <span className="flex flex-col">
+                                            <span className="text-base">{patreonName}</span>
+                                            <span className="text-xs opacity-70">Creator</span>
+                                        </span>
+                                    </Link>
+
+                                    <hr />
+
+                                    <Link href={`/home`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                        <span>
+                                            <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
+                                        <span className="flex flex-col">
+                                            <span className="text-base">{session?.user?.name || "user"}</span>
+                                            <span className="text-xs opacity-70">Member</span>
+                                        </span>
+
+                                    </Link>
+
+
+                                </div>
+                            ) : (
+                                isPatreon ? (
+                                    <div className="create-patreon-container drop-shadow">
+                                        <div className="flex flex-col gap-2">
+                                            <Link href={`/c/${patreonUsername}`} className="flex items-center gap-2 font-medium my-2 ml-2">
+                                                <span className="w-10 h-10 flex justify-center items-center text-white font-semibold text-lg rounded-md bg-indigo-600">{userLetter}</span>
+                                                <span className="flex flex-col">
+                                                    <span className="text-base">{patreonName || "Patreon"}</span>
+                                                    <span className="text-xs opacity-70">Creator</span>
+                                                </span>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                ) : (<div className="create-patreon-container drop-shadow">
+                                    <div className="flex flex-col gap-2">
+                                        <Link href={"/create"} className="flex items-center text-sm font-medium my-2 ml-2">
+                                            <span>Create Patreon</span>
+                                            <span><GrFormNextLink className="text-lg" /></span>
+                                        </Link>
+                                    </div>
+                                </div>)
+
+                            )
+                        }
+
+                        <hr />
+
+                        <div className="mx-auto mt-3 mb-3">
+                            <button className="text-center w-full" onClick={handleLogout}>Logout</button >
+                        </div>
+                    </div>
                 </div>
             </div >
 
 
             {/* sidebar offcanvas */}
+
+
+            <div
+                className={`offcanvas-container ${showCanvas ? "show" : ""}`
+                }
+                ref={offcanvasRef}
+            >
+                <div className="offcanvas-content px-3">
+                    <div className="offcanvas-header flex justify-between items-center pt-4">
+                        <div className="offcanvas-logo">
+                            <Link href={"/"}>
+                                <Image
+                                    src={"/assets/images/logo/logo.svg"}
+                                    width={150}
+                                    className="block mx-auto cursor-pointer"
+                                    height={150}
+                                    alt="logo"
+                                />
+                            </Link>
+                        </div>
+
+                        <div
+                            className="offcanvas-close cursor-pointer"
+                            onClick={() => {
+                                setShowCanvas(false);
+                            }}
+                        >
+                            <RiCloseLargeLine className="text-xl invert" />
+                        </div>
+                    </div>
+
+                    <div className="offcanvas-links">
+                        <div className="offcanvas-links-content">
+
+                            {linksToShow.map(({ href, text, icon }, index) => (
+                                <div className="offcanvas-link" key={index}>
+                                    <Link
+                                        key={index}
+                                        href={href}
+                                        onClick={() => {
+                                            setShowCanvas(true);
+                                        }}
+                                        className={`sidebar-link flex items-center ${pathName === href ? "active" : ""}`}
+                                    >
+                                        <span className="link-icon">{icon}</span>
+                                        <span className="link-txt">{text}</span>
+                                    </Link>
+                                </div>
+                            ))}
+
+                        </div>
+                    </div>
+                </div>
+            </div >
             {/* sidebar offcanvas */}
         </>
     )

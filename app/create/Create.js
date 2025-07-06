@@ -24,6 +24,7 @@ const Create = () => {
     const [showSecondForm, setShowSecondForm] = useState(false);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [loader, setLoader] = useState(false);
 
     const sanitizeUsername = (name) => {
         return name.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '');
@@ -37,6 +38,9 @@ const Create = () => {
         // console.log(form);
     }
 
+    const showLoader = () => {
+        setLoader(true);
+    }
 
 
 
@@ -164,7 +168,8 @@ const Create = () => {
                                 <div className="w-full">
                                     <input type="text" onChange={handleChange} value={form} className='border-2 outline-4 outline-black bg-transparent out rounded-md block w-full px-2 py-2' placeholder='your creator name' />
                                     <label className='text-red-500 text-xs inline-block mt-1'>{error}</label>
-                                    <button type='submit' className='bg-black flex justify-center items-center gap-2 text-white w-full px-1 py-2 rounded-md mt-3' disabled={isValid ? true : false}><span className={isValid ? "hidden" : "block"}>Continue</span>
+                                    <button type='submit' className='bg-black flex justify-center items-center gap-2 text-white w-full px-1 py-2 rounded-md mt-3' disabled={isValid ? true : false}>
+                                        <span className={isValid ? "hidden" : "block"}>Continue</span>
                                         <div className={isValid ? "block" : "hidden"}>
                                             <span className='flex items-center justify-center'>
                                                 <Loader size="sm" speed="fast" />
@@ -200,7 +205,13 @@ const Create = () => {
                                         </div>
                                     </div>
                                     {message && <label className='inline-block w-full mt-2 text-sm'>{message}</label>}
-                                    <button type='submit' disabled={message === "✅ Username is available" ? false : true} className='bg-black flex justify-center items-center gap-2 text-white w-full px-1 py-2 rounded-md mt-3'>Continue
+                                    <button type='submit' disabled={message === "✅ Username is available" ? false : true} className='bg-black flex justify-center items-center gap-2 text-white w-full px-1 py-2 rounded-md mt-3' onClick={() => showLoader(true)}>
+                                        <span className={loader ? "hidden" : "block"}>Continue</span>
+                                        <div className={loader ? "block" : "hidden"}>
+                                            <span className='flex items-center justify-center'>
+                                                <Loader size="sm" speed="fast" />
+                                            </span>
+                                        </div>
                                     </button>
 
                                     <button type='button' onClick={() => goBack()} className='bg-slate-100 border border-slate-200 flex justify-center items-center gap-2 text-black w-full px-1 py-2 rounded-md mt-3'>Back
