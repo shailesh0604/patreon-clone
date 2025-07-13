@@ -108,8 +108,10 @@ const CreatorPageView = ({ }) => {
 
   useEffect(() => {
     const fullHref = window.location.href
-    const domain = fullHref.split("c/")[0].replace(/\/$/, "") // removes trailing slash
-    setDomainPath(domain)
+    const urlWithoutProtocol = fullHref.replace(/^https?:\/\//, "") // remove http:// or https://
+    const basePath = urlWithoutProtocol.split("c/")[0].replace(/\/$/, "") // get domain before "/c/"
+
+    setDomainPath(basePath)
   }, [])
 
 
@@ -278,7 +280,6 @@ const CreatorPageView = ({ }) => {
 
                 </div>
               </div>
-
             </div>
           </form>
         </div>
