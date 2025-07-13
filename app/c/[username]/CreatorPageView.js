@@ -271,12 +271,11 @@ const CreatorPageView = ({ }) => {
                   <input type="text" name="headline" value={formData.headline} onChange={handleChange} className="bg-transparent focus:bg-transparent text-white mt-2 text-base border-none outline-none text-center" placeholder="Add headline" />
 
                   {fullUrl && (
-                    <div className="flex items-center gap-2 text-white opacity-80 mt-4 text-sm">
+                    <Link href={fullUrl} className="flex items-center gap-2 text-white opacity-80 mt-4 text-sm"
+                      target="_blank" rel="noopener noreferrer">
                       <span><FaLink /></span>
-                      <Link href={fullUrl} target="_blank">
-                        {showUserURL}
-                      </Link>
-                    </div>
+                      <span>{showUserURL}</span>
+                    </Link>
                   )}
 
                 </div>
