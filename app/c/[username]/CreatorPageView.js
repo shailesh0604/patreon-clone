@@ -104,18 +104,18 @@ const CreatorPageView = ({ }) => {
   }, [formData, coverImagePreview, profileImagePreview, originalData]);
 
 
-  const [domainPath, setDomainPath] = useState("")
+  const [domain, setDomain] = useState("")
 
   useEffect(() => {
-    const fullHref = window.location.href
-    const urlWithoutProtocol = fullHref.replace(/^https?:\/\//, "") // remove http:// or https://
-    const basePath = urlWithoutProtocol.split("c/")[0].replace(/\/$/, "") // get domain before "/c/"
-
-    setDomainPath(basePath)
+    const href = window.location.href
+    const cleanDomain = href.replace(/^https?:\/\//, "").split("/")[0]
+    setDomain(cleanDomain)
   }, [])
 
-
   const username = session?.user?.patreon_account_username
+  const fullUrl = domain && username ? `${domain}/${username}` : ""
+
+
 
   const handleCoverClick = () => {
     document.getElementById("coverPicture").click();
@@ -269,11 +269,11 @@ const CreatorPageView = ({ }) => {
                   <input type="text" placeholder="Add name" name="name" value={formData.name} onChange={handleChange} className=" bg-transparent text-white text-lg font-semibold border-none outline-none text-center focus:bg-transparent" />
                   <input type="text" name="headline" value={formData.headline} onChange={handleChange} className="bg-transparent focus:bg-transparent text-white mt-2 text-base border-none outline-none text-center" placeholder="Add headline" />
 
-                  {domainPath && username && (
+                  {fullUrl && (
                     <div className="flex items-center gap-2 text-white opacity-80 mt-4 text-sm">
-                      <span className=""><FaLink /></span>
-                      <Link className="" href={`${domainPath}/${username}`} target="_blank">
-                        {domainPath}/{username}
+                      <span><FaLink /></span>
+                      <Link href={fullUrl} target="_blank">
+                        {fullUrl}
                       </Link>
                     </div>
                   )}
