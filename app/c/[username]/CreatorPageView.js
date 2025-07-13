@@ -2,21 +2,19 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import React from 'react'
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation"
 import Sidebar from "@/Components/Sidebar";
 import useSidebarStore from '@/lib/store/sidebarStore';
 import { BsRocketTakeoffFill } from "react-icons/bs";
 import Image from "next/image";
-
 import { FaImage } from "react-icons/fa6";
-
+import Link from "next/link";
+import { FaLink } from "react-icons/fa6";
 
 const CreatorPageView = ({ }) => {
 
   const { data: session, status } = useSession();
   const userLetter = useSidebarStore((state) => state.userLetter);
-
 
   const router = useRouter();
 
@@ -26,7 +24,6 @@ const CreatorPageView = ({ }) => {
       router.push("/login");
     }
   }, [status, router]);
-
 
 
 
@@ -70,9 +67,6 @@ const CreatorPageView = ({ }) => {
     }
 
 
-  }, [session]);
-
-  useEffect(() => {
     if (session?.user) {
       const name = session.user.patreon_account_name || "";
       const headline = session.user.patreon_account_username_headline || "";
@@ -94,6 +88,7 @@ const CreatorPageView = ({ }) => {
         setIsPublished(true);
       }
     }
+
   }, [session]);
 
 
@@ -108,6 +103,17 @@ const CreatorPageView = ({ }) => {
     setIsDirty(isChanged);
   }, [formData, coverImagePreview, profileImagePreview, originalData]);
 
+
+  const [domainPath, setDomainPath] = useState("")
+
+  useEffect(() => {
+    const fullHref = window.location.href
+    const domain = fullHref.split("c/")[0].replace(/\/$/, "") // removes trailing slash
+    setDomainPath(domain)
+  }, [])
+
+
+  const username = session?.user?.patreon_account_username
 
   const handleCoverClick = () => {
     document.getElementById("coverPicture").click();
@@ -125,14 +131,7 @@ const CreatorPageView = ({ }) => {
 
   }
 
-  const pathName = usePathname();
-  //console.log(pathName)
-
-
-
   const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
-
-
 
   const handlefileChange = (e) => {
     const file = e.target.files[0];
@@ -267,6 +266,16 @@ const CreatorPageView = ({ }) => {
                 <div className="flex items-center flex-col mt-20">
                   <input type="text" placeholder="Add name" name="name" value={formData.name} onChange={handleChange} className=" bg-transparent text-white text-lg font-semibold border-none outline-none text-center focus:bg-transparent" />
                   <input type="text" name="headline" value={formData.headline} onChange={handleChange} className="bg-transparent focus:bg-transparent text-white mt-2 text-base border-none outline-none text-center" placeholder="Add headline" />
+
+                  {domainPath && username && (
+                    <div className="flex items-center gap-2 text-white opacity-80 mt-4 text-sm">
+                      <span className=""><FaLink /></span>
+                      <Link className="" href={`${domainPath}/${username}`} target="_blank">
+                        {domainPath}/{username}
+                      </Link>
+                    </div>
+                  )}
+
                 </div>
               </div>
 

@@ -20,7 +20,7 @@ export default async function CreatorPage({ params }) {
 
     if (session) {
         const loggedInUsername = session?.user?.patreon_account_username;
-        const { username } = params;
+        const { username } = await params;
 
 
         if (loggedInUsername !== username) {
