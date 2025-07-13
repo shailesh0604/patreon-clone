@@ -1392,7 +1392,7 @@ section.section-login {
   bottom: 10%;
   left: 0;
   border-radius: 6px;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.65rem 0.75rem 0.5rem;
   width: 100%;
   background: var(--light);
 }
@@ -1598,8 +1598,8 @@ section.section-login {
   top: 50px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background: var(--light);
-  padding: 0.5rem 0.65rem;
-  width: 200px;
+  padding: 0.5rem 0.65rem 0.5rem 0.25rem;
+  width: 225px;
 }
 
 .user-profile-link::after {

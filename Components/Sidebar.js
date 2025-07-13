@@ -13,6 +13,8 @@ import { IoClose } from "react-icons/io5";
 import { GrFormNextLink } from "react-icons/gr";
 import { creatorLinks, memberLinks } from "./SidebarLink";
 import useSidebarStore from "@/lib/store/sidebarStore";
+import { ImCheckmark } from "react-icons/im";
+
 
 const Sidebar = () => {
 
@@ -137,26 +139,32 @@ const Sidebar = () => {
                             isPublished ? (
                                 <div className="create-patreon-container">
                                     <div className="flex flex-col gap-2">
-                                        <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
-                                            <span>
-                                                <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
-                                            </span>
-                                            <span className="flex flex-col">
-                                                <span className="text-base">{patreonName}</span>
-                                                <span className="text-xs opacity-70">Creator</span>
-                                            </span>
+                                        <Link href={`/c/${patreonUsername}`} className="flex justify-between items-center">
+                                            <div className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                                <span>
+                                                    <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
+                                                </span>
+                                                <span className="flex flex-col">
+                                                    <span className="text-base">{patreonName}</span>
+                                                    <span className="text-xs opacity-70">Creator</span>
+                                                </span>
+                                            </div>
+                                            {isCreator && <span className="text-green-600"><ImCheckmark /></span>}
                                         </Link>
 
                                         <hr />
 
-                                        <Link href={`/home`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
-                                            <span>
-                                                <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
-                                            <span className="flex flex-col">
-                                                <span className="text-base">{session?.user?.name || "user"}</span>
-                                                <span className="text-xs opacity-70">Member</span>
-                                            </span>
+                                        <Link href={`/home`} className="flex justify-between items-center">
+                                            <div className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                                <span>
+                                                    <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
+                                                <span className="flex flex-col">
+                                                    <span className="text-base">{session?.user?.name || "user"}</span>
+                                                    <span className="text-xs opacity-70">Member</span>
+                                                </span>
+                                            </div>
 
+                                            {!isCreator && <span className="text-green-600"><ImCheckmark /></span>}
                                         </Link>
 
 
@@ -221,7 +229,8 @@ const Sidebar = () => {
                             <button type="button" className="btn-logout" onClick={handleLogout}>
                                 Logout
                             </button>
-                        </div>)}
+                        </div>
+                    )}
                 </div>
 
                 <div className={`toggle-icon ${isToggled ? "" : "rotate"}`} title={`${isToggled ? "open menu" : "close menu"}`} onClick={toggleSidebar}>
@@ -237,29 +246,34 @@ const Sidebar = () => {
                         {
                             isPublished ? (
                                 <div className="flex flex-col gap-2">
-                                    <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
-                                        <span>
-                                            <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
-                                        </span>
-                                        <span className="flex flex-col">
-                                            <span className="text-base">{patreonName}</span>
-                                            <span className="text-xs opacity-70">Creator</span>
-                                        </span>
-                                    </Link>
+                                    <div className="flex items-center justify-between">
+                                        <Link href={`/c/${patreonUsername}`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                            <span>
+                                                <Image className="rounded-full object-cover" src={patreonPic} width={35} height={35} alt="user profile pic" />
+                                            </span>
+                                            <span className="flex flex-col">
+                                                <span className="text-base">{patreonName}</span>
+                                                <span className="text-xs opacity-70">Creator</span>
+                                            </span>
+                                        </Link>
 
+                                        {isCreator && <span className="text-green-600"><ImCheckmark /></span>}
+                                    </div>
                                     <hr />
 
-                                    <Link href={`/home`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
-                                        <span>
-                                            <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
-                                        <span className="flex flex-col">
-                                            <span className="text-base">{session?.user?.name || "user"}</span>
-                                            <span className="text-xs opacity-70">Member</span>
-                                        </span>
+                                    <div className="flex items-center justify-between">
+                                        <Link href={`/home`} className="flex gap-2 items-center text-sm font-medium my-2 ml-2">
+                                            <span>
+                                                <Image src={session?.user?.image || "/assets/images/user/default-user.png"} width={35} height={35} className="rounded-full object-cover" sizes="100vw" alt="user profile picture" /></span>
+                                            <span className="flex flex-col">
+                                                <span className="text-base">{session?.user?.name || "user"}</span>
+                                                <span className="text-xs opacity-70">Member</span>
+                                            </span>
+                                        </Link>
 
-                                    </Link>
+                                        {!isCreator && <span className="text-green-600"><ImCheckmark /></span>}
 
-
+                                    </div>
                                 </div>
                             ) : (
                                 isPatreon ? (
