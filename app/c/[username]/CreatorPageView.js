@@ -14,6 +14,9 @@ import { FaLink } from "react-icons/fa6";
 const CreatorPageView = ({ }) => {
 
   const { data: session, status } = useSession();
+  const [fullUrl, setFullUrl] = useState("")
+  const [showUserURL, setShowUserURL] = useState("")
+
   const userLetter = useSidebarStore((state) => state.userLetter);
 
   const router = useRouter();
@@ -23,6 +26,8 @@ const CreatorPageView = ({ }) => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
+
+
   }, [status, router]);
 
 
@@ -89,6 +94,15 @@ const CreatorPageView = ({ }) => {
       }
     }
 
+
+    const { protocol, host } = window.location;
+    const username = session?.user?.patreon_account_username;
+    if (username) {
+      setFullUrl(`${protocol}//${host}/${username}`);
+      setShowUserURL(`${host}/${username}`);
+    }
+
+
   }, [session]);
 
 
@@ -102,19 +116,6 @@ const CreatorPageView = ({ }) => {
 
     setIsDirty(isChanged);
   }, [formData, coverImagePreview, profileImagePreview, originalData]);
-
-
-  const [domain, setDomain] = useState("")
-
-  useEffect(() => {
-    const href = window.location.href
-    const cleanDomain = href.replace(/^https?:\/\//, "").split("/")[0]
-    setDomain(cleanDomain)
-  }, [])
-
-  const username = session?.user?.patreon_account_username
-  const fullUrl = domain && username ? `${domain}/${username}` : ""
-
 
 
   const handleCoverClick = () => {
@@ -273,7 +274,7 @@ const CreatorPageView = ({ }) => {
                     <div className="flex items-center gap-2 text-white opacity-80 mt-4 text-sm">
                       <span><FaLink /></span>
                       <Link href={fullUrl} target="_blank">
-                        {fullUrl}
+                        {showUserURL}
                       </Link>
                     </div>
                   )}
