@@ -16,6 +16,7 @@ const CreatorPageView = ({ }) => {
   const { data: session, status } = useSession();
   const [fullUrl, setFullUrl] = useState("")
   const [showUserURL, setShowUserURL] = useState("")
+  const [activeTab, setActiveTab] = useState('Home');
 
   const userLetter = useSidebarStore((state) => state.userLetter);
 
@@ -280,11 +281,20 @@ const CreatorPageView = ({ }) => {
 
                 </div>
               </div>
+
+              <div className="patreon-account-tabs-contents">
+                <ul className="patreon-account-tabs">
+                  {["Home", "Collections", "Shop", "Membership", "About", "Recommendations"].map((tab) => (<li key={tab} className={`account-tabs`} role="presentation">
+                    <button onClick={() => setActiveTab(tab)} type="button" className={`account-link ${activeTab === tab ? "active" : ""}`}> {tab.charAt(0).toUpperCase() + tab.slice(1)}</button>
+                  </li>))}
+                </ul>
+              </div>
+
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   </>
 
 }
