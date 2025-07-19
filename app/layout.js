@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import "../app/globals.css";
 import SessionWrapper from "@/Components/SessionWrapper";
 import LenisProvider from "@/Components/LenisProvider";
-
+import Loader from "@/Components/Loader";
 
 export const metadata = {
   title: "Home | Patreon",
@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SessionWrapper>
+          <Loader />
           {/* <LenisProvider> */}
           {children}
           {/* </LenisProvider> */}

@@ -68,6 +68,20 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* loader css */
+
+/* nprogress custom style */
+#nprogress .bar {
+  background: #29d;
+  height: 3px;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+}
+
+/* loader css */
+
 .btn-primary {
   background: var(--dark);
   color: var(--light);

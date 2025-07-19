@@ -43,20 +43,20 @@ const Sidebar = () => {
 
     const userRef = useRef(null);
 
-    useEffect(() => {
-        const handleOutside = (e) => {
-            setTimeout(() => {
-                if (userRef.current && !userRef.current.contains(e.target)) {
-                    setUserInfoHovered(false);
-                    setIsHovered(false);
-                }
-            }, 100);
-        };
+    // useEffect(() => {
+    //     const handleOutside = (e) => {
+    //         setTimeout(() => {
+    //             if (userRef.current && !userRef.current.contains(e.target)) {
+    //                 setUserInfoHovered(false);
+    //                 setIsHovered(false);
+    //             }
+    //         }, 100);
+    //     };
 
-        document.addEventListener("mousedown", handleOutside)
+    //     document.addEventListener("mousedown", handleOutside)
 
-        return () => { document.removeEventListener("mousedown", handleOutside) }
-    }, [])
+    //     return () => { document.removeEventListener("mousedown", handleOutside) }
+    // }, [])
 
 
     const [isHovered, setIsHovered] = useState(false);
