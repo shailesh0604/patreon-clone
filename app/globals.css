@@ -2778,6 +2778,43 @@ label {
   background-color: #fff;
 }
 
+.tabs-contents{
+  margin: 4rem auto 8rem auto;
+}
+
+.home-tab-content {
+  background: var(--light);
+  width: 50rem;
+  padding: 2rem 1rem 2rem 1rem;
+  border-radius: 16px;
+  margin: auto;
+  max-width: 90%;
+}
+
+.home-title {
+  font-weight: 600;
+  font-size: 1.25vw;
+  margin: 0.5rem 0 0.75rem 0;
+}
+
+.home-subtitle {
+  font-weight: 400;
+  font-size: 0.875rem;
+}
+
+.btn-post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--dark);
+  color: var(--light);
+  width: max-content;
+  margin: 2rem auto auto auto;
+  padding: 0.55rem 1.5rem;
+  border-radius: var(--border-radius-full);
+}
+
 /* footer css */
 
 .footer-container {

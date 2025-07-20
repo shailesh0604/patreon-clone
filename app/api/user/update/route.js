@@ -55,7 +55,12 @@ export async function POST(req) {
         const profileFile = formData.get("profileImage");
         const coverFile = formData.get("coverImage");
 
-        console.log({ headline, coverFile });
+
+        // New: fallback URLs from client
+        const profileImageUrl = formData.get("profileImageUrl");
+        const coverImageUrl = formData.get("coverImageUrl");
+
+        // console.log({ headline, coverFile });
 
         let profileUrl = null;
         let coverUrl = null;
@@ -65,14 +70,19 @@ export async function POST(req) {
             const result = await uploadToCloudinary(profileFile, "users/profile");
             profileUrl = result.secure_url;
             // console.log("profile result : ", result)
+
+        } else if (profileImageUrl) {
+            profileUrl = profileImageUrl;
         }
 
         if (coverFile && typeof coverFile.arrayBuffer === "function") {
             const result = await uploadToCloudinary(coverFile, "users/cover");
             coverUrl = result.secure_url;
-            // console.log("cover result : ", result)
         }
-
+        else if (coverImageUrl) {
+            coverUrl = coverImageUrl;
+        }
+        
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, {
             patreon_account_name: name,
             patreon_account_profilepic: profileUrl,

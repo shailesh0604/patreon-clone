@@ -10,6 +10,9 @@ import Image from "next/image";
 import { FaImage } from "react-icons/fa6";
 import Link from "next/link";
 import { FaLink } from "react-icons/fa6";
+import { IoAdd } from "react-icons/io5";
+
+
 
 const CreatorPageView = ({ }) => {
 
@@ -17,6 +20,7 @@ const CreatorPageView = ({ }) => {
   const [fullUrl, setFullUrl] = useState("")
   const [showUserURL, setShowUserURL] = useState("")
   const [activeTab, setActiveTab] = useState('Home');
+
 
   const userLetter = useSidebarStore((state) => state.userLetter);
 
@@ -27,8 +31,6 @@ const CreatorPageView = ({ }) => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
-
-
   }, [status, router]);
 
 
@@ -179,11 +181,20 @@ const CreatorPageView = ({ }) => {
     }
 
     const data = new FormData();
-
     data.append("name", formData.name);
     data.append("headline", formData.headline);
-    if (profileFile) data.append("profileImage", profileFile);
-    if (coverFile) data.append("coverImage", coverFile);
+
+    if (profileFile) {
+      data.append("profileImage", profileFile);
+    } else if (profileImagePreview) {
+      data.append("profileImageUrl", profileImagePreview);
+    }
+
+    if (coverFile) {
+      data.append("coverImage", coverFile);
+    } else if (coverImagePreview) {
+      data.append("coverImageUrl", coverImagePreview);
+    }
 
 
     // console.log(formData);
@@ -278,20 +289,86 @@ const CreatorPageView = ({ }) => {
                       <span>{showUserURL}</span>
                     </Link>
                   )}
-
                 </div>
               </div>
-
-              <div className="patreon-account-tabs-contents">
-                <ul className="patreon-account-tabs">
-                  {["Home", "Collections", "Shop", "Membership", "About", "Recommendations"].map((tab) => (<li key={tab} className={`account-tabs`} role="presentation">
-                    <button onClick={() => setActiveTab(tab)} type="button" className={`account-link ${activeTab === tab ? "active" : ""}`}> {tab.charAt(0).toUpperCase() + tab.slice(1)}</button>
-                  </li>))}
-                </ul>
-              </div>
-
             </div>
           </form>
+
+          <div className="patreon-account-tabs-contents">
+            <ul className="patreon-account-tabs">
+              {["Home", "Collections", "Shop", "Membership", "About", "Recommendations"].map((tab) => (<li key={tab} className={`account-tabs`} role="presentation">
+                <button onClick={() => setActiveTab(tab)} type="button" className={`account-link ${activeTab === tab ? "active" : ""}`}> {tab.charAt(0).toUpperCase() + tab.slice(1)}</button>
+              </li>))}
+            </ul>
+
+            {/* tabs contents */}
+
+            <div id="patreon-style-tab-content" className="tabs-contents">
+              {activeTab === 'Home' && (
+                <div className="tab-content home-tab-content">
+                  <div className="home-heading">
+                    <div className="home-title">
+                      Your Patreon is ready! Here's how to make it yours
+                    </div>
+                    <div className="home-subtitle">
+                      Adding some details helps visitors learn more about you and what you plan to share here.
+                    </div>
+                  </div>
+
+                  <Link href={"/post"} className="btn-post">
+                    <span><IoAdd className="text-2xl" /></span>
+                    <span>New Post</span>
+                  </Link>
+
+                </div>
+              )}
+
+              {activeTab === 'Collections' && (
+                <div className="bg-white rounded-2xl max-w-[85%] mx-auto px-6 py-5">
+                  <div className="flex justify-between items-center gap-4">
+                    <div className="text-xl font-medium">Collection</div>
+                  </div>
+                </div>
+
+              )}
+
+              {activeTab === 'Shop' && (
+                <div className="w-full h-full flex justify-center min-h-80 items-center">
+                  <div className="flex flex-col items-center ">
+                    shop
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Membership' && (
+                <div className="w-full h-full flex justify-center min-h-80 items-center">
+                  <div className="flex flex-col items-center ">
+                    member
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'About' && (
+                <div className="w-full h-full flex justify-center min-h-80 items-center">
+                  <div className="flex flex-col items-center ">
+                    about
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Recommendations' && (
+                <div className="w-full h-full flex justify-center min-h-80 items-center">
+                  <div className="flex flex-col items-center ">
+                    Recommendations
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+          </div>
+
+
         </div>
       </div >
     </div >
