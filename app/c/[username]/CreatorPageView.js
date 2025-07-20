@@ -11,6 +11,7 @@ import { FaImage } from "react-icons/fa6";
 import Link from "next/link";
 import { FaLink } from "react-icons/fa6";
 import { IoAdd } from "react-icons/io5";
+import { BsCollectionPlayFill } from "react-icons/bs";
 
 
 
@@ -326,8 +327,31 @@ const CreatorPageView = ({ }) => {
               {activeTab === 'Collections' && (
                 <div className="bg-white rounded-2xl max-w-[85%] mx-auto px-6 py-5">
                   <div className="flex justify-between items-center gap-4">
-                    <div className="text-xl font-medium">Collection</div>
+                    <div className="text-xl font-semibold">Collection</div>
+                    <div className="flex items-center gap-1 bg-black text-white px-4 py-2 rounded-full opacity-85">
+                      <span><IoAdd className="text-2xl" /></span>
+                      <span>Create Collection</span>
+                    </div>
                   </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="bg-slate-300 p-5 rounded-full">
+                      <BsCollectionPlayFill className="text-2xl" />
+                    </div>
+
+                    <div className="font-medium text-lg capitalize mt-3 mb-6">
+                      No collections yet!
+                    </div>
+
+                    <div className="font-normal text-sm text-balance opacity-85">
+                      <p className="text-center">Collections is an improved way to organise your posts and it helps</p>
+                      <p className="text-center">your members explore all your great work.</p>
+
+                    </div>
+
+
+                  </div>
+
                 </div>
 
               )}
