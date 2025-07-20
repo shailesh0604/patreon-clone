@@ -12,8 +12,11 @@ import Link from "next/link";
 import { FaLink } from "react-icons/fa6";
 import { IoAdd } from "react-icons/io5";
 import { BsCollectionPlayFill } from "react-icons/bs";
-
-
+import { FaCirclePlay } from "react-icons/fa6";
+import { AiFillThunderbolt } from "react-icons/ai";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { FaCheckCircle } from "react-icons/fa"
+import { BsFillBarChartFill } from "react-icons/bs";
 
 const CreatorPageView = ({ }) => {
 
@@ -308,10 +311,10 @@ const CreatorPageView = ({ }) => {
               {activeTab === 'Home' && (
                 <div className="tab-content home-tab-content">
                   <div className="home-heading">
-                    <div className="home-title">
+                    <div className="text-lg md:text-xl text-center md:text-start font-semibold mb-4">
                       Your Patreon is ready! Here's how to make it yours
                     </div>
-                    <div className="home-subtitle">
+                    <div className="home-subtitle text-center md:text-start">
                       Adding some details helps visitors learn more about you and what you plan to share here.
                     </div>
                   </div>
@@ -326,7 +329,7 @@ const CreatorPageView = ({ }) => {
 
               {activeTab === 'Collections' && (
                 <div className="bg-white rounded-2xl max-w-[85%] mx-auto px-6 py-5">
-                  <div className="flex justify-between items-center gap-4">
+                  <div className="flex justify-center sm:justify-between  items-center gap-4 flex-wrap mb-10">
                     <div className="text-xl font-semibold">Collection</div>
                     <div className="flex items-center gap-1 bg-black text-white px-4 py-2 rounded-full opacity-85">
                       <span><IoAdd className="text-2xl" /></span>
@@ -348,43 +351,156 @@ const CreatorPageView = ({ }) => {
                       <p className="text-center">your members explore all your great work.</p>
 
                     </div>
-
-
                   </div>
-
                 </div>
-
               )}
 
               {activeTab === 'Shop' && (
-                <div className="w-full h-full flex justify-center min-h-80 items-center">
-                  <div className="flex flex-col items-center ">
-                    shop
+                <div className="bg-white rounded-2xl max-w-[85%] mx-auto px-6 py-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
+                    <div className="flex flex-col">
+                      <div className="text-xl font-semibold mb-6">Earn more with Commerce</div>
+
+                      <div className="flex flex-col gap-6">
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <FaCirclePlay className="text-3xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Sell your work to anyone</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">Easily list your new and existing posts, products and collections for anyone to purchase.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <AiFillThunderbolt className="text-3xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Unlock your earnings from new fans</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">On average, over 80% of one-time payments come from fans who have never paid the creator before.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <RiMoneyRupeeCircleFill className="text-3xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Integrate it with your membership</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">
+                              Give fans an option to purchase work individually or join your membership to unlock even more.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-6 mt-10">
+                        <button className="bg-black text-white px-5 py-2 rounded-xl">Get started</button>
+                        <button className="text-black">Learn more</button>
+                      </div>
+
+                    </div>
+
+
+                    <div className="shop-video">
+                      <video muted autoPlay playsInline loop >
+                        <source src="/assets/videos/shop.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
                 </div>
               )}
 
               {activeTab === 'Membership' && (
-                <div className="w-full h-full flex justify-center min-h-80 items-center">
-                  <div className="flex flex-col items-center ">
-                    member
+                <div className="bg-white rounded-2xl max-w-[85%] mx-auto px-6 py-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
+                    <div className="flex flex-col">
+                      <div className="text-xl font-semibold mb-6">Build your paid membership</div>
+
+                      <div className="flex flex-col gap-6">
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <RiMoneyRupeeCircleFill className="text-3xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Income you can count on</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">Earn recurring income from your biggest fans.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <FaCheckCircle className="text-2xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Start with what you have</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">Offer something you’re already excited to share with your fans, plus some added perks.</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-2 sm:gap-6">
+                          <div>
+                            <BsFillBarChartFill className="text-2xl" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-lg mb-1">Grow your creative business</h4>
+                            <p className="font-normal text-[0.9rem] opacity-90">
+                              Get insights on your members, create exclusive member-only Chats and more.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-6 mt-10">
+                        <button className="bg-black text-white px-5 py-2 rounded-xl">Get started</button>
+                      </div>
+
+                    </div>
+
+
+                    <div className="member-img">
+                      <Image src="/assets/images/full_tier_img.png" width={0} height={0} sizes="100vw" alt="member" />
+                    </div>
                   </div>
                 </div>
               )}
 
               {activeTab === 'About' && (
-                <div className="w-full h-full flex justify-center min-h-80 items-center">
-                  <div className="flex flex-col items-center ">
-                    about
+                <div className="tab-content home-tab-content">
+                  <div className="about-img">
+                    <Image src={"/assets/images/about.png"} width={0} height={0} alt="about" sizes="100vw" />
                   </div>
+
+                  <div className="about-heading">
+                    <div className="text-lg md:text-xl text-center font-semibold mb-4">
+                      Introduce yourself
+                    </div>
+
+                    <div className="home-subtitle text-center">
+                      Help people coming to your page get to know you. Share more about who you are, what you create and why you're on Patreon! Learn more
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center w-full mt-4">
+                    <button className="border px-4 py-3 rounded-lg text-sm">
+                      Add details
+                    </button>
+                  </div>
+
                 </div>
               )}
 
               {activeTab === 'Recommendations' && (
-                <div className="w-full h-full flex justify-center min-h-80 items-center">
-                  <div className="flex flex-col items-center ">
-                    Recommendations
+                <div className="tab-content home-tab-content">
+                  <div className="home-heading">
+                    <div className="text-lg md:text-xl text-center md:text-start font-semibold mb-4">
+                      Creators recommending you to their fans
+                    </div>
+                    <div className="home-subtitle text-center md:text-start">
+                      Creators who recommend you will appear here. You can try recommending a creator first.
+                    </div>
                   </div>
+
                 </div>
               )}
 

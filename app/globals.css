@@ -2778,7 +2778,7 @@ label {
   background-color: #fff;
 }
 
-.tabs-contents{
+.tabs-contents {
   margin: 4rem auto 8rem auto;
 }
 
@@ -2814,6 +2814,43 @@ label {
   padding: 0.55rem 1.5rem;
   border-radius: var(--border-radius-full);
 }
+
+.shop-video {
+  width: 100%;
+  height: 100%;
+}
+
+.shop-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-img{
+  width: 100%;
+  height: 100%;
+}
+
+.member-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-img{
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+}
+
+.about-img img{
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+
+
 
 /* footer css */
 
