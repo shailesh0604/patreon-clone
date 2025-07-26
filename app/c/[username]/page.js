@@ -3,8 +3,6 @@ import CreatorPageView from './CreatorPageView'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 
-
-
 export const metadata = {
     title: "Creator Page | Patreon",
     description: 'Join now and support your favorite creators.',
@@ -12,7 +10,6 @@ export const metadata = {
         icon: '/assets/images/icons/favicon.png',
     },
 }
-
 
 export default async function CreatorPage({ params }) {
 
