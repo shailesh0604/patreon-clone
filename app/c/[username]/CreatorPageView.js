@@ -219,6 +219,14 @@ const CreatorPageView = ({ }) => {
   };
 
 
+  const createPost = async () => {
+    const res = await fetch("/api/create-post", { method: "POST" });
+    const data = await res.json();
+    console.log(data);
+    router.push(`/posts/${data.postId}/edit`);
+  }
+
+
   return <>
     <div className="user-main-container">
       <div className={`user-container ${isToggled ? "resized" : ""}`}>
@@ -319,10 +327,10 @@ const CreatorPageView = ({ }) => {
                     </div>
                   </div>
 
-                  <Link href={"/post"} className="btn-post">
+                  <button type="button" className="btn-post" onClick={createPost}>
                     <span><IoAdd className="text-2xl" /></span>
                     <span>New Post</span>
-                  </Link>
+                  </button>
 
                 </div>
               )}
