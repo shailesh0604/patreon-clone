@@ -2,12 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import useSidebarStore from "@/lib/store/sidebarStore";
+import Sidebar from "@/Components/Sidebar";
+import FilePreview from "@/Components/FilePreview";
 
 const PostPage = () => {
   const { postId } = useParams(); // get postId from route
 
+  const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
+
   const [formData, setFormData] = useState({ title: "", content: "" });
 
+  const handleFileSelect = (file) => {
+    console.log("Selected file:", file);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,28 +53,48 @@ const PostPage = () => {
   };
 
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto mt-10">
-      <input
-        name="title"
-        value={formData.title}
-        onChange={handleChange}
-        placeholder="Post title"
-        className="w-full p-2 border rounded"
-      />
-      <textarea
-        name="content"
-        value={formData.content}
-        onChange={handleChange}
-        placeholder="Post content"
-        rows={10}
-        className="w-full p-2 border rounded"
-      />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Save Post
-      </button>
-    </form>
-  );
+
+
+
+  return <>
+    <div className="user-main-container">
+      <div className={`user-container ${isToggled ? "resized" : ""}`}>
+        <div className="user-sidebar-container">
+          <Sidebar />
+        </div>
+
+        <div className="user-content-container">
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto mt-10">
+            <input
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Post title"
+              className="w-full p-2 border rounded"
+            />
+            <textarea
+              name="content"
+              value={formData.content}
+              onChange={handleChange}
+              placeholder="Post content"
+              rows={10}
+              className="w-full p-2 border rounded"
+            />
+
+            <div className="">
+              <div className="p-6">
+                <FilePreview onFileSelect={handleFileSelect} />
+              </div>
+            </div>
+
+            <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+              Save Post
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </>
 }
 
 
