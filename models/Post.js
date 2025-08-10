@@ -5,6 +5,7 @@ const PostSchema = new mongoose.Schema({
     username: { type: String, required: true },
     title: { type: String },
     content: { type: String },
+    media: { type: String },
     status: { type: String, enum: ["draft", "published"], default: "draft" }
 }, { timestamps: true }
 );

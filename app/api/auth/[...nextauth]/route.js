@@ -29,7 +29,6 @@ export const authOptions = {
             // Add user data to the token during sign-in
             if (user) {
                 token.email = user.email;
-
             }
 
             try {

@@ -17,6 +17,7 @@ export async function POST(req) {
         username,
         title: "",
         content: "",
+        media: "",
         status: "draft"
     });
 

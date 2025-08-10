@@ -1,62 +1,66 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import useSidebarStore from "@/lib/store/sidebarStore";
 import Sidebar from "@/Components/Sidebar";
 import FilePreview from "@/Components/FilePreview";
+import { useSession } from "next-auth/react";
 
 const PostPage = () => {
   const { postId } = useParams(); // get postId from route
+  const router = useRouter();
 
-  const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
+  const { data: session } = useSession();
+  const { isToggled } = useSidebarStore();
 
   const [formData, setFormData] = useState({ title: "", content: "" });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileSelect = (file) => {
-    console.log("Selected file:", file);
+    setSelectedFile(file);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((e) => ({ ...e, [name]: value }));
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.title.trim() || !formData.content.trim()) {
-      alert("Please update all data");
+      alert("Please fill out all fields");
       return;
     }
 
     const data = new FormData();
-
     data.append("title", formData.title);
     data.append("content", formData.content);
-
-    console.log("Form values:", formData.title, formData.content);
+    if (selectedFile) {
+      data.append("media", selectedFile);
+    }
 
     const res = await fetch(`/api/posts/${postId}`, {
       method: "PATCH",
       body: data,
     });
 
-    console.log(res);
-
     if (res.ok) {
-      alert("Post saved!");
-      // router.push(`/posts/${postId}/edit`);
+      alert("Post updated successfully!");
+
+      // Clear form
+      setFormData({ title: "", content: "" });
+      setSelectedFile(null);
+
+      //  Redirect to creator page
+      router.push(`/c/${session?.user?.patreon_account_username}`);
     } else {
-      alert("Error saving post");
+      console.error(await res.json());
     }
   };
 
-
-
-
-
-  return <>
+  return (
     <div className="user-main-container">
       <div className={`user-container ${isToggled ? "resized" : ""}`}>
         <div className="user-sidebar-container">
@@ -81,10 +85,8 @@ const PostPage = () => {
               className="w-full p-2 border rounded"
             />
 
-            <div className="">
-              <div className="p-6">
-                <FilePreview onFileSelect={handleFileSelect} />
-              </div>
+            <div className="p-6">
+              <FilePreview onFileSelect={handleFileSelect} />
             </div>
 
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
@@ -94,8 +96,7 @@ const PostPage = () => {
         </div>
       </div>
     </div>
-  </>
-}
+  );
+};
 
-
-export default PostPage
+export default PostPage;

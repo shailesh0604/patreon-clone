@@ -2,7 +2,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation"
 import Sidebar from "@/Components/Sidebar";
 import useSidebarStore from '@/lib/store/sidebarStore';
 import { BsRocketTakeoffFill } from "react-icons/bs";
