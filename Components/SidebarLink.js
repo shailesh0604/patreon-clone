@@ -10,26 +10,38 @@ import { FaUsers } from "react-icons/fa";
 import { HiMiniChartBar } from "react-icons/hi2";
 import { MdPayments } from "react-icons/md"
 import { AiFillThunderbolt } from "react-icons/ai";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { RiDashboardFill } from "react-icons/ri";
 
 
-// Links for members
-export const memberLinks = [
-    { href: "/home", icon: <AiFillHome />, text: "Home" },
-    { href: "/search", icon: <IoSearch />, text: "Find creators" },
-    { href: "/community", icon: <IoIosChatbubbles />, text: "Community" },
-    { href: "/notification", icon: <FaBell />, text: "Notifications" },
-    { href: "/setting", icon: <IoSettingsSharp />, text: "Settings" },
-];
 
-// Links for creators
-export const creatorLinks = [
-    { href: "/home", icon: <AiFillHome />, text: "My page" },
-    { href: "/create", icon: <MdLibraryBooks />, text: "Library" },
-    { href: "/community", icon: <FaUsers />, text: "Audience" },
-    { href: "/notification", icon: <HiMiniChartBar />, text: "Insights" },
-    { href: "/setting", icon: <MdPayments />, text: "Payouts" },
-    { href: "/setting", icon: <AiFillThunderbolt />, text: "Promotions" },
-    { href: "/setting", icon: <IoIosChatbubbles />, text: "Community" },
-    { href: "/setting", icon: <FaBell />, text: "Notification" },
-    { href: "/setting", icon: <IoSettingsSharp />, text: "Settings" },
-];
+export default function useSidebarLinks() {
+    const { data: session } = useSession();
+    const patreonUsername = session?.user?.patreon_account_username;
+
+
+    // Links for members
+    const memberLinks = [
+        { href: "/home", icon: <AiFillHome />, text: "Home" },
+        { href: "/search", icon: <IoSearch />, text: "Find creators" },
+        { href: "/community", icon: <IoIosChatbubbles />, text: "Community" },
+        { href: "/notification", icon: <FaBell />, text: "Notifications" },
+        { href: "/setting", icon: <IoSettingsSharp />, text: "Settings" },
+    ];
+
+    // Links for creators
+    const creatorLinks = [
+        { href: `/c/${patreonUsername}`, icon: <RiDashboardFill />, text: "Dashboard" },
+        { href: "/library", icon: <MdLibraryBooks />, text: "Library" },
+        { href: "/audience", icon: <FaUsers />, text: "Audience" },
+        { href: "/insights", icon: <HiMiniChartBar />, text: "Insights" },
+        { href: "/payout", icon: <MdPayments />, text: "Payouts" },
+        { href: "/promotions", icon: <AiFillThunderbolt />, text: "Promotions" },
+        { href: "/community", icon: <IoIosChatbubbles />, text: "Community" },
+        { href: "/notification", icon: <FaBell />, text: "Notification" },
+        { href: "/setting", icon: <IoSettingsSharp />, text: "Settings" },
+    ];
+
+    return { memberLinks, creatorLinks };
+
+}

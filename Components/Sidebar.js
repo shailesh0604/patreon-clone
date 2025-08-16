@@ -9,11 +9,12 @@ import { usePathname } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { IoClose } from "react-icons/io5";
 import { GrFormNextLink } from "react-icons/gr";
-import { creatorLinks, memberLinks } from "./SidebarLink";
+import useSidebarLinks from "./SidebarLink";
 import useSidebarStore from "@/lib/store/sidebarStore";
 import { ImCheckmark } from "react-icons/im";
 
 const Sidebar = () => {
+    const { memberLinks, creatorLinks } = useSidebarLinks();
     const { isToggled, toggleSidebar } = useSidebarStore();
     const { data: session } = useSession();
     const setUserLetter = useSidebarStore((state) => state.setUserLetter);
@@ -53,6 +54,7 @@ const Sidebar = () => {
     const userLetter = useSidebarStore((state) => state.userLetter);
     const pathName = usePathname();
     const isCreator = pathName?.startsWith("/c/");
+
     const linksToShow = isCreator ? creatorLinks : memberLinks;
 
     // Helper function to return safe image with fallback
