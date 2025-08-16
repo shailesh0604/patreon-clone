@@ -33,9 +33,9 @@ export default function useSidebarLinks() {
     const creatorLinks = [
         { href: `/c/${patreonUsername}`, icon: <RiDashboardFill />, text: "Dashboard" },
         { href: "/library", icon: <MdLibraryBooks />, text: "Library" },
-        { href: "/audience", icon: <FaUsers />, text: "Audience" },
+        { href: "/members", icon: <FaUsers />, text: "Audience" },
         { href: "/insights", icon: <HiMiniChartBar />, text: "Insights" },
-        { href: "/payout", icon: <MdPayments />, text: "Payouts" },
+        { href: "/payouts", icon: <MdPayments />, text: "Payouts" },
         { href: "/promotions", icon: <AiFillThunderbolt />, text: "Promotions" },
         { href: "/community", icon: <IoIosChatbubbles />, text: "Community" },
         { href: "/notification", icon: <FaBell />, text: "Notification" },

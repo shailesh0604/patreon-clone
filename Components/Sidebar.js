@@ -13,7 +13,7 @@ import useSidebarLinks from "./SidebarLink";
 import useSidebarStore from "@/lib/store/sidebarStore";
 import { ImCheckmark } from "react-icons/im";
 
-const Sidebar = () => {
+const Sidebar = ({ isCreator = false }) => {
     const { memberLinks, creatorLinks } = useSidebarLinks();
     const { isToggled, toggleSidebar } = useSidebarStore();
     const { data: session } = useSession();
@@ -53,7 +53,10 @@ const Sidebar = () => {
 
     const userLetter = useSidebarStore((state) => state.userLetter);
     const pathName = usePathname();
-    const isCreator = pathName?.startsWith("/c/");
+
+    if (!isCreator) {
+        isCreator = pathName?.startsWith("/c/");
+    }
 
     const linksToShow = isCreator ? creatorLinks : memberLinks;
 
