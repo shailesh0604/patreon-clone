@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Blogs = () => {
+
+const Blogs = ({ username }) => {
     return <>
-        <section className='section-blogs'>Blogs</section>
+        <section className='section-blogs'>
+            <div className="">Blogs</div>
+            <div className="">{username?.patreon_account_username}</div>
+        </section>
     </>
 }
 

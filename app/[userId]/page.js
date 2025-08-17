@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Media from "@/models/UserMedia";
 import User from "@/models/User";
 import Image from 'next/image'
 import NavbarUser from "@/Components/User/NavbarUser";

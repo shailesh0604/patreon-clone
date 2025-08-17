@@ -187,7 +187,7 @@ const UserInfo = ({ userData }) => {
 
             <hr />
 
-            <Blogs />
+            <Blogs username={userData} />
 
         </>
     )
