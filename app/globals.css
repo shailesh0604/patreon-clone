@@ -2826,31 +2826,73 @@ label {
   object-fit: cover;
 }
 
-.member-img{
+.member-img {
   width: 100%;
   height: 100%;
 }
 
-.member-img img{
+.member-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.about-img{
+.about-img {
   width: 20rem;
   max-width: 90%;
   margin: auto;
 }
 
-.about-img img{
+.about-img img {
   width: 100%;
   max-width: 100%;
   object-fit: contain;
 }
 
+.blogs {
+  width: 50rem;
+  max-width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
 
+.blog {
+  background-color: var(--light);
+  overflow: hidden;
+  border-radius: var(--border-radius-1);
+  border: 1px solid #dbd6d6;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
 
+.blog .blog-media {
+  width: 100%;
+  height: 40dvh;
+}
+
+.blog .blog-media video,
+.blog .blog-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog .blog-heading {
+  padding: 1rem 0.5rem 1rem 1rem;
+}
+
+.blog .blog-title {
+  font-size: 1.35vw;
+  font-weight: 500;
+}
+
+.blog .blog-subtitle {
+  font-size: 1.1vw;
+  font-weight: 400;
+  margin: 0.5rem 0 0.7 5rem 0;
+}
 
 /* footer css */
 
