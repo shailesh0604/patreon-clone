@@ -62,6 +62,18 @@ const HomeBanner = () => {
     },
     {
       banner: {
+        image: "/assets/videos/user3.mp4",
+        alt: "Banner 8",
+      },
+      user: {
+        username: "Mark Hen",
+        image: "/assets/images/user/user7.jpg",
+        desc: "Ellis Ever After is building a family podcasting empire.",
+      },
+      titles: ["Where", "Podcasts grow"],
+    },
+    {
+      banner: {
         image: "/assets/images/banner/banner3.jpg",
         alt: "Banner 3",
       },
