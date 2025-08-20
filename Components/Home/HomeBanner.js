@@ -74,7 +74,7 @@ const HomeBanner = () => {
     },
     {
       banner: {
-        image: "/assets/images/banner/banner3.jpg",
+        image: "/assets/images/banner/banner5.jpg",
         alt: "Banner 3",
       },
       user: {
