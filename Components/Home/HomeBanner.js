@@ -4,12 +4,13 @@ import React, { useRef, useEffect, useState, use } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import gsap from "gsap";
-import { FaArrowDown } from "react-icons/fa6";
+import { FaArrowDown, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { IoArrowForwardSharp } from "react-icons/io5";
 
 const HomeBanner = () => {
   const ref = useRef(null);
   const isInView = useInView(ref);
+
 
   const dataSets = [
     {
@@ -99,6 +100,8 @@ const HomeBanner = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef(null);
+
   const prevIndex = useRef(0);
   const itemsRefs = useRef([]);
   const videoRefs = useRef([]);
@@ -107,13 +110,98 @@ const HomeBanner = () => {
   const descRef = useRef(null);
   const imgRef = useRef(null);
 
+
+  // mouse hover slider changes
+  const [hoverSide, setHoverSide] = useState(null);
+
+  const userContentRef = useRef(null);    //safe zone
+  const arrowFloatRef = useRef(null);
+
   // Auto-slide every 10s
-  useEffect(() => {
-    const interval = setInterval(() => {
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentIndex((i) => (i + 1) % dataSets.length);
+  //   }, 10000);
+  //   return () => clearInterval(interval);
+  // }, [dataSets.length]);
+
+
+
+  const startAutoSlide = () => {
+    stopAutoSlide(); // clear existing
+    intervalRef.current = setInterval(() => {
       setCurrentIndex((i) => (i + 1) % dataSets.length);
     }, 10000);
-    return () => clearInterval(interval);
-  }, [dataSets.length]);
+  };
+
+  const stopAutoSlide = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    startAutoSlide();
+    return () => stopAutoSlide();
+  }, []);
+
+
+
+  const handlePrev = () => {
+    setCurrentIndex((i) =>
+      i === 0 ? dataSets.length - 1 : i - 1
+    );
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((i) =>
+      (i + 1) % dataSets.length
+    );
+  }
+
+  // Track mouse movement
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+
+    const { clientX, clientY } = e;
+
+    // ✅ SAFE ZONE: if mouse is over user-content, hide arrows and bail
+    if (userContentRef.current) {
+      // prefer DOM containment
+      const insideByContain = userContentRef.current.contains(e.target);
+      // extra safety for shadow DOM / nested paths
+      const insideByPath = typeof e.composedPath === "function"
+        ? e.composedPath().includes(userContentRef.current)
+        : false;
+
+      if (insideByContain || insideByPath) {
+        if (hoverSide !== null) setHoverSide(null);
+        return;
+      }
+    }
+
+    // Normal left/right half detection using the section bounds
+    const { left, width } = ref.current.getBoundingClientRect();
+    const center = left + width / 2;
+    setHoverSide(clientX < center ? "left" : "right");
+
+    // Smooth follow with GSAP
+    if (arrowFloatRef.current) {
+      gsap.to(arrowFloatRef.current, {
+        x: clientX,
+        y: clientY,
+        duration: 0.3,
+        ease: "power3.out",
+      });
+    }
+  };
+
+
+
+  const handleMouseLeave = () => {
+    setHoverSide(null);
+  };
 
   // Animate titles on first render
   useEffect(() => {
@@ -282,7 +370,8 @@ const HomeBanner = () => {
   const currentData = dataSets[currentIndex];
 
   return (
-    <section className="section-banner h-dvh overflow-hidden relative">
+    <section className="section-banner h-dvh overflow-hidden relative" ref={ref} onMouseMove={handleMouseMove}
+      onMouseLeave={() => setHoverSide(null)}>
       {/* BANNER BACKGROUND SLIDES */}
       {dataSets.map((item, i) => (
         <div
@@ -313,7 +402,7 @@ const HomeBanner = () => {
 
       {/* OVERLAY CONTENT */}
       <div className="user-content z-10 relative">
-        <div className="user-profile-content">
+        <div className="user-profile-content" ref={userContentRef}>
           <div className="user-profile flex items-center gap-3">
             <div className="user-profile-image" ref={imgRef}>
               <Image
@@ -349,6 +438,33 @@ const HomeBanner = () => {
           </span>
         </div>
       </div>
+
+      {/* --- FLOATING CURSOR ARROWS --- */}
+      {hoverSide && (
+        <div
+          ref={arrowFloatRef}
+          className="absolute z-30 pointer-events-none will-change-transform"
+          style={{ transform: "translate(-50%, -50%)" }}
+        >
+          {hoverSide === "left" ? (
+            <button
+              onClick={handlePrev}
+              className="pointer-events-auto text-white p-3 rounded-full"
+            >
+              <FaChevronLeft className="text-2xl" />
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="pointer-events-auto text-white p-3 rounded-full"
+            >
+              <FaChevronRight className="text-2xl" />
+            </button>
+          )}
+        </div>
+      )}
+
+
 
       <div className="absolute bottom-2 left-4 md:bottom-6 md:left-8 z-10">
         <div className="banner-arrow">
