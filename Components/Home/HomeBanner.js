@@ -127,14 +127,15 @@ const HomeBanner = () => {
 
 
 
-  const startAutoSlide = () => {
-    stopAutoSlide(); // clear existing
+  // autoplay function
+  const startAutoPlay = () => {
+    stopAutoPlay(); // clear before starting again
     intervalRef.current = setInterval(() => {
-      setCurrentIndex((i) => (i + 1) % dataSets.length);
-    }, 10000);
+      handleNext();
+    }, 10000); // ⏱ change 5000ms to your desired delay
   };
 
-  const stopAutoSlide = () => {
+  const stopAutoPlay = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -142,8 +143,8 @@ const HomeBanner = () => {
   };
 
   useEffect(() => {
-    startAutoSlide();
-    return () => stopAutoSlide();
+    startAutoPlay();
+    return stopAutoPlay; // cleanup on unmount
   }, []);
 
 
@@ -152,12 +153,14 @@ const HomeBanner = () => {
     setCurrentIndex((i) =>
       i === 0 ? dataSets.length - 1 : i - 1
     );
+    startAutoPlay();
   }
 
   const handleNext = () => {
     setCurrentIndex((i) =>
       (i + 1) % dataSets.length
     );
+    startAutoPlay();
   }
 
   // Track mouse movement
