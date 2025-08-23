@@ -76,11 +76,20 @@ button:disabled {
   border-radius: 50%;
   border: 6px solid lightblue;
   border-right-color: orange;
+  -webkit-animation: l2 0.5s infinite linear;
   animation: l2 0.5s infinite linear;
+}
+
+@-webkit-keyframes l2 {
+  to {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
 }
 
 @keyframes l2 {
   to {
+    -webkit-transform: rotate(1turn);
     transform: rotate(1turn);
   }
 }
@@ -92,6 +101,7 @@ button:disabled {
 }
 
 #nprogress .peg {
+  -webkit-box-shadow: 0 0 10px #29d, 0 0 5px #29d;
   box-shadow: 0 0 10px #29d, 0 0 5px #29d;
 }
 
@@ -809,6 +819,24 @@ button:disabled {
   color: var(--light);
 }
 
+.navbar-container.scrolled
+  .input-search
+  input:hover::-webkit-input-placeholder {
+  color: var(--light);
+}
+
+.navbar-container.scrolled .input-search input:hover::-moz-placeholder {
+  color: var(--light);
+}
+
+.navbar-container.scrolled .input-search input:hover:-ms-input-placeholder {
+  color: var(--light);
+}
+
+.navbar-container.scrolled .input-search input:hover::-ms-input-placeholder {
+  color: var(--light);
+}
+
 .navbar-container.scrolled .input-search input:hover::placeholder {
   color: var(--light);
 }
@@ -1437,17 +1465,25 @@ section.section-login {
 }
 
 .sidebar-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 0.65rem;
 }
 
 .sidebar-link .link-icon svg {
   font-size: 1.35rem;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
 
 .sidebar-link .link-txt {
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   font-size: 1rem;
 }
@@ -1580,6 +1616,7 @@ section.section-login {
 .custom-linear-gradient {
   background: #232526; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
   background: -o-linear-gradient(left, #414345, #232526);
+  background: -o-linear-gradient(left, #414345, #232526);
   background: -webkit-gradient(
     linear,
     left top,
@@ -1625,6 +1662,7 @@ section.section-login {
   right: 0;
   border-radius: 4px;
   top: 50px;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background: var(--light);
   padding: 0.5rem 0.65rem 0.5rem 0.25rem;
@@ -1636,6 +1674,8 @@ section.section-login {
   content: "";
   right: 18px;
   top: -5px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   border-top: 10px solid var(--light);
   border-top: 10px solid var(--light);
@@ -2515,6 +2555,14 @@ label {
       rgb(10, 14, 124)
     ),
     -o-radial-gradient(left bottom, circle, rgb(10, 14, 124), transparent 10%, rgb(10, 14, 124));
+  background-image: -o-radial-gradient(
+      right top,
+      circle,
+      rgb(10, 14, 124),
+      transparent 10%,
+      rgb(10, 14, 124)
+    ),
+    -o-radial-gradient(left bottom, circle, rgb(10, 14, 124), transparent 10%, rgb(10, 14, 124));
   background-image: radial-gradient(
       circle at right top,
       rgb(10, 14, 124),
@@ -2748,8 +2796,14 @@ label {
 }
 
 .patreon-account-tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 1rem;
   z-index: 1;
@@ -2787,6 +2841,8 @@ label {
   width: 80%;
   height: 0.0125rem;
   left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
   transform: translate(-50%, 0%);
   z-index: -1;
   bottom: -6px;
@@ -2818,12 +2874,20 @@ label {
 }
 
 .btn-post {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 0.5rem;
   background-color: var(--dark);
   color: var(--light);
+  width: -webkit-max-content;
+  width: -moz-max-content;
   width: max-content;
   margin: 2rem auto auto auto;
   padding: 0.55rem 1.5rem;
@@ -2838,6 +2902,7 @@ label {
 .shop-video video {
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -2849,6 +2914,7 @@ label {
 .member-img img {
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -2861,6 +2927,7 @@ label {
 .about-img img {
   width: 100%;
   max-width: 100%;
+  -o-object-fit: contain;
   object-fit: contain;
 }
 
@@ -2868,7 +2935,12 @@ label {
   width: 50rem;
   max-width: 90%;
   margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   gap: 3rem;
 }
@@ -2885,6 +2957,8 @@ label {
   overflow: hidden;
   border-radius: var(--border-radius-1);
   border: 1px solid #dbd6d6;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
@@ -2900,10 +2974,15 @@ label {
   left: 2%;
   bottom: 5%;
   background-color: var(--light);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   gap: 0.45rem;
   padding: 0.35rem 0.85rem;
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 7px;
 }
@@ -2912,6 +2991,7 @@ label {
 .blog .blog-media img {
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -3132,6 +3212,7 @@ label {
     display: -ms-grid;
     display: grid;
     height: 100vh;
+    -ms-grid-columns: (1fr) [1];
     grid-template-columns: repeat(1, 1fr);
   }
 
@@ -3147,8 +3228,12 @@ label {
   }
 
   .patreon-account-tabs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding: 0 1rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 1.5rem;
     overflow-x: auto;
@@ -3358,15 +3443,21 @@ label {
 
   .sidebar-link .link-icon svg {
     font-size: 1.5rem;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
 
   .sidebar-link .link-txt {
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     font-size: 1.05rem;
   }
 
   .published-content {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: relative;
     margin: 4.5rem 0 0 0;
@@ -3462,8 +3553,11 @@ label {
 
   .published-content {
     padding: 0.5rem 0.75rem;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 0.75rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
   }
 
