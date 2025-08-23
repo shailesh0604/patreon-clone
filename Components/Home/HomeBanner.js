@@ -202,9 +202,6 @@ const HomeBanner = () => {
 
 
 
-  const handleMouseLeave = () => {
-    setHoverSide(null);
-  };
 
   // Animate titles on first render
   useEffect(() => {
