@@ -4,6 +4,7 @@ import Image from 'next/image'
 import NavbarUser from "@/Components/User/NavbarUser";
 import UserInfo from "@/Components/User/UserInfo";
 import ConnectDB from "@/db/ConnectDB";
+import Footer from "@/Components/Footer";
 
 
 export default async function UserPage({ params }) {
@@ -22,8 +23,9 @@ export default async function UserPage({ params }) {
             <>
                 <NavbarUser />
                 <UserInfo userData={plainUser} />
+                <Footer />
 
-                <div className="p-6">
+                {/* <div className="p-6">
                     <h1 className="text-2xl font-bold">User Media: {userId}</h1>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -36,7 +38,7 @@ export default async function UserPage({ params }) {
                             </video>
                         ))}
                     </div>
-                </div>
+                </div> */}
             </>
         );
     } catch (error) {

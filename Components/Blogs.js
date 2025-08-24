@@ -35,7 +35,7 @@ const Blogs = ({ username }) => {
     </div>;
 
     return <>
-        <section className="section-blogs">
+        <section className="section-blogs mb-16">
             <h2 className="recent-title">
                 Recent posts by <span className='capitalize'>{username?.patreon_account_username}</span>
             </h2>
@@ -112,10 +112,7 @@ const Blogs = ({ username }) => {
                                             <span>Locked</span>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     ))}
