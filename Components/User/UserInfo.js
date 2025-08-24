@@ -30,7 +30,6 @@ const UserInfo = ({ userData }) => {
 
                         <div className="share">
                             <RiMoreFill />
-
                         </div>
                     </div>
                 </div>
@@ -62,9 +61,7 @@ const UserInfo = ({ userData }) => {
                             <Image src={"/assets/images/icons/gmail.svg"} width={35} height={35} sizes='100' alt='social media' />
                         </Link>
                     </div>
-
                 </div>
-
             </section>
 
             <hr />

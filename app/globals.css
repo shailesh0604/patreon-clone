@@ -3026,6 +3026,69 @@ label {
   border-radius: 9px;
 }
 
+.custom-title {
+  font-size: 1.5rem;
+  color: var(--light);
+  margin: 2rem 1rem 1rem 2rem;
+}
+
+.posts-container {
+  width: 85%;
+  margin: 3rem auto 1rem auto;
+}
+
+.post-contents{
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.post-content {
+  background-color: #fff;
+  border-radius: 9px;
+  padding: 0.75rem;
+  width: 100%;
+}
+
+.post-content .post-media {
+  width: 40%;
+  height: 100%;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.post-content .post-media img,
+.post-content .post-media video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.post-content .user-post {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  border-radius: var(--border-radius-full);
+  margin: 1rem auto;
+  background-color: #ddd8d8;
+  height: 1px;
+}
+
+.btn-delete{
+  padding: 0.45rem 1rem;
+  background-color: rgb(246, 30, 30);
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  gap: 0.25rem;
+  color: var(--light);
+  border-radius: 4px;
+}
+
 /* footer css */
 
 .footer-container {
