@@ -226,7 +226,7 @@ const Creators = () => {
                                 pagination={{ clickable: true }}
                                 autoplay={{delay : 5000 , disableOnInteraction: false}}
                                 loop={true}
-                                speed={3000}
+                                speed={2000}
                                 breakpoints={{
                                     0: { slidesPerView: 1 },
                                     767: { slidesPerView: 2 },
