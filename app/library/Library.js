@@ -6,6 +6,8 @@ import useSidebarStore from "@/lib/store/sidebarStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
+import { Loader } from 'rsuite';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 const Library = () => {
 
@@ -13,7 +15,7 @@ const Library = () => {
     const { data: session } = useSession();
 
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -24,14 +26,18 @@ const Library = () => {
                 const res = await fetch(`/api/posts/user/${session?.user?.patreon_account_username}`);
                 const data = await res.json();
                 setPosts(data);
+
                 console.log(data);
             } catch (error) {
-
+                console.error("Failed to fetch posts:", error);
+            }
+            finally {
+                setLoading(false);
             }
         }
 
         loadPostData();
-    }), [session?.user?.patreon_account_username]
+    }, [session?.user?.patreon_account_username]);
 
     return <>
         <div className="user-main-container">
@@ -48,44 +54,51 @@ const Library = () => {
                         </div>
 
                         <div className="posts-container">
-                            <div className="post-contents">
-                                {posts.map((post) => (
-                                    <div key={post._id} className="post-content">
-                                        <div className="user-post">
-                                            <div className="post-media">
-                                                {post.media && (
-                                                    <>
-                                                        {post.media.match(/\.(mp4|webm|ogg)$/i) ? (
-                                                            <video
-                                                                src={post.media}
-                                                                autoPlay muted loop
-                                                                playsInline
-                                                            />
-                                                        ) : (
-                                                            <Image width={0} height={0} sizes='100'
-                                                                src={post.media}
-                                                                alt={post.title}
-                                                            />
-                                                        )}
-                                                    </>
-                                                )}
-                                            </div>
+                            {loading ? (
+                                <div className="flex justify-center mt-10">
+                                    <Loader size="md" speed="fast" />
+                                </div>
+                            ) :
+                                (posts.length === 0 ? (<p className="text-white text-center py-10">No posts found.</p>) : (<div className="post-contents">
+                                    {posts.map((post) => (
+                                        <div key={post._id} className="post-content">
+                                            <div className="user-post">
+                                                <div className="post-media">
+                                                    {post.media && (
+                                                        <>
+                                                            {post.media.match(/\.(mp4|webm|ogg)$/i) ? (
+                                                                <video
+                                                                    src={post.media}
+                                                                    autoPlay muted loop
+                                                                    playsInline
+                                                                />
+                                                            ) : (
+                                                                <Image width={0} height={0} sizes='100'
+                                                                    src={post.media}
+                                                                    alt={post.title}
+                                                                />
+                                                            )}
+                                                        </>
+                                                    )}
+                                                </div>
 
-                                            <div className="post-heading">
-                                                <div className="post-title">{post.title}</div>
-                                                <div className="post-subtitle">{post.content}</div>
+                                                <div className="post-heading">
+                                                    <div className="post-title">{post.title}</div>
+                                                    <div className="post-subtitle">{post.content}</div>
+                                                </div>
+                                            </div>
+                                            <div className="line"></div>
+                                            <div className="post-activity flex justify-end">
+                                                <button className="btn-delete">
+                                                    <span><MdDelete className="text-xl" /></span>
+                                                    <span>Remove</span>
+                                                </button>
                                             </div>
                                         </div>
-                                        <div className="line"></div>
-                                        <div className="post-activity flex justify-end">
-                                            <button className="btn-delete">
-                                                <span><MdDelete className="text-xl" /></span>
-                                                <span>Delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
