@@ -7,6 +7,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 
 const Creators = () => {
 
@@ -22,6 +28,9 @@ const Creators = () => {
     const newCreatorRef = useRef(null);
 
     const topCreatorRef = useRef(null);
+
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
 
     const scrollLeft = () => {
         if (scrollRef.current) {
@@ -174,30 +183,79 @@ const Creators = () => {
                             </div>
 
                             <div className="heading-nav flex items-center gap-1.5">
-                                <button className=""><MdOutlineArrowBackIosNew /></button>
-                                <button className=""><MdOutlineArrowForwardIos /></button>
+                                <button ref={prevRef} className=""><MdOutlineArrowBackIosNew /></button>
+                                <button ref={nextRef} className=""><MdOutlineArrowForwardIos /></button>
                             </div>
 
                         </div>
 
-                        <div className="popular-content">
-                            {popularity.map((p, index) => (
-                                <Link key={index} href={`/${p.userName}`} className="pop-content">
-                                    <div className="flex items-center gap-3">
-                                        <div className="pop-user-img">
-                                            <Image src={p.image} width={0} sizes="100" height={0} alt={"pop images"} />
+                        <div className="hidden lg:block">
+                            <div className="popular-content">
+                                {popularity.map((p, index) => (
+                                    <Link key={index} href={`/${p.userName}`} className="pop-content">
+                                        <div className="flex items-center gap-3">
+                                            <div className="pop-user-img">
+                                                <Image src={p.image} width={0} sizes="100" height={0} alt={"pop images"} />
+                                            </div>
+                                            <div className="pop-user-txt">
+                                                <p className="pop-user-title">{p.title}</p>
+                                                <span className="pop-user-subtitle">{p.subTitle}</span>
+                                            </div>
                                         </div>
-                                        <div className="pop-user-txt">
-                                            <p className="pop-user-title">{p.title}</p>
-                                            <span className="pop-user-subtitle">{p.subTitle}</span>
-                                        </div>
-                                    </div>
 
-                                    <div className="pop-more">
-                                        <MdMoreVert />
-                                    </div>
-                                </Link>
-                            ))}
+                                        <div className="pop-more">
+                                            <MdMoreVert />
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="block lg:hidden">
+                            <Swiper
+                                modules={[Navigation, Pagination]}
+                                spaceBetween={20}
+                                slidesPerView={3} // adjust as per design
+                                onInit={(swiper) => {
+                                    // Bind custom navigation refs after Swiper initializes
+                                    swiper.params.navigation.prevEl = prevRef.current;
+                                    swiper.params.navigation.nextEl = nextRef.current;
+                                    swiper.navigation.init();
+                                    swiper.navigation.update();
+                                }}
+                                pagination={{ clickable: true }}
+                                breakpoints={{
+                                    0: { slidesPerView: 1 },
+                                    767:{slidesPerView: 2},
+                                    1024: { slidesPerView: 3 },
+                                }}
+                                className="popularity-swiper"
+                            >
+                                {popularity.map((p, index) => (
+                                    <SwiperSlide key={index}>
+                                        <Link href={`/${p.userName}`} className="pop-content block">
+                                            <div className="flex items-center gap-3">
+                                                <div className="pop-user-img relative w-14 h-14">
+                                                    <Image
+                                                        src={p.image}
+                                                        fill
+                                                        alt="pop images"
+                                                        className="rounded-full object-cover"
+                                                    />
+                                                </div>
+                                                <div className="pop-user-txt">
+                                                    <p className="pop-user-title">{p.title}</p>
+                                                    <span className="pop-user-subtitle">{p.subTitle}</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="pop-more">
+                                                <MdMoreVert />
+                                            </div>
+                                        </Link>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
 
@@ -282,7 +340,7 @@ const Creators = () => {
 
                 </div>
 
-            </div>
+            </div >
         </>
     )
 }

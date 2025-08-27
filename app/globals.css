@@ -2086,6 +2086,26 @@ label {
   overflow: auto hidden;
 }
 
+.popularity-swiper .swiper-wrapper {
+  margin: 2rem 0;
+}
+
+.popularity-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 2px;
+  opacity: 1;
+  background: #b7acac;
+  transition: all 1s ease;
+  border-radius: 100px;
+}
+
+.popularity-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  width: 25px;
+  background: var(--light);
+  opacity: 1;
+  transition: all 1s ease;
+}
+
 .pop-content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3323,6 +3343,18 @@ label {
 
   .post-contents {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .pop-content {
+    padding: 1rem;
+  }
+
+  .pop-user-txt .pop-user-subtitle {
+    text-wrap: unset;
+  }
+
+  .pop-more {
+    opacity: 1;
   }
 }
 
