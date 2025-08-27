@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -213,7 +213,7 @@ const Creators = () => {
 
                         <div className="block lg:hidden">
                             <Swiper
-                                modules={[Navigation, Pagination]}
+                                modules={[Navigation, Pagination, Autoplay]}
                                 spaceBetween={20}
                                 slidesPerView={3} // adjust as per design
                                 onInit={(swiper) => {
@@ -224,9 +224,12 @@ const Creators = () => {
                                     swiper.navigation.update();
                                 }}
                                 pagination={{ clickable: true }}
+                                autoplay={{delay : 5000 , disableOnInteraction: false}}
+                                loop={true}
+                                speed={3000}
                                 breakpoints={{
                                     0: { slidesPerView: 1 },
-                                    767:{slidesPerView: 2},
+                                    767: { slidesPerView: 2 },
                                     1024: { slidesPerView: 3 },
                                 }}
                                 className="popularity-swiper"
