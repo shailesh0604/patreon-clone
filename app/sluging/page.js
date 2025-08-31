@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 async function getUserData(slug) {
     await ConnectDB()
     const user = await User.findOne({ username: slug });
-    console.log(user);
+    // console.log(user);
     return user ? JSON.parse(JSON.stringify(user)) : null;
 }
 

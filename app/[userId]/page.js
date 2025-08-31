@@ -42,7 +42,7 @@ export default async function UserPage({ params }) {
             </>
         );
     } catch (error) {
-        console.error("Fetching User Data Error:", error);
+        // console.error("Fetching User Data Error:", error);
         return notFound();
     }
 }

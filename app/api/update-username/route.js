@@ -55,7 +55,7 @@ export async function POST(req, res) {
         return NextResponse.json({ message: "Username updated successfully", username: cleanUsername }, { status: 200 });
 
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }

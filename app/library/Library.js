@@ -25,9 +25,17 @@ const Library = () => {
             try {
                 const res = await fetch(`/api/posts/user/${session?.user?.patreon_account_username}`);
                 const data = await res.json();
-                setPosts(data);
 
-                console.log(data);
+                if (Array.isArray(data)) {
+                    setPosts(data);
+                }
+                else if (data.posts && Array.isArray(data.posts)) {
+                    setPosts(data.posts);
+                } else {
+                    setPosts([]);
+                }
+
+                // console.log(data);
             } catch (error) {
                 console.error("Failed to fetch posts:", error);
             }
@@ -38,6 +46,21 @@ const Library = () => {
 
         loadPostData();
     }, [session?.user?.patreon_account_username]);
+
+    const handleDelete = async (postId) => {
+        try {
+            const res = await fetch(`/api/posts/${postId}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) throw new Error("failed to delete");
+
+            setPosts((prev) => prev.filter((p) => p.postId !== postId));
+
+        } catch (error) {
+            console.error("Delete Error :", error);
+        }
+    }
 
     return <>
         <div className="user-main-container">
@@ -89,7 +112,7 @@ const Library = () => {
                                             </div>
                                             <div className="line"></div>
                                             <div className="post-activity flex justify-end">
-                                                <button className="btn-delete">
+                                                <button className="btn-delete" onClick={() => handleDelete(post.postId)}>
                                                     <span><MdDelete className="text-xl" /></span>
                                                     <span>Remove</span>
                                                 </button>

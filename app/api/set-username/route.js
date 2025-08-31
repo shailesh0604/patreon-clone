@@ -41,7 +41,7 @@ export async function POST(req) {
 
 
     } catch (error) {
-        console.error('Error setting username:', error);
+        // console.error('Error setting username:', error);
         return NextResponse.json({ error: 'Server error' }, { status: 500 });
     }
 

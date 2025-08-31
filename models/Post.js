@@ -6,11 +6,11 @@ const PostSchema = new mongoose.Schema({
     title: { type: String },
     content: { type: String },
     media: { type: String },
-    status: { type: String, enum: ["draft", "published"], default: "draft" }
+    status: { type: String, enum: ["draft", "published"], default: "draft" },
+    isHidden: { type: Boolean, default: false },
+    isDeleted: { type: Boolean, default: false },
 }, { timestamps: true }
 );
-
-
 
 const Posts = mongoose.models?.Posts || mongoose.model("Posts", PostSchema);
 

@@ -54,7 +54,7 @@ const Create = () => {
 
         setIsValid(true);
 
-        console.log("form submitted :", form)
+        // console.log("form submitted :", form)
 
         const timer = setTimeout(() => {
             setShowSecondForm(true);
@@ -82,7 +82,7 @@ const Create = () => {
             return;
         }
 
-        console.log(form);
+        // console.log(form);
 
         try {
             const cleanUsername = sanitizeUsername(form);
@@ -93,7 +93,7 @@ const Create = () => {
             });
 
             const data = await res.json();
-            console.log(data);
+            // console.log(data);
 
 
             if (!res.ok) {
@@ -102,14 +102,14 @@ const Create = () => {
             }
 
             setMessage('✅ Username updated successfully!');
-            console.log('Username updated in DB');
+            // console.log('Username updated in DB');
 
 
             router.push(`/c/${form}`);
 
         } catch (error) {
             setMessage('❌ Failed to update username');
-            console.error(error);
+            // console.error(error);
         }
 
     }

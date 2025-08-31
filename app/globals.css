@@ -3086,6 +3086,23 @@ label {
   object-fit: cover;
 }
 
+.post-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.post-heading .post-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.post-heading .post-subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
 .post-content .user-post {
   display: flex;
   gap: 1rem;

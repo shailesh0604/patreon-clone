@@ -16,7 +16,7 @@ export async function POST(req) {
 
         return NextResponse.json({ exists: !!existingUser });
     } catch (error) {
-        console.error('Error checking username:', error);
+        // console.error('Error checking username:', error);
         return NextResponse.json({ error: 'Server error' }, { status: 500 });
     }
 }

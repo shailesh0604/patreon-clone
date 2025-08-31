@@ -15,7 +15,7 @@ cloudinary.config({
 async function uploadToCloudinary(file) {
 
     if (!(file instanceof File)) {
-        console.error("Not a valid file:", file);
+        // console.error("Not a valid file:", file);
         throw new Error("Invalid file upload");
     }
 
@@ -27,10 +27,10 @@ async function uploadToCloudinary(file) {
             { resource_type: 'auto', folder: "profile" },
             (error, result) => {
                 if (error) {
-                    console.error("Cloudinary upload error:", error);
+                    // console.error("Cloudinary upload error:", error);
                     return reject(error);
                 }
-                console.log("Cloudinary upload success:", result);
+                // console.log("Cloudinary upload success:", result);
                 resolve(result);
             }
         );
@@ -82,7 +82,7 @@ export async function POST(req) {
         else if (coverImageUrl) {
             coverUrl = coverImageUrl;
         }
-        
+
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, {
             patreon_account_name: name,
             patreon_account_profilepic: profileUrl,
@@ -99,7 +99,7 @@ export async function POST(req) {
 
     }
     catch (error) {
-        console.error("Upload failed:", error);
+        // console.error("Upload failed:", error);
         return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 

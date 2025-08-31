@@ -7,17 +7,13 @@ export async function GET(req, { params }) {
         await ConnectDB();
         const { username } = params;
 
-        const posts = await Posts.find({ username, status: "published" }).sort({ createdAt: -1 });
-
-        if (!posts || posts.length === 0) {
-            return NextResponse.json({ message: "No Post Found" }, { status: 404 });
-        }
+        const posts = await Posts.find({ username, status: "published", isDeleted: false }).sort({ createdAt: -1 });
 
         return NextResponse.json(posts, { status: 200 });
 
 
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         return NextResponse.json(
             { message: "Error fetching posts", error: error.message },
             { status: 500 }

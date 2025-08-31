@@ -16,10 +16,14 @@ const Blogs = ({ username }) => {
             try {
                 const res = await fetch(`/api/posts/user/${username.patreon_account_username}`);
                 if (!res.ok) throw new Error("Failed to fetch posts");
+
                 const data = await res.json();
-                setPosts(data);
+
+                setPosts(Array.isArray(data) ? data : []);
+
             } catch (error) {
-                console.error("Error fetching posts: ", error);
+                // console.error("Error fetching posts: ", error);
+                setPosts([]);
             }
             finally {
                 setLoading(false);
@@ -41,13 +45,12 @@ const Blogs = ({ username }) => {
             </h2>
 
             {posts.length === 0 ? (
-                <p>No posts found.</p>
+                <p className='text-center'>{username?.patreon_account_username} not posted anything yet!!</p>
             ) : (
 
                 <div className="blogs">
                     {posts.map((post) => (
                         <div key={post._id} className="blog">
-
                             <div className="blog-media">
                                 <div className="locked">
                                     <span><FaLock /></span>
