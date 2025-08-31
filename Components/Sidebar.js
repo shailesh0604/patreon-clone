@@ -26,11 +26,29 @@ const Sidebar = ({ isCreator = false }) => {
     const isPublished = session?.user?.patreon_account_published;
     const patreonName = session?.user?.patreon_account_name;
     const patreonUsername = session?.user?.patreon_account_username;
+    const pathName = usePathname();
 
-    const displayName = isCreator ? patreonName : session?.user?.name || "user";
-    const displayImage = isCreator ? patreonPic : session?.user?.image || "/default-avatar.png";
-    const displayRole = isCreator ? "Creator" : "Member";
+    // Helper function to return safe image with fallback
+    const getSafeImage = (url) => {
+        return url && url.trim() !== "" ? url : "/assets/images/user/default-user.png";
+    };
 
+    const role = isCreator || pathName?.startsWith("/c/");
+
+
+    // pick name & image
+    const displayName = role
+        ? session?.user?.patreon_account_name || "Creator"
+        : session?.user?.name || "Member";
+
+    const displayImage = role
+        ? getSafeImage(session?.user?.patreon_account_profilepic)
+        : getSafeImage(session?.user?.image);
+
+    const displayRole = role ? "Creator" : "Member";
+
+
+    const userLetter = useSidebarStore((state) => state.userLetter);
 
     const handleLogout = async () => {
         await signOut({
@@ -56,8 +74,7 @@ const Sidebar = ({ isCreator = false }) => {
         }
     }, [session, setUserLetter]);
 
-    const userLetter = useSidebarStore((state) => state.userLetter);
-    const pathName = usePathname();
+
 
     // if (!isCreator) {
     //     isCreator = pathName?.startsWith("/c/");
@@ -65,10 +82,7 @@ const Sidebar = ({ isCreator = false }) => {
 
     const linksToShow = isCreator ? creatorLinks : memberLinks;
 
-    // Helper function to return safe image with fallback
-    const getSafeImage = (url) => {
-        return url && url.trim() !== "" ? url : "/assets/images/user/default-user.png";
-    };
+
 
     return (
         <>
@@ -104,7 +118,7 @@ const Sidebar = ({ isCreator = false }) => {
                                 </div>
                                 <div className="user-name-content">
                                     <div className="user-name">{displayName}</div>
-                                    <div className="user-status">{isCreator ? "Creator" : "Member"}</div>
+                                    <div className="user-status">{displayRole}</div>
                                 </div>
                             </div>
 
@@ -249,7 +263,7 @@ const Sidebar = ({ isCreator = false }) => {
                                             <span className="w-10 h-10 flex justify-center items-center text-white font-semibold text-lg rounded-md bg-indigo-600">{userLetter}</span>
                                             <span className="flex flex-col">
                                                 <span className="text-base">{patreonName || "Patreon"}</span>
-                                                <span className="text-xs opacity-70">{isCreator ? "Creator" : "Member"}</span>
+                                                <span className="text-xs opacity-70">{displayRole}</span>
                                             </span>
                                         </Link>
                                     </div>

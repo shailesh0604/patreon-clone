@@ -2323,10 +2323,10 @@ label {
   -ms-transform: translate(-50%, 50%);
   transform: translate(-50%, 50%);
   bottom: 0%;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
-  border-radius: 100%;
+  border-radius: 16px;
 }
 
 .user-pic img {
@@ -2352,7 +2352,7 @@ label {
   -ms-flex-pack: center;
   justify-content: center;
   /* background-color: #75a5ff; */
-  padding: 3.65rem 0 1rem 0;
+  padding: 5.25rem 0 1rem 0;
 }
 
 .user-about .about-name {
@@ -2759,8 +2759,8 @@ label {
 }
 
 .publish-profile {
-  width: 130px;
-  height: 130px;
+  width: 150px;
+  height: 150px;
   background: #ab43ff;
   position: absolute;
   left: 50%;
