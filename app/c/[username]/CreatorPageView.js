@@ -231,7 +231,7 @@ const CreatorPageView = ({ }) => {
       <div className={`user-container ${isToggled ? "resized" : ""}`}>
 
         <div className="user-sidebar-container">
-          <Sidebar />
+          <Sidebar isCreator={true} />
         </div>
 
 

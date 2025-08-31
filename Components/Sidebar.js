@@ -27,6 +27,11 @@ const Sidebar = ({ isCreator = false }) => {
     const patreonName = session?.user?.patreon_account_name;
     const patreonUsername = session?.user?.patreon_account_username;
 
+    const displayName = isCreator ? patreonName : session?.user?.name || "user";
+    const displayImage = isCreator ? patreonPic : session?.user?.image || "/default-avatar.png";
+    const displayRole = isCreator ? "Creator" : "Member";
+
+
     const handleLogout = async () => {
         await signOut({
             callbackUrl: "/",
@@ -54,9 +59,9 @@ const Sidebar = ({ isCreator = false }) => {
     const userLetter = useSidebarStore((state) => state.userLetter);
     const pathName = usePathname();
 
-    if (!isCreator) {
-        isCreator = pathName?.startsWith("/c/");
-    }
+    // if (!isCreator) {
+    //     isCreator = pathName?.startsWith("/c/");
+    // }
 
     const linksToShow = isCreator ? creatorLinks : memberLinks;
 
@@ -95,11 +100,11 @@ const Sidebar = ({ isCreator = false }) => {
                         <div className="user-link" ref={userRef}>
                             <div className="user-info relative flex items-center gap-3" onClick={() => setUserInfoHovered(true)}>
                                 <div className="user-profile-pic">
-                                    <Image src={getSafeImage(session?.user?.image)} width={35} height={35} className="rounded-full object-cover" alt="user profile picture" />
+                                    <Image src={displayImage} width={35} height={35} className="rounded-full object-cover" alt={displayName} />
                                 </div>
                                 <div className="user-name-content">
-                                    <div className="user-name">{session?.user?.name || "user"}</div>
-                                    <div className="user-status">Member</div>
+                                    <div className="user-name">{displayName}</div>
+                                    <div className="user-status">{isCreator ? "Creator" : "Member"}</div>
                                 </div>
                             </div>
 
@@ -244,7 +249,7 @@ const Sidebar = ({ isCreator = false }) => {
                                             <span className="w-10 h-10 flex justify-center items-center text-white font-semibold text-lg rounded-md bg-indigo-600">{userLetter}</span>
                                             <span className="flex flex-col">
                                                 <span className="text-base">{patreonName || "Patreon"}</span>
-                                                <span className="text-xs opacity-70">Creator</span>
+                                                <span className="text-xs opacity-70">{isCreator ? "Creator" : "Member"}</span>
                                             </span>
                                         </Link>
                                     </div>
