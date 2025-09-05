@@ -3314,8 +3314,6 @@ label {
     display: -ms-grid;
     display: grid;
     height: 100vh;
-    -ms-grid-columns: (1fr) [1];
-    grid-template-columns: repeat(1, 1fr);
   }
 
   .create-img-content {

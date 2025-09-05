@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MdOutlineIosShare } from "react-icons/md";
@@ -14,6 +14,24 @@ import Blogs from '../Blogs';
 
 const UserInfo = ({ userData }) => {
     // console.log(userData)
+    const [postCount, setPostCount] = useState(0);
+
+    useEffect(() => {
+        const fetchPostCount = async () => {
+            try {
+                const res = await fetch(`/api/posts/user/${userData?.patreon_account_username}/count`);
+                const data = await res.json();
+                // console.log(data);
+                setPostCount(data.count || 0);
+            } catch (error) {
+                console.error("Error fetching post count:", error);
+            }
+        }
+
+        if (userData?.patreon_account_username) {
+            fetchPostCount();
+        }
+    }, [userData])
     return (
         <>
             <section className='search-user-info'>
@@ -38,7 +56,7 @@ const UserInfo = ({ userData }) => {
                     <h2 className='about-name'>{userData?.patreon_account_name}</h2>
                     <p className='about-skill'>{userData?.patreon_account_username_headline}</p>
 
-                    <p className='about-post'>90 post</p>
+                    <p className='about-post'>{postCount} Posts</p>
 
                     <div className="member">
                         <Link href={""}>Become a member</Link>
