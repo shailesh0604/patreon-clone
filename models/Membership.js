@@ -7,5 +7,5 @@ const MembershipSchema = new mongoose.Schema({
     status: { type: String, enum: ["active", "cancelled"], default: "active" }
 }, { timestamps: true });
 
-const Membership = mongoose.models?.MembershipSchema || mongoose.model("Membership", MembershipSchema);
+const Membership = mongoose.models?.Membership || mongoose.model("Membership", MembershipSchema);
 export default Membership;

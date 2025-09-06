@@ -28,7 +28,7 @@ const UserInfo = ({ userData }) => {
             try {
                 const res = await fetch(`/api/posts/user/${userData?.patreon_account_username}/count`);
                 const data = await res.json();
-                console.log(data);
+                // console.log(data);
                 setPostCount(data.count || 0);
             } catch (error) {
                 console.error("Error fetching post count:", error);
@@ -39,6 +39,30 @@ const UserInfo = ({ userData }) => {
             fetchPostCount();
         }
     }, [userData]);
+
+
+    const handleBecomeMember = async (creatorId, tier) => {
+        // console.log(creatorId);
+        try {
+            const res = await fetch("/api/membership", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ creatorId, tier }),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                console.log("Joined membership:", data);
+                alert("You are now a member!");
+                setIsMember(true);
+            } else {
+                alert(data.error || "Something went wrong");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Failed to become member");
+        }
+    };
 
     return (
         <>
@@ -66,17 +90,17 @@ const UserInfo = ({ userData }) => {
 
                     <p className='about-post'>{postCount} Posts</p>
 
-                    {/* <div className="member">
+                    <div className="member">
                         {isMember ? (
-                            <button onClick={handleLeaveMembership} className="btn-secondary">
+                            <button onClick={() => handleLeaveMembership()} className="btn-secondary">
                                 Leave membership
                             </button>
                         ) : (
-                            <button onClick={handleMembership} className="btn-primary">
+                            <button onClick={() => handleBecomeMember(userData?._id, "normal")} className="btn-primary">
                                 Become a member
                             </button>
                         )}
-                    </div> */}
+                    </div>
 
                     <div className="social-handle flex justify-center items-center gap-3">
                         <Link href={""}>

@@ -7,7 +7,8 @@ import getServerSession from "next-auth";
 export async function POST(req) {
     try {
         await ConnectDB();
-        const { creatorId } = await req.json();
+        const { creatorId, tier } = await req.json();
+        console.log("Request body:", creatorId, tier);
 
         const session = await getServerSession();
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -16,15 +17,16 @@ export async function POST(req) {
 
         if (memberId === creatorId) return NextResponse.json({ message: "Cannot subscribe to yourself" }, { status: 400 });
 
-        const isExist = Membership.findOne({ member: memberId, creator: creatorId });
+        const isExist = await Membership.findOne({ member: memberId, creator: creatorId });
 
         if (isExist) return NextResponse.json({ message: "Already a member" }, { status: 200 });
 
-        const membership = await Membership.create({ member: memberId, creator: creatorId });
+        const membership = await Membership.create({ member: memberId, creator: creatorId, tier: tier || "normal" });
 
         return NextResponse.json({ success: true, membership }, { status: 201 });
 
     } catch (error) {
+        console.error("❌ API Error:", error);
         return Response.json({ error: error.message }, { status: 500 });
     }
 }
@@ -46,21 +48,5 @@ export async function DELETE(req) {
 
     } catch (error) {
         return Response.json({ error: error.message }, { status: 500 });
-    }
-}
-
-// get request
-export async function GET(req, { params }) {
-    try {
-        await ConnectDB();
-        const { userId } = params;
-        const members = await Membership.find({ creator: userId }).populate("member", "username email");
-
-        if (!members) return NextResponse.json({ message: "No member found" }, { status: 404 });
-
-        return NextResponse.json({ members }, { status: 200 });
-
-    } catch (error) {
-        return NextResponse.json({ message: error.message }, { status: 500 });
     }
 }
