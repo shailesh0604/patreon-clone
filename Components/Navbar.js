@@ -110,14 +110,7 @@ const Navbar = () => {
   const [IsSearch, setIsSearch] = useState(false);
 
 
-  const ref = useRef(null)
-  const isInView = useInView(ref);
-
-
-  useEffect(() => {
-    //console.log("Element is in view: ", isInView)
-  }, [isInView])
-
+  // const ref = useRef(null);
 
   useEffect(() => {
     const handleOutside = (event) => {

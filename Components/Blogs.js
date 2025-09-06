@@ -33,7 +33,7 @@ const Blogs = ({ username }) => {
         fetchPost();
     }, [username]);
 
-    if (loading) return <div className='flex justify-center items-center gap-3 mt-10'>
+    if (loading) return <div className='flex justify-center items-center gap-3 mt-10 mb-16'>
         <div className='loader'></div>
         <p>Loading blogs</p>
     </div>;

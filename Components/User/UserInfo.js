@@ -11,17 +11,24 @@ import 'swiper/css/pagination'; // option
 import { Navigation, Pagination } from 'swiper/modules';
 import { IoIosStar } from "react-icons/io";
 import Blogs from '../Blogs';
+import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 const UserInfo = ({ userData }) => {
     // console.log(userData)
     const [postCount, setPostCount] = useState(0);
+    const [isMember, setIsMember] = useState(false);
+    const { data: session } = useSession();
+    const pathname = usePathname();
+    const memberId = pathname.split("/")[1];
+    const creatorId = session?.user?.patreon_account_username;
 
     useEffect(() => {
         const fetchPostCount = async () => {
             try {
                 const res = await fetch(`/api/posts/user/${userData?.patreon_account_username}/count`);
                 const data = await res.json();
-                // console.log(data);
+                console.log(data);
                 setPostCount(data.count || 0);
             } catch (error) {
                 console.error("Error fetching post count:", error);
@@ -31,7 +38,8 @@ const UserInfo = ({ userData }) => {
         if (userData?.patreon_account_username) {
             fetchPostCount();
         }
-    }, [userData])
+    }, [userData]);
+
     return (
         <>
             <section className='search-user-info'>
@@ -58,9 +66,17 @@ const UserInfo = ({ userData }) => {
 
                     <p className='about-post'>{postCount} Posts</p>
 
-                    <div className="member">
-                        <Link href={""}>Become a member</Link>
-                    </div>
+                    {/* <div className="member">
+                        {isMember ? (
+                            <button onClick={handleLeaveMembership} className="btn-secondary">
+                                Leave membership
+                            </button>
+                        ) : (
+                            <button onClick={handleMembership} className="btn-primary">
+                                Become a member
+                            </button>
+                        )}
+                    </div> */}
 
                     <div className="social-handle flex justify-center items-center gap-3">
                         <Link href={""}>
