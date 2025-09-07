@@ -3128,6 +3128,19 @@ label {
   border-radius: 4px;
 }
 
+.creator-member-img {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+.creator-member-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* footer css */
 
 .footer-container {

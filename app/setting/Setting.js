@@ -5,6 +5,7 @@ import Sidebar from '@/Components/Sidebar'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from "next-auth/react";
 import useSidebarStore from "@/lib/store/sidebarStore";
+import { MdDeleteOutline } from "react-icons/md";
 
 const Setting = () => {
     const { data: session, status } = useSession();
@@ -38,6 +39,26 @@ const Setting = () => {
             reader.readAsDataURL(file);
         }
     }
+
+    const [memberships, setMemberships] = useState([]);
+
+    useEffect(() => {
+        if (activeTab === "Memberships") {
+            try {
+                fetch("/api/membership/subscribed")
+                    .then((res) => res.json()).then((data) => {
+                        console.log("Membership data:", JSON.stringify(data));
+                        if (Array.isArray(data.members)) {
+                            setMemberships(data.members);
+                        } else {
+                            setMemberships([]);
+                        }
+                    })
+            } catch (error) {
+                console.error("Error fetching memberships:", error);
+            }
+        }
+    }, [activeTab])
 
 
     return (
@@ -193,52 +214,39 @@ const Setting = () => {
                                 </div>}
 
                                 {activeTab === "Memberships" && <div className="setting-content">
-                                    <div className="content-title">Memberships</div>
-                                    <form className='mt-4'>
-                                        <div className="setting-profile">
-                                            <div className="setting-profile-title">Profile</div>
-                                            <div className="flex items-center gap-4">
-                                                <div className="setting-profile-img">
-                                                    <Image src={settingImg} width={0} height={0} sizes="100" alt="user profile picture" />
-                                                </div>
+                                    <div className="setting-content">
+                                        <div className="content-title mb-5">Memberships</div>
+                                        {memberships.length === 0 ? (
+                                            <p>You haven’t subscribed to any creators yet.</p>
+                                        ) : (
+                                            <ul className="membership-list flex flex-col gap-5">
+                                                {memberships.map((e) => (
+                                                    <li key={e._id} className="membership-item flex justify-between items-center gap-4">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className='creator-member-img'>
+                                                                <Image
+                                                                    src={e.creator?.profilepic || "/assets/images/user/default-user.png"}
+                                                                    alt={e.creator?.username || "Creator"}
+                                                                    width={0}
+                                                                    height={0}
+                                                                    sizes='100%'
+                                                                />
+                                                            </div>
+                                                            <span>{e.creator?.name || e.creator?.username}</span>
+                                                        </div>
 
-                                                <div className="setting-profile-btn">
-                                                    <input type="file" accept='image/*' hidden id='settingProfileImg' onChange={handleFileChange} />
-                                                    <button type='button' className='btn-upload' onClick={() => document.getElementById("settingProfileImg").click()}>Upload photo</button>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-8">
-                                                <label>Display name</label>
-                                                <input type="text" className="custom-input" placeholder='Your name' name="username" />
-                                            </div>
-
-                                            <div className="mt-6">
-                                                <label>Email</label>
-                                                <input type="email" className="custom-input" placeholder='Your email' name="username" />
-                                            </div>
-
-                                            <div className="mt-5">
-                                                <label>Country of Residence</label>
-                                                <input className="custom-input"
-                                                    name="phone"
-                                                    placeholder="Enter State"
-                                                />
-                                            </div>
-
-                                            <div className="mt-8">
-                                                <input type='submit' className='btn-sumit'
-                                                    value={"Sumbit"}
-                                                />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>}
-
+                                                        <button className='w-9 cursor-pointer bg-red-500 h-9 flex justify-center items-center rounded-full' title='UnSubscribe'>
+                                                            <MdDeleteOutline className='text-white text-lg' />
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                </div>
+                                }
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div >
