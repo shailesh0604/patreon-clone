@@ -38,6 +38,7 @@ export const authOptions = {
 
                 // this is encrptyed data its use for server side
                 if (dbUser) {
+                    token.id = dbUser._id.toString();
                     token.name = dbUser.name;
                     token.username = dbUser.username;
                     token.profilePic = dbUser.profilepic;
@@ -62,6 +63,7 @@ export const authOptions = {
             // Add token data to the session
             // this is session data its use for client side
             if (session.user) {
+                session.user.id = token.id;
                 session.user.name = token.name;
                 session.user.username = token.username;
                 //console.log("user name : ", session.user.name);

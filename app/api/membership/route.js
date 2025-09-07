@@ -1,19 +1,22 @@
 import ConnectDB from "@/db/ConnectDB";
 import Membership from "@/models/Membership";
 import { NextResponse } from "next/server";
-import getServerSession from "next-auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 // post request
 export async function POST(req) {
     try {
         await ConnectDB();
+
         const { creatorId, tier } = await req.json();
         console.log("Request body:", creatorId, tier);
 
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions);
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
         const memberId = session?.user?.id;
+        console.log(`member id : ${memberId}`);
 
         if (memberId === creatorId) return NextResponse.json({ message: "Cannot subscribe to yourself" }, { status: 400 });
 
@@ -27,7 +30,7 @@ export async function POST(req) {
 
     } catch (error) {
         console.error("❌ API Error:", error);
-        return Response.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
 

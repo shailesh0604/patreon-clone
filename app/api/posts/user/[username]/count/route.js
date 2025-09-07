@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
     try {
         await ConnectDB();
-        const { username } = params;
+        const { username } = await params;
 
         const count = await Posts.countDocuments({
             username,
