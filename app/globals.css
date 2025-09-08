@@ -1019,7 +1019,7 @@ section.section-creativity {
 }
 
 .slider {
-  height: 520px;
+  height: 72dvh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1070,6 +1070,7 @@ section.section-creativity {
   position: absolute;
   width: 100%;
   padding: 0 2.5rem;
+  bottom: 4%;
 }
 
 section.section-description {
@@ -3175,6 +3176,12 @@ label {
 
 /* footer css */
 
+@media only screen and (max-width: 1500px) {
+  .slider {
+    height: 62dvh;
+  }
+}
+
 @media only screen and (max-width: 1240px) {
   .nav-links .nav-link {
     padding: 0.8rem 1.1rem;
@@ -3202,7 +3209,7 @@ label {
 
 @media only screen and (max-width: 1200px) {
   .slider {
-    height: 400px;
+    height: 410px;
   }
 
   .user-title {
@@ -3272,10 +3279,6 @@ label {
   .user-title {
     font-size: 7.65vw;
     height: 90px;
-  }
-
-  .slider {
-    height: 340px;
   }
 
   section.section-creativity {
