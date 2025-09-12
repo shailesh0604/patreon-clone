@@ -68,7 +68,7 @@ const PostPage = () => {
         </div>
 
         <div className="user-content-container">
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto mt-10">
+          <form onSubmit={handleSubmit} className="space-y-4 w-[90%]  max-w-xl mx-auto mt-32 md:mt-14">
             <input
               name="title"
               value={formData.title}
