@@ -10,13 +10,13 @@ export async function POST(req) {
         await ConnectDB();
 
         const { creatorId, tier } = await req.json();
-        console.log("Request body:", creatorId, tier);
+        //console.log("Request body:", creatorId, tier);
 
         const session = await getServerSession(authOptions);
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
         const memberId = session?.user?.id;
-        console.log(`member id : ${memberId}`);
+        //console.log(`member id : ${memberId}`);
 
         if (memberId === creatorId) return NextResponse.json({ message: "Cannot subscribe to yourself" }, { status: 400 });
 
@@ -29,7 +29,7 @@ export async function POST(req) {
         return NextResponse.json({ success: true, membership }, { status: 201 });
 
     } catch (error) {
-        console.error("❌ API Error:", error);
+        //console.error("❌ API Error:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
@@ -46,7 +46,7 @@ export async function PATCH(req) {
 
         const memberId = session?.user?.id;
 
-        console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
+       //console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
 
         const deleted = await Membership.findOneAndUpdate({ member: memberId, creator: creatorId }, { status: "cancelled" }, { new: true });
 
@@ -71,7 +71,7 @@ export async function DELETE(req) {
 
         const memberId = session?.user?.id;
 
-        console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
+        //console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
 
         const deleted = await Membership.findOneAndDelete({ member: memberId, creator: creatorId });
 

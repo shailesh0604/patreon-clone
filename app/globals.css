@@ -2375,12 +2375,7 @@ label {
 }
 
 .user-about .member {
-  margin: 0.8rem auto 1.25rem auto;
-  background: var(--dark);
-  color: var(--light);
-  padding: 0.45rem 2rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
+  margin: 0.8rem auto 1.5rem auto;
 }
 
 .shares {

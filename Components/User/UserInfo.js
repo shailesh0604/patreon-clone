@@ -39,22 +39,42 @@ const UserInfo = ({ userData }) => {
             fetchPostCount();
         }
 
-        const checkMembership = async () => {
-            if (userData._id) return;
 
-            try {
-                const res = await fetch(`/api/membership/check?creatorId=${userData._id}`);
-                const data = await res.json();
-
-                if (res.ok) {
-                    setIsMember(data.isMember);
-                }
-            } catch (error) {
-                console.error("Error checking membership:", error);
-            }
-        }
-        checkMembership();
     }, [userData]);
+
+
+    useEffect(() => {
+        if (!userData?._id) return;
+
+        if (!session) {
+            setIsMember(false);
+            return;
+        }
+
+        const checkMembership = async () => {
+            try {
+                // console.log(
+                //     "[UserInfo] checking membership for creator:",
+                //     userData._id,
+                //     "session user id:",
+                //     session?.user?.id
+                // );
+
+                const res = await fetch(
+                    `/api/membership/check?creatorId=${encodeURIComponent(userData._id)}`
+                );
+                const data = await res.json();
+                // console.log("[UserInfo] membership check response:", data);
+                setIsMember(Boolean(data.isMember));
+            } catch (err) {
+                console.error("[UserInfo] checkMembership error:", err);
+                setIsMember(false);
+            }
+        };
+
+        checkMembership();
+    }, [userData?._id, session?.user?.id]);
+
 
 
     const handleBecomeMember = async (creatorId, tier) => {
@@ -69,8 +89,8 @@ const UserInfo = ({ userData }) => {
             const data = await res.json();
             if (res.ok) {
                 console.log("Joined membership:", data);
-                alert("You are now a member!");
                 setIsMember(true);
+                alert("You are now a member!");
             } else {
                 alert(data.error || "Something went wrong");
             }
@@ -79,6 +99,26 @@ const UserInfo = ({ userData }) => {
             alert("Failed to become member");
         }
     };
+
+
+    async function handleLeaveMembership(creatorId) {
+        try {
+            const res = await fetch("/api/membership", {
+                method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ creatorId })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                setIsMember(false);
+            } else {
+                console.error("Failed to unsubscribe:", data.message);
+            }
+
+        } catch (error) {
+            console.error("Unsubscribe error:", error);
+        }
+    }
 
     return (
         <>
@@ -108,7 +148,7 @@ const UserInfo = ({ userData }) => {
 
                     <div className="member">
                         {isMember ? (
-                            <button onClick={() => handleLeaveMembership()} className="btn-secondary">
+                            <button onClick={() => handleLeaveMembership(userData?._id)} className="btn-primary">
                                 Leave membership
                             </button>
                         ) : (
@@ -138,123 +178,127 @@ const UserInfo = ({ userData }) => {
                 </div>
             </section>
 
-            <hr />
 
-            <section className='section-membership'>
-                <div className="container">
+            {!isMember ? (
+                <section className='section-membership'>
+                    <hr />
+                    <div className="container">
 
-                    <div className='member-title'>
-                        Choose your membership
+                        <div className='member-title'>
+                            Choose your membership
+                        </div>
+
+                        <div className="member-swiper-container">
+                            <Swiper
+                                modules={[Navigation, Pagination]}
+                                spaceBetween={30}
+                                slidesPerView={1}
+                                autoplay={{
+                                    delay: 3000,
+                                    disableOnInteraction: false,
+                                }}
+                                speed={1200}
+                                breakpoints={{
+                                    320: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10
+                                    },
+                                    991: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 20
+                                    },
+                                    1024: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 30
+                                    },
+                                }}
+                                pagination={{ clickable: true }}
+                                onSlideChange={() => console.log('slide change')}
+                                onSwiper={(swiper) => console.log(swiper)}
+                            >
+                                <SwiperSlide>
+                                    <div className="member-content">
+                                        <div className="member-video">
+                                            <video width="" height="" autoPlay loop muted preload="none">
+                                                <source src="/assets/videos/member.mp4" type="video/mp4" />
+                                            </video>
+                                        </div>
+
+                                        <div className="px-4 py-5">
+                                            <div className="member-txt">
+                                                <h2 className="member-txt-1">Normal Membership</h2>
+                                                <div className="star"><IoIosStar /></div>
+                                            </div>
+                                            <div className="member-amount">
+                                                <h3 className="amount">$5</h3>
+                                                <p>/ month</p>
+                                            </div>
+
+                                            <div className="join">
+                                                <button className="btn-primary w-full" onClick={() => handleBecomeMember(userData?._id, "normal")}>Join</button>
+                                            </div>
+
+                                            <div className="member-about">
+                                                Aite so you got a little money in your pocket so you gonna get a little somethin somethin. Lol in this tier you get No Chaser episodes with NO ADS. You get early access to Dudes Behind the Foods.</div>
+
+                                            <div className="member-point">
+                                                <ul>
+                                                    <li>Patron-only posts and messages</li>
+                                                    <li>Early access to Dudes Behind the Foods</li>
+                                                    <li>Ad-free episodes of No Chaser</li>
+                                                    <li>Submit Questions for No Chaser</li>
+                                                    <li>Exclusive voting power</li>
+                                                    <li>Behind-the-scenes content</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+
+                                <SwiperSlide>
+                                    <div className="member-content">
+                                        <div className="member-video">
+                                            <video src="/assets/videos/member.mp4" autoPlay loop muted playsInline></video>
+                                        </div>
+
+                                        <div className="px-4 py-5">
+                                            <div className="member-txt">
+                                                <h2 className="member-txt-1">Pro Membership</h2>
+                                                <div className="star"><IoIosStar /> <IoIosStar /> <IoIosStar /></div>
+                                            </div>
+                                            <div className="member-amount">
+                                                <h3 className="amount">$10</h3>
+                                                <p>/ month</p>
+                                            </div>
+
+                                            <div className="join">
+                                                <button className="btn-primary w-full" onClick={() => handleBecomeMember(userData?._id, "pro")}>Join</button>
+                                            </div>
+
+                                            <div className="member-about">
+                                                it's gonna live EXCLUSIVELY on Patreon for like special for yall. ALSO, Imma force Chia to do a bi-monthly podcast which will ALSO live ONLY on Patreon! GODDAMNNN!!! And of course a bunch of BTS footage from all the things.
+                                            </div>
+
+                                            <div className="member-point">
+                                                <ul>
+                                                    <li>Exclusive Sticker</li>
+                                                    <li>Ad-free episodes of No Chaser</li>
+                                                    <li>Everything from the Dollar Menu</li>
+                                                    <li>Exclusive content - Brand New Shows</li>
+                                                    <li>Behind-the-scenes content</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            </Swiper>
+                        </div>
                     </div>
-
-                    <div className="member-swiper-container">
-                        <Swiper
-                            modules={[Navigation, Pagination]}
-                            spaceBetween={30}
-                            slidesPerView={1}
-                            autoplay={{
-                                delay: 3000,
-                                disableOnInteraction: false,
-                            }}
-                            speed={1200}
-                            breakpoints={{
-                                320: {
-                                    slidesPerView: 1,
-                                    spaceBetween: 10
-                                },
-                                991: {
-                                    slidesPerView: 2,
-                                    spaceBetween: 20
-                                },
-                                1024: {
-                                    slidesPerView: 2,
-                                    spaceBetween: 30
-                                },
-                            }}
-                            pagination={{ clickable: true }}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
-                        >
-                            <SwiperSlide>
-                                <div className="member-content">
-                                    <div className="member-video">
-                                        <video width="" height="" autoPlay loop muted preload="none">
-                                            <source src="/assets/videos/member.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-
-                                    <div className="px-4 py-5">
-                                        <div className="member-txt">
-                                            <h2 className="member-txt-1">Normal Membership</h2>
-                                            <div className="star"><IoIosStar /></div>
-                                        </div>
-                                        <div className="member-amount">
-                                            <h3 className="amount">$5</h3>
-                                            <p>/ month</p>
-                                        </div>
-
-                                        <div className="join">
-                                            <button className="btn-primary w-full">Join</button>
-                                        </div>
-
-                                        <div className="member-about">
-                                            Aite so you got a little money in your pocket so you gonna get a little somethin somethin. Lol in this tier you get No Chaser episodes with NO ADS. You get early access to Dudes Behind the Foods.</div>
-
-                                        <div className="member-point">
-                                            <ul>
-                                                <li>Patron-only posts and messages</li>
-                                                <li>Early access to Dudes Behind the Foods</li>
-                                                <li>Ad-free episodes of No Chaser</li>
-                                                <li>Submit Questions for No Chaser</li>
-                                                <li>Exclusive voting power</li>
-                                                <li>Behind-the-scenes content</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-
-                            <SwiperSlide>
-                                <div className="member-content">
-                                    <div className="member-video">
-                                        <video src="/assets/videos/member.mp4" autoPlay loop muted playsInline></video>
-                                    </div>
-
-                                    <div className="px-4 py-5">
-                                        <div className="member-txt">
-                                            <h2 className="member-txt-1">Pro Membership</h2>
-                                            <div className="star"><IoIosStar /> <IoIosStar /> <IoIosStar /></div>
-                                        </div>
-                                        <div className="member-amount">
-                                            <h3 className="amount">$10</h3>
-                                            <p>/ month</p>
-                                        </div>
-
-                                        <div className="join">
-                                            <button className="btn-primary w-full">Join</button>
-                                        </div>
-
-                                        <div className="member-about">
-                                            it's gonna live EXCLUSIVELY on Patreon for like special for yall. ALSO, Imma force Chia to do a bi-monthly podcast which will ALSO live ONLY on Patreon! GODDAMNNN!!! And of course a bunch of BTS footage from all the things.
-                                        </div>
-
-                                        <div className="member-point">
-                                            <ul>
-                                                <li>Exclusive Sticker</li>
-                                                <li>Ad-free episodes of No Chaser</li>
-                                                <li>Everything from the Dollar Menu</li>
-                                                <li>Exclusive content - Brand New Shows</li>
-                                                <li>Behind-the-scenes content</li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                </div>
-            </section>
+                </section>
+            ) :
+                (<div className='my-8 text-center font-medium'>Congratulations!, You are already a member.</div>)
+            }
 
             <hr />
 
