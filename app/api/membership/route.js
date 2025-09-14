@@ -34,18 +34,48 @@ export async function POST(req) {
     }
 }
 
+// patch request
+export async function PATCH(req) {
+    try {
+        await ConnectDB();
+
+        const session = await getServerSession(authOptions);
+        if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+        const { creatorId } = await req.json();
+
+        const memberId = session?.user?.id;
+
+        console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
+
+        const deleted = await Membership.findOneAndUpdate({ member: memberId, creator: creatorId }, { status: "cancelled" }, { new: true });
+
+        if (!deleted) return NextResponse.json({ message: "Membership not found" }, { status: 404 });
+
+        return NextResponse.json({ success: true }, { status: 200 });
+
+    } catch (error) {
+        return Response.json({ error: error.message }, { status: 500 });
+    }
+}
+
 // delete request
 export async function DELETE(req) {
     try {
         await ConnectDB();
-        const { creatorId } = await req.json();
 
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions);
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+        const { creatorId } = await req.json();
 
         const memberId = session?.user?.id;
 
-        await Membership.findByIdAndDelete({ member: memberId, creator: creatorId });
+        console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
+
+        const deleted = await Membership.findOneAndDelete({ member: memberId, creator: creatorId });
+
+        if (!deleted) return NextResponse.json({ message: "Membership not found" }, { status: 404 });
 
         return NextResponse.json({ success: true }, { status: 200 });
 

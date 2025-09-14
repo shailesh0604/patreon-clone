@@ -47,7 +47,7 @@ const Setting = () => {
             try {
                 fetch("/api/membership/subscribed")
                     .then((res) => res.json()).then((data) => {
-                        console.log("Membership data:", JSON.stringify(data));
+                        // console.log("Membership data:", JSON.stringify(data));
                         if (Array.isArray(data.members)) {
                             setMemberships(data.members);
                         } else {
@@ -59,6 +59,28 @@ const Setting = () => {
             }
         }
     }, [activeTab])
+
+
+    async function handleUnsubscribe(creatorId) {
+        try {
+            const res = await fetch("/api/membership", {
+                method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ creatorId })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                setMemberships((prev) => {
+                    prev.filter(m => m.creator._id !== creatorId);
+                });
+            } else {
+                console.error("Failed to unsubscribe:", data.message);
+            }
+
+        } catch (error) {
+            console.error("Unsubscribe error:", error);
+        }
+    }
 
 
     return (
@@ -216,7 +238,7 @@ const Setting = () => {
                                 {activeTab === "Memberships" && <div className="setting-content">
                                     <div className="setting-content">
                                         <div className="content-title mb-5">Memberships</div>
-                                        {memberships.length === 0 ? (
+                                        {!memberships && memberships.length === 0 ? (
                                             <p>You haven’t subscribed to any creators yet.</p>
                                         ) : (
                                             <ul className="membership-list flex flex-col gap-5">
@@ -235,7 +257,7 @@ const Setting = () => {
                                                             <span>{e.creator?.name || e.creator?.username}</span>
                                                         </div>
 
-                                                        <button className='w-9 cursor-pointer bg-red-500 h-9 flex justify-center items-center rounded-full' title='UnSubscribe'>
+                                                        <button className='w-9 cursor-pointer bg-red-500 h-9 flex justify-center items-center rounded-full' onClick={() => handleUnsubscribe(e.creator?._id)} title='UnSubscribe'>
                                                             <MdDeleteOutline className='text-white text-lg' />
                                                         </button>
                                                     </li>
