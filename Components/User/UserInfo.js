@@ -12,7 +12,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { IoIosStar } from "react-icons/io";
 import Blogs from '../Blogs';
 import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 
 const UserInfo = ({ userData }) => {
     // console.log(userData)
@@ -78,7 +78,12 @@ const UserInfo = ({ userData }) => {
 
 
     const handleBecomeMember = async (creatorId, tier) => {
+
         // console.log(creatorId);
+        if (!session) {
+            redirect('/login');
+        }
+
         try {
             const res = await fetch("/api/membership", {
                 method: "POST",

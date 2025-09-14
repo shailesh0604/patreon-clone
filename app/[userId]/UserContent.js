@@ -1,23 +1,11 @@
-'use client'
-
-import { useEffect, useRef, useState } from "react";
+"use client"
 import React from 'react'
-import { AuroraBackground } from "@/Components/LinearBb";
 import Sidebar from "@/Components/Sidebar";
-import Creators from "@/Components/Creators";
 import useSidebarStore from "@/lib/store/sidebarStore";
-// import { Metadata } from "next";
+import UserInfo from "@/Components/User/UserInfo";
 
-// export const Metadata = {
-//     title: 'Home | Patreon',
-//     description: '...',
-// }
-
-const Home = () => {
-
+const UserContent = ({ userData }) => {
     const { isToggled } = useSidebarStore(); // get the global toggle state from Zustand
-
-
     return <>
         <div className="user-main-container">
             <div className={`user-container ${isToggled ? "resized" : ""}`}>
@@ -25,10 +13,8 @@ const Home = () => {
                     <Sidebar />
                 </div>
 
-                <div className="user-content-container">
-                    <AuroraBackground>
-                        <Creators />
-                    </AuroraBackground>
+                <div className="user-content-container logged-user">
+                    <UserInfo userData={userData} />
                 </div>
             </div>
         </div>
@@ -36,4 +22,4 @@ const Home = () => {
 
 }
 
-export default Home
+export default UserContent

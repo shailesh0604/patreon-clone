@@ -1255,6 +1255,10 @@ section.section-login {
   overflow-y: auto;
 }
 
+.user-container .user-content-container.logged-user {
+  background: var(--light);
+}
+
 .sidebar-links-content {
   height: calc(100dvh - 7rem);
   overflow: auto;
@@ -1556,7 +1560,11 @@ section.section-login {
   font-weight: 600;
   cursor: pointer;
   overflow: hidden;
+  /* border: 1px solid #d7d7d7; */
   z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   border-radius: 100px;
   -webkit-transition: all 0.8s ease;
   -o-transition: all 0.8s ease;
@@ -2299,6 +2307,10 @@ label {
   opacity: 0.5;
 }
 
+.user-container .user-content-container.logged-user .search-user-info {
+  margin: 0 0 0 0;
+}
+
 .search-user-info {
   margin: 4.35rem 0 0 0;
 }
@@ -2419,7 +2431,7 @@ label {
 
 .member-swiper-container .swiper {
   margin: auto;
-  width: 60%;
+  width: 75%;
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -3225,7 +3237,7 @@ label {
   }
 
   .member-swiper-container .swiper {
-    width: 80%;
+    width: 90%;
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
