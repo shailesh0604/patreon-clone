@@ -38,6 +38,22 @@ const UserInfo = ({ userData }) => {
         if (userData?.patreon_account_username) {
             fetchPostCount();
         }
+
+        const checkMembership = async () => {
+            if (userData._id) return;
+
+            try {
+                const res = await fetch(`/api/membership/check?creatorId=${userData._id}`);
+                const data = await res.json();
+
+                if (res.ok) {
+                    setIsMember(data.isMember);
+                }
+            } catch (error) {
+                console.error("Error checking membership:", error);
+            }
+        }
+        checkMembership();
     }, [userData]);
 
 
