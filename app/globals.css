@@ -1977,10 +1977,6 @@ label {
   filter: blur(5px);
 }
 
-.creator-container {
-  /* margin: 2rem auto auto auto; */
-}
-
 .creator-content {
   display: -webkit-box;
   display: -ms-flexbox;

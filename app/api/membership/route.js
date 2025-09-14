@@ -18,7 +18,7 @@ export async function POST(req) {
         const memberId = session?.user?.id;
         //console.log(`member id : ${memberId}`);
 
-        if (memberId === creatorId) return NextResponse.json({ message: "Cannot subscribe to yourself" }, { status: 400 });
+        if (memberId === creatorId) return NextResponse.json({ message: "Cannot subscribe to yourself" }, { status: 202 });
 
         const isExist = await Membership.findOne({ member: memberId, creator: creatorId });
 
@@ -46,7 +46,7 @@ export async function PATCH(req) {
 
         const memberId = session?.user?.id;
 
-       //console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
+        //console.log(`creator id : ${creatorId},/n member id : ${memberId}`);
 
         const deleted = await Membership.findOneAndUpdate({ member: memberId, creator: creatorId }, { status: "cancelled" }, { new: true });
 
