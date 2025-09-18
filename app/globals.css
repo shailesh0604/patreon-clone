@@ -74,10 +74,15 @@ button:disabled {
   width: 35px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 6px solid lightblue;
+  border: 4px solid lightblue;
   border-right-color: orange;
   -webkit-animation: l2 0.5s infinite linear;
   animation: l2 0.5s infinite linear;
+}
+
+.loader.dark {
+  border: 4px solid rgb(207 207 207);
+  border-right-color: var(--dark);
 }
 
 @-webkit-keyframes l2 {
