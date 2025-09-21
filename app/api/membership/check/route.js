@@ -41,7 +41,7 @@ export async function GET(req) {
             status: "active",
         });
 
-        console.log("[membership/check] membership found:", !!membership, membership?._id);
+        //console.log("[membership/check] membership found:", !!membership, membership?._id);
         return NextResponse.json({ isMember: !!membership });
 
     } catch (error) {
