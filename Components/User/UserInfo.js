@@ -76,6 +76,16 @@ const UserInfo = ({ userData }) => {
     }, [userData?._id, session?.user?.id]);
 
 
+    const loadRazorpayScript = () => {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = "https://checkout.razorpay.com/v1/checkout.js";
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.body.appendChild(script);
+        });
+    };
+
 
     const handleBecomeMember = async (creatorId, tier) => {
 
@@ -84,24 +94,92 @@ const UserInfo = ({ userData }) => {
             redirect('/login');
         }
 
-        try {
-            const res = await fetch("/api/membership", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ creatorId, tier }),
-            });
+        // try {
+        //     const res = await fetch("/api/membership", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify({ creatorId, tier }),
+        //     });
 
-            const data = await res.json();
-            if (res.ok) {
-                console.log("Joined membership:", data);
-                setIsMember(true);
-                alert("You are now a member!");
-            } else {
-                alert(data.error || "Something went wrong");
+        //     const data = await res.json();
+        //     if (res.ok) {
+        //         console.log("Joined membership:", data);
+        //         setIsMember(true);
+        //         alert("You are now a member!");
+        //     } else {
+        //         alert(data.error || "Something went wrong");
+        //     }
+        // } catch (err) {
+        //     console.error(err);
+        //     alert("Failed to become member");
+        // }
+
+        try {
+
+            const resScript = await loadRazorpayScript();
+            if (!resScript) {
+                alert("Failed to load Razorpay SDK. Are you online?");
+                return;
             }
-        } catch (err) {
-            console.error(err);
-            alert("Failed to become member");
+
+
+            const amount = tier === "pro" ? 10 : 5;
+
+            const res = await fetch("/api/payment/order",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount }),
+                });
+
+            const order = await res.json();
+
+
+            console.log("order :", order);
+
+            if (!order.id) throw new Error("Order creation failed");
+
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                amount: order.amount,
+                currency: order.currency,
+                name: "Patreon Clone",
+                description: `Membership: ${tier}`,
+                order_id: order.id,
+                handler: async function (response) {
+                    const verifyRes = await fetch("/api/payment/verify", {
+                        method: "POST", description: `Membership: ${tier}`, body: JSON.stringify({
+                            ...response,
+                            creatorId,
+                            tier,
+                            amount: order.amount / 100,
+                            currency: order.currency,
+                        }),
+                    });
+
+                    const verifyData = await verifyRes.json();
+
+                    console.log("verify data :", verifyData);
+                    if (verifyData.success) {
+                        setIsMember(true);
+                        alert("Membership activated!");
+                    } else {
+                        alert("Payment verification failed");
+                    }
+                },
+                prefill: {
+                    name: session?.user?.name,
+                    email: session?.user?.email,
+                },
+                theme: { color: "#3399cc" },
+            }
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+
+        } catch (error) {
+            console.error("Payment error:", error);
+            alert("Payment failed");
         }
     };
 
