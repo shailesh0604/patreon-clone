@@ -33,6 +33,7 @@ patreon-clone/ <br />
 - **Authentication**: NextAuth.js
 - **Styling**: Tailwind CSS
 - **cloud media management services**: Cloudinary
+- **Payment Gateway**: Razorpay
 
 ## ✅ Features
 
