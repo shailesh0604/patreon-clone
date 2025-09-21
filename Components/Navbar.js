@@ -336,15 +336,17 @@ const Navbar = () => {
               </div>
 
               <div className="">
-                <Image
-                  src={"/assets/images/logo/logo2.svg"}
-                  width={30} priority
-                  className={`block mx-auto ${scroll ? "" : "invert"
-                    } duration-200 transition-all ease`}
-                  height={30}
-                  sizes="100"
-                  alt="logo"
-                />
+                <Link href={"/"}>
+                  <Image
+                    src={"/assets/images/logo/logo2.svg"}
+                    width={30} priority
+                    className={`block mx-auto ${scroll ? "" : "invert"
+                      } duration-200 transition-all ease`}
+                    height={30}
+                    sizes="100"
+                    alt="logo"
+                  />
+                </Link>
               </div>
             </div>
           </div>
