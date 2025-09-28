@@ -35,6 +35,7 @@ patreon-clone/ <br />
 - **Styling**: Tailwind CSS
 - **Cloud Media Management Services**: Cloudinary
 - **Payment Gateway**: Razorpay
+- **Image Processing**: Sharp (libvips library)
 
 ## ✅ Features
 
