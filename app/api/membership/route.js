@@ -83,3 +83,24 @@ export async function DELETE(req) {
         return Response.json({ error: error.message }, { status: 500 });
     }
 }
+
+// get request
+export async function GET(req) {
+    try {
+        await ConnectDB();
+
+        const session = await getServerSession(authOptions);
+        if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+        const memberId = session.user.id;
+
+        const memberships = await Membership.find({
+            member: memberId,
+            status: "active"    // only active memberships
+        }).populate("creator", "username profilepic name");
+
+        return NextResponse.json(memberships, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

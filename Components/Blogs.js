@@ -60,13 +60,13 @@ const Blogs = ({ username }) => {
                                     <>
                                         {post.media.match(/\.(mp4|webm|ogg)$/i) ? (
                                             <video
-                                                src={post.media}
+                                                src={`/api/images/${post._id}`}
                                                 autoPlay muted loop
                                                 playsInline
                                             />
                                         ) : (
                                             <Image width={0} height={0} sizes='100'
-                                                src={post.media}
+                                                src={`/api/images/${post._id}`}
                                                 alt={post.title}
                                             />
                                         )}
