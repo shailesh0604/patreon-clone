@@ -33,6 +33,7 @@ export async function GET(req, { params }) {
                 status: "active",
             });
 
+            console.log(`membership : ${membership}`);
             if (membership) isMember = true;
         }
 

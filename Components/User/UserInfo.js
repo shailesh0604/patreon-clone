@@ -193,7 +193,17 @@ const UserInfo = ({ userData }) => {
             const data = await res.json();
 
             if (res.ok) {
-                setIsMember(false);
+                // Update local state
+                // setMemberships((prev) =>
+                //     prev.map((m) =>
+                //         m.creator._id === creatorId ? { ...m, status: "cancelled" } : m
+                //     )
+                // );
+
+                // 🔑 Re-check membership status immediately
+                const checkRes = await fetch(`/api/membership/check?creatorId=${creatorId}`);
+                const checkData = await checkRes.json();
+                setIsMember(Boolean(checkData.isMember));
             } else {
                 console.error("Failed to unsubscribe:", data.message);
             }

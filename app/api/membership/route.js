@@ -24,7 +24,7 @@ export async function POST(req) {
 
         if (isExist) return NextResponse.json({ message: "Already a member" }, { status: 200 });
 
-        const membership = await Membership.create({ member: memberId, creator: creatorId, tier: tier || "normal" });
+        const membership = await Membership.create({ member: memberId, creator: creatorId, tier: tier || "normal", status: "active" });
 
         return NextResponse.json({ success: true, membership }, { status: 201 });
 
