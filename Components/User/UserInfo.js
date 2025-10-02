@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { MdOutlineIosShare } from "react-icons/md";
 import { RiMoreFill } from "react-icons/ri";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css'; // required styles
-import 'swiper/css/navigation'; // optional, depending on modules
-import 'swiper/css/pagination'; // option
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
 import { IoIosStar } from "react-icons/io";
 import Blogs from '../Blogs';
@@ -53,13 +53,6 @@ const UserInfo = ({ userData }) => {
 
         const checkMembership = async () => {
             try {
-                // console.log(
-                //     "[UserInfo] checking membership for creator:",
-                //     userData._id,
-                //     "session user id:",
-                //     session?.user?.id
-                // );
-
                 const res = await fetch(
                     `/api/membership/check?creatorId=${encodeURIComponent(userData._id)}`
                 );
@@ -94,26 +87,6 @@ const UserInfo = ({ userData }) => {
             redirect('/login');
         }
 
-        // try {
-        //     const res = await fetch("/api/membership", {
-        //         method: "POST",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify({ creatorId, tier }),
-        //     });
-
-        //     const data = await res.json();
-        //     if (res.ok) {
-        //         console.log("Joined membership:", data);
-        //         setIsMember(true);
-        //         alert("You are now a member!");
-        //     } else {
-        //         alert(data.error || "Something went wrong");
-        //     }
-        // } catch (err) {
-        //     console.error(err);
-        //     alert("Failed to become member");
-        // }
-
         try {
 
             const resScript = await loadRazorpayScript();
@@ -135,7 +108,7 @@ const UserInfo = ({ userData }) => {
             const order = await res.json();
 
 
-            console.log("order :", order);
+            // console.log("order :", order);
 
             if (!order.id) throw new Error("Order creation failed");
 
@@ -160,8 +133,10 @@ const UserInfo = ({ userData }) => {
                     const verifyData = await verifyRes.json();
 
                     console.log("verify data :", verifyData);
-                    if (verifyData.success) {
-                        setIsMember(true);
+                    if (verifyRes.ok && verifyData.success) {
+                        const checkRes = await fetch(`/api/membership/check?creatorId=${creatorId}`);
+                        const checkData = await checkRes.json();
+                        setIsMember(Boolean(checkData.isMember));
                         alert("Membership activated!");
                     } else {
                         alert("Payment verification failed");
@@ -200,7 +175,7 @@ const UserInfo = ({ userData }) => {
                 //     )
                 // );
 
-                // 🔑 Re-check membership status immediately
+                // Re-check membership status immediately
                 const checkRes = await fetch(`/api/membership/check?creatorId=${creatorId}`);
                 const checkData = await checkRes.json();
                 setIsMember(Boolean(checkData.isMember));
@@ -395,7 +370,7 @@ const UserInfo = ({ userData }) => {
 
             <hr />
 
-            <Blogs username={userData} />
+            <Blogs username={userData} isMember={isMember} />
 
         </>
     )

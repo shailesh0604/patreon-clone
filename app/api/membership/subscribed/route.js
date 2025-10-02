@@ -11,7 +11,7 @@ export async function GET() {
         const session = await getServerSession(authOptions);
         if (!session?.user?.id) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        const memberships = await Membership.find({ member: session.user.id }).populate("creator", "username profilepic name");
+        const memberships = await Membership.find({ member: session.user.id, status: "active" }).populate("creator", "username profilepic name");
 
         return NextResponse.json({ members: memberships }, { status: 200 });
 

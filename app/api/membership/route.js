@@ -61,6 +61,7 @@ export async function PATCH(req) {
 
 // delete request
 export async function DELETE(req) {
+    
     try {
         await ConnectDB();
 

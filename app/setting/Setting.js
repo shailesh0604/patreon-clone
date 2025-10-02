@@ -74,9 +74,7 @@ const Setting = () => {
             const data = await res.json();
 
             if (res.ok) {
-                setMemberships((prev) => {
-                    prev.filter(m => m.creator._id !== creatorId);
-                });
+                setMemberships((prev) => prev.filter(m => m.creator._id !== creatorId));
             } else {
                 console.error("Failed to unsubscribe:", data.message);
             }
@@ -243,36 +241,47 @@ const Setting = () => {
                                     <div className="setting-content">
                                         <div className="content-title mb-5">Memberships</div>
 
-                                        {loading ? (<div className='flex justify-center items-center gap-3 my-10'>
-                                            <div className='loader dark'></div>
-                                        </div>
-                                        ) :
-                                            (!memberships && memberships.length === 0 ? (
-                                                <p>You haven’t subscribed to any creators yet.</p>
-                                            ) : (
-                                                <ul className="membership-list flex flex-col gap-5">
-                                                    {memberships.map((e) => (
-                                                        <li key={e._id} className="membership-item flex justify-between items-center gap-4">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className='creator-member-img'>
-                                                                    <Image
-                                                                        src={e.creator?.profilepic || "/assets/images/user/default-user.png"}
-                                                                        alt={e.creator?.username || "Creator"}
-                                                                        width={0}
-                                                                        height={0}
-                                                                        sizes='100%'
-                                                                    />
-                                                                </div>
-                                                                <span>{e.creator?.name || e.creator?.username}</span>
+                                        {loading ? (
+                                            <div className="flex justify-center items-center gap-3 my-10">
+                                                <div className="loader dark"></div>
+                                                <p>Loading memberships...</p>
+                                            </div>
+                                        ) : Array.isArray(memberships) && memberships.length > 0 ? (
+                                            <ul className="membership-list flex flex-col gap-5">
+                                                {memberships.map((e) => (
+                                                    <li
+                                                        key={e._id}
+                                                        className="membership-item flex justify-between items-center gap-4"
+                                                    >
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="creator-member-img">
+                                                                <Image
+                                                                    src={e.creator?.profilepic || "/assets/images/user/default-user.png"}
+                                                                    alt={e.creator?.username || "Creator"}
+                                                                    width={40}
+                                                                    height={40}
+                                                                    className="rounded-full object-cover"
+                                                                />
                                                             </div>
+                                                            <span>{e.creator?.name || e.creator?.username}</span>
+                                                        </div>
 
-                                                            <button className='w-9 cursor-pointer bg-red-500 h-9 flex justify-center items-center rounded-full' onClick={() => handleUnsubscribe(e.creator?._id)} title='UnSubscribe'>
-                                                                <MdDeleteOutline className='text-white text-lg' />
-                                                            </button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            ))}
+                                                        <button
+                                                            className="w-9 h-9 flex justify-center items-center rounded-full bg-red-500 cursor-pointer"
+                                                            onClick={() => handleUnsubscribe(e.creator?._id)}
+                                                            title="Unsubscribe"
+                                                        >
+                                                            <MdDeleteOutline className="text-white text-lg" />
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p className="text-center text-gray-600 my-10">
+                                                You haven’t subscribed to any creators yet.
+                                            </p>
+                                        )}
+
                                     </div>
                                 </div>
                                 }

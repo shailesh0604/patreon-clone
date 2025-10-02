@@ -4,7 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaComment } from "react-icons/fa";
 import { FiShare } from "react-icons/fi";
-const Blogs = ({ username }) => {
+const Blogs = ({ username, isMember }) => {
 
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ const Blogs = ({ username }) => {
         }
 
         fetchPost();
-    }, [username]);
+    }, [username, isMember]);
 
     if (loading) return <div className='flex justify-center items-center gap-3 mt-10 mb-16'>
         <div className='loader'></div>
@@ -52,25 +52,26 @@ const Blogs = ({ username }) => {
                     {posts.map((post) => (
                         <div key={post._id} className="blog">
                             <div className="blog-media">
-                                <div className="locked">
+                                {!isMember ? <div className="locked">
                                     <span><FaLock /></span>
                                     <span>locked</span>
-                                </div>
-                                {post.media && (
-                                    <>
-                                        {post.media.match(/\.(mp4|webm|ogg)$/i) ? (
-                                            <video
-                                                src={`/api/images/${post._id}`}
-                                                autoPlay muted loop
-                                                playsInline
-                                            />
-                                        ) : (
-                                            <Image width={0} height={0} sizes='100'
-                                                src={`/api/images/${post._id}`}
-                                                alt={post.title}
-                                            />
-                                        )}
-                                    </>
+                                </div> : ""}
+
+                                {post.media.match(/\.(mp4|webm|ogg)$/i) ? (
+                                    <video
+                                        key={isMember ? "unlocked" : "locked"}  // 👈 forces re-render
+                                        src={`/api/images/${post._id}?t=${Date.now()}`}
+                                        autoPlay muted loop playsInline
+                                    />
+                                ) : (
+                                    <Image
+                                        key={isMember ? "unlocked" : "locked"} // 👈 forces re-render
+                                        width={0}
+                                        height={0}
+                                        sizes="100%"
+                                        src={`/api/images/${post._id}?t=${Date.now()}`}
+                                        alt={post.title}
+                                    />
                                 )}
                             </div>
 
@@ -84,11 +85,12 @@ const Blogs = ({ username }) => {
                                         year: "numeric",
                                     })}</small>
 
-                                <div>
+                                {!isMember ? <div>
                                     <button type='button' className="btn-join">
                                         Join to unlock
                                     </button>
-                                </div>
+                                </div> : ""}
+
 
 
                                 <div className="acivity flex justify-between items-center mt-5 flex-wrap gap-3">
@@ -110,10 +112,12 @@ const Blogs = ({ username }) => {
                                             <span>Share</span>
                                         </div>
 
-                                        <div className="comment flex items-center gap-1">
+                                        {!isMember ? <div className="comment flex items-center gap-1">
                                             <span><FaLock /></span>
                                             <span>Locked</span>
-                                        </div>
+                                        </div> : ""}
+
+
                                     </div>
                                 </div>
                             </div>
