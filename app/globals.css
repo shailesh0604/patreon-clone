@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +9,7 @@
   --slate: #f5f5f5;
   --dark: #000;
   --Poppins: "Poppins", serif;
+  --Montserrat: "Montserrat", serif;
   --orcale: orcale;
   --primary: #563e21;
   --light-blue: #95adcb;
@@ -842,6 +843,12 @@ button:disabled {
   color: var(--light);
 }
 
+.navbar-container.scrolled
+  .input-search
+  input:hover::-webkit-input-placeholder {
+  color: var(--light);
+}
+
 .navbar-container.scrolled .input-search input:hover::placeholder {
   color: var(--light);
 }
@@ -1567,6 +1574,9 @@ section.section-login {
   overflow: hidden;
   /* border: 1px solid #d7d7d7; */
   z-index: 2;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
@@ -1629,6 +1639,7 @@ section.section-login {
 
 .custom-linear-gradient {
   background: #232526; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(left, #414345, #232526);
   background: -o-linear-gradient(left, #414345, #232526);
   background: -o-linear-gradient(left, #414345, #232526);
   background: -webkit-gradient(
@@ -2106,6 +2117,8 @@ label {
   height: 2px;
   opacity: 1;
   background: #b7acac;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
   transition: all 1s ease;
   border-radius: 100px;
 }
@@ -2114,6 +2127,8 @@ label {
   width: 25px;
   background: var(--light);
   opacity: 1;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
   transition: all 1s ease;
 }
 
@@ -2571,6 +2586,14 @@ label {
 }
 
 .create-img-content {
+  background-image: -o-radial-gradient(
+      right top,
+      circle,
+      rgb(10, 14, 124),
+      transparent 10%,
+      rgb(10, 14, 124)
+    ),
+    -o-radial-gradient(left bottom, circle, rgb(10, 14, 124), transparent 10%, rgb(10, 14, 124));
   background-image: -o-radial-gradient(
       right top,
       circle,
@@ -3070,7 +3093,9 @@ label {
 }
 
 .post-contents {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 3rem 1fr;
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
 }
@@ -3093,11 +3118,17 @@ label {
 .post-content .post-media video {
   height: 100%;
   width: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
 .post-heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   gap: 0.45rem;
 }
@@ -3114,8 +3145,13 @@ label {
 }
 
 .post-content .user-post {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 1rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -3130,7 +3166,11 @@ label {
 .btn-delete {
   padding: 0.45rem 1rem;
   background-color: rgb(246, 30, 30);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-size: 0.95rem;
   gap: 0.25rem;
@@ -3148,6 +3188,7 @@ label {
 .creator-member-img img {
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -3155,6 +3196,49 @@ label {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.title-404 {
+  font-size: 12vw;
+  font-family: var(--Montserrat);
+  font-weight: 600;
+  margin: 0 0 3.5rem 0;
+  opacity: 0.7;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  line-height: 8rem;
+}
+
+.subtitle-404 {
+  font-size: 2.5vw;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+}
+
+.desc-404 {
+  font-size: 1rem;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+.btn-return {
+  padding: 0.2rem 0.975rem;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: var(--light);
+  color: var(--dark);
+  font-weight: 400;
+  font-size: 1rem;
+  border-radius: 6px;
+  margin: 2rem 0 0 0;
 }
 
 /* footer css */
@@ -3194,6 +3278,32 @@ label {
 @media only screen and (max-width: 1500px) {
   .slider {
     height: 62dvh;
+  }
+
+  .title-404 {
+    font-size: 16vw;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    line-height: normal;
+  }
+
+  .subtitle-404 {
+    font-size: 3.25vw;
+    margin: 0 0 1.5rem 0;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .desc-404 {
+    font-size: 1rem;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    line-height: 1.5rem;
   }
 }
 
@@ -3246,6 +3356,20 @@ label {
 
   .member-swiper-container .swiper {
     width: 90%;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .title-404 {
+    font-size: 18vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .subtitle-404 {
+    font-size: 4vw;
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
@@ -3401,6 +3525,20 @@ label {
 
   .pop-more {
     opacity: 1;
+  }
+
+  .title-404 {
+    font-size: 22vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .subtitle-404 {
+    font-size: 5vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
 }
 
@@ -3621,7 +3759,7 @@ label {
   }
 }
 
-@media only screen and (max-width: 567px) {
+@media only screen and (max-width: 576px) {
   .user-profile-image {
     width: 65px;
     height: 60px;
@@ -3721,6 +3859,27 @@ label {
     padding: 0.5rem 0.75rem;
     font-size: 0.825rem;
   }
+
+  .title-404 {
+    font-size: 25vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .subtitle-404 {
+    font-size: 6.5vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .desc-404 {
+    font-size: 0.875rem;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
 }
 
 @media only screen and (max-width: 400px) {
@@ -3749,6 +3908,27 @@ label {
   .user-title {
     font-size: 9.25vw;
     height: 45px;
+  }
+
+  .title-404 {
+    font-size: 26vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .subtitle-404 {
+    font-size: 7vw;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .desc-404 {
+    font-size: 0.75rem;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
 }
 
