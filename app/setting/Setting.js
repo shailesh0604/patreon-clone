@@ -68,7 +68,7 @@ const Setting = () => {
     async function handleUnsubscribe(creatorId) {
         try {
             const res = await fetch("/api/membership", {
-                method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ creatorId })
+                method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ creatorId })
             });
 
             const data = await res.json();
