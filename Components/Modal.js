@@ -5,14 +5,10 @@ import Image from 'next/image'
 import { IoCloseOutline } from "react-icons/io5";
 import { FaThumbsUp } from "react-icons/fa6";
 
-const Modal = ({ message, status }) => {
-    const [showModal, setShowModal] = useState(true);
-    const handledModal = () => {
-        setShowModal(false);
-    }
+const Modal = ({ message, status, show, onClose }) => {
     return (
         <>
-            <div className={`modal-container ${showModal ? "show" : ""}`}>
+            <div className={`modal-container ${show ? "show" : ""}`}>
                 <div className="modal-header flex justify-between items-center gap-2 pt-6 pr-4 pb-2 pl-6">
                     <div className="logo flex items-center gap-2">
                         <Image src={"/assets/images/logo/logo2.svg"} width={30} height={30} alt='logo' />
@@ -20,7 +16,7 @@ const Modal = ({ message, status }) => {
                     </div>
 
 
-                    <button className='p-2 duration-150 transition-all ease-in rounded-full hover:bg-neutral-300' type='button'><IoCloseOutline className='text-2xl' /></button>
+                    <button className='p-2 duration-150 transition-all ease-in rounded-full hover:bg-neutral-300' type='button'><IoCloseOutline className='text-2xl' onClick={onClose} /></button>
                 </div>
 
                 <div className="line"></div>
@@ -46,7 +42,7 @@ const Modal = ({ message, status }) => {
                         <div className="text-center text-balance opacity-90 my-3">{message}</div>
 
                         <div className="flex justify-center mt-5">
-                            <button className='flex items-center gap-2 bg-black py-2 px-4 rounded-md text-white' type='button' onClick={() => handledModal()}>
+                            <button className='flex items-center gap-2 bg-black py-2 px-4 rounded-md text-white' type='button' onClick={onClose}>
                                 <span><FaThumbsUp className='' /></span>
                                 <span>Got it</span>
                             </button>

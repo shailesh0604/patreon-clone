@@ -13,6 +13,7 @@ import { IoIosStar } from "react-icons/io";
 import Blogs from '../Blogs';
 import { useSession } from 'next-auth/react';
 import { redirect, usePathname } from 'next/navigation';
+import Modal from '../Modal';
 
 const UserInfo = ({ userData }) => {
     // console.log(userData)
@@ -22,6 +23,7 @@ const UserInfo = ({ userData }) => {
     const pathname = usePathname();
     const memberId = pathname.split("/")[1];
     const creatorId = session?.user?.patreon_account_username;
+    const [modal, setModal] = useState({ show: false, message: "", status: "" });
 
     useEffect(() => {
         const fetchPostCount = async () => {
@@ -91,12 +93,12 @@ const UserInfo = ({ userData }) => {
 
             const resScript = await loadRazorpayScript();
             if (!resScript) {
-                alert("Failed to load Razorpay SDK. Are you online?");
+                setModal({ show: true, message: "Failed to load Razorpay SDK. Are you online?", status: "fail" });
                 return;
             }
 
 
-            const amount = tier === "pro" ? 10 : 5;
+            const amount = tier === "pro" ? 2 : 1;
 
             const res = await fetch("/api/payment/order",
                 {
@@ -137,9 +139,12 @@ const UserInfo = ({ userData }) => {
                         const checkRes = await fetch(`/api/membership/check?creatorId=${creatorId}`);
                         const checkData = await checkRes.json();
                         setIsMember(Boolean(checkData.isMember));
-                        alert("Membership activated!");
+                        setModal({ show: true, message: "Membership activated!", status: "ok" });
+                        // alert("Membership activated!");
+
                     } else {
-                        alert("Payment verification failed");
+                        setModal({ show: true, message: "Payment failed", status: "fail" });
+                        // alert("Payment verification failed");
                     }
                 },
                 prefill: {
@@ -154,7 +159,8 @@ const UserInfo = ({ userData }) => {
 
         } catch (error) {
             console.error("Payment error:", error);
-            alert("Payment failed");
+            setModal({ show: true, message: "Error during payment", status: "fail" });
+            // alert("Payment failed");
         }
     };
 
@@ -175,11 +181,15 @@ const UserInfo = ({ userData }) => {
                 //     )
                 // );
 
+                setModal({ show: true, message: "Looks like you’re not a member.", status: "ok" });
+
+
                 // Re-check membership status immediately
                 const checkRes = await fetch(`/api/membership/check?creatorId=${creatorId}`);
                 const checkData = await checkRes.json();
                 setIsMember(Boolean(checkData.isMember));
             } else {
+                setModal({ show: true, message: "Something went wrong", status: "fail" });
                 console.error("Failed to unsubscribe:", data.message);
             }
 
@@ -190,6 +200,14 @@ const UserInfo = ({ userData }) => {
 
     return (
         <>
+
+            <Modal
+                message={modal.message}
+                status={modal.status}
+                show={modal.show}
+                onClose={() => setModal({ ...modal, show: false })}
+            />
+
             <section className='search-user-info'>
                 <div className="user-cover-pic">
                     <Image src={userData?.patreon_account_coverpic} width={"0"} height={"0"} sizes='100' alt={"cover pic"} />
@@ -298,7 +316,7 @@ const UserInfo = ({ userData }) => {
                                                 <div className="star"><IoIosStar /></div>
                                             </div>
                                             <div className="member-amount">
-                                                <h3 className="amount">$5</h3>
+                                                <h3 className="amount">₹1</h3>
                                                 <p>/ month</p>
                                             </div>
 
@@ -335,7 +353,7 @@ const UserInfo = ({ userData }) => {
                                                 <div className="star"><IoIosStar /> <IoIosStar /> <IoIosStar /></div>
                                             </div>
                                             <div className="member-amount">
-                                                <h3 className="amount">$10</h3>
+                                                <h3 className="amount">₹2</h3>
                                                 <p>/ month</p>
                                             </div>
 

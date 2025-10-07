@@ -16,6 +16,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa"
 import { BsFillBarChartFill } from "react-icons/bs";
+import Modal from "@/Components/Modal";
 
 const CreatorPageView = ({ }) => {
 
@@ -23,7 +24,7 @@ const CreatorPageView = ({ }) => {
   const [fullUrl, setFullUrl] = useState("")
   const [showUserURL, setShowUserURL] = useState("")
   const [activeTab, setActiveTab] = useState('Home');
-
+  const [modal, setModal] = useState({ show: false, message: "", status: "" });
 
   const userLetter = useSidebarStore((state) => state.userLetter);
 
@@ -209,9 +210,11 @@ const CreatorPageView = ({ }) => {
 
     const result = await res.json();
     if (result.success) {
-      alert("Updated successfully!");
+      // alert("Updated successfully!");
+      setModal({ show: true, message: "Page Published Successfully!", status: "ok" });
     } else {
       alert("Update failed");
+      setModal({ show: true, message: "Error While Publishing Patreon", status: "fail" });
     }
 
     setIsDirty(false);
@@ -227,6 +230,15 @@ const CreatorPageView = ({ }) => {
 
 
   return <>
+
+
+    <Modal
+      message={modal.message}
+      status={modal.status}
+      show={modal.show}
+      onClose={() => setModal({ ...modal, show: false })}
+    />
+
     <div className="user-main-container">
       <div className={`user-container ${isToggled ? "resized" : ""}`}>
 
